@@ -1,2 +1,0 @@
-<?php
- $conexao->close();
