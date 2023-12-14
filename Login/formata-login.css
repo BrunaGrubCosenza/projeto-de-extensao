@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+ font-family: "Barlow Condensed";
+ margin: 0;
+ font-size: 22px;
+}
+
+h1 {
+ font-family: "Roboto";
+ text-align: center;
+ border-bottom: 1px solid black;
+ background-color: #406434c5;
+ box-shadow: 0 0 5px 5px #1b3409;
+ margin: 0;
+ margin-bottom: 50px;
+ text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+fieldset {
+ width: 65%;
+ margin: auto;
+ margin-bottom: 50px;
+ padding-top: 15px;
+ padding-left: 30px;
+ border-radius: 10px;
+ background-color: rgba(64, 100, 52, 0.753);
+}
+
+label.alinha {
+ width: 250px;
+ display: inline-block;
+ text-align: right;
+ margin-bottom: 30px; 
+}
+
+.botoes{
+    text-align: center;
+}
+input, button {
+ font-family: "Roboto";
+}
+
+button {
+ font-size: 20px;
+ font-weight: bold;
+ width: 250px;
+ height: 40px;
+ 
+}
+
+div{
+ text-align: center;
+ margin-top: 20px;
+}
+
+p {
+ width: 50%;
+ border: 1px solid #777;
+ margin: 20px auto;
+ text-align: center;
+ background: #bfe7a2;
+}
+
+span {
+ color: #0f083b;
+ font-weight: bold;
+ font-style: italic;
+}
+
+input{
+ width: 300px;
+}
+
+input[name="opcao"],[name="qtdTOTALvagas"],[name="qtdvagas"]{
+    width: 30px;
+}
