@@ -14,16 +14,12 @@ capacidade_acolhimento int not null,
 vagas int not null, 
 equipe_tecnica text, 
 estrutura_fisica text, 
-atividades_semanais text
-) engine = innodb; 
-
-create table convenio(
-id_ilpi int primary key,
+atividades_semanais text,
 privada boolean,
 filantropica boolean,
 convenio_publico_estadual boolean,
 convenio_publico_municipal boolean
-) engine = innodb;
+) engine = innodb; 
 
 create table usuarios(
 id_usuario int primary key,
@@ -33,6 +29,5 @@ usuario_admin boolean,
 status_usuario int
 ) engine = innodb;
 
-alter table convenio add constraint fk_ilpi_convenio foreign key (id_ilpi) references ilpi(id);
 alter table usuarios add constraint fk_ilpi_usuarios foreign key (id_usuario) references ilpi(id);
 
