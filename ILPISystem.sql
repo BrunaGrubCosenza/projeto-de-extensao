@@ -22,7 +22,7 @@ convenio_publico_municipal boolean
 ) engine = innodb; 
 
 create table usuarios(
-id_usuario int primary key,
+id_ilpi int primary key,
 email varchar(100),
 senha_hash binary(64) not null, 
 usuario_admin boolean,
