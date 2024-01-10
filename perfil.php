@@ -1,5 +1,3 @@
-    <label class="alinha"> Nome da ILPI: </label>
-    <input type="text" name="nome" autofocus> <br><!DOCTYPE html> 
 <html lang="pt-BR"> 
 <head> 
   <meta charset="utf-8"> 

@@ -1,7 +1,8 @@
 <?php
- $servidor = "localhost"; //127.0.0.1
+ $servidor = "localhost";
  $usuario  = "root";
  $senha  = "";
 
- $nomeDoBanco  = "login";
- $nomeDaTabela = "usuario";
+ $nomeDoBanco  = "ILPISystem";
+ $nomeDaTabela1 = "ilpi";
+ $nomeDaTabela2 = "usuarios";
