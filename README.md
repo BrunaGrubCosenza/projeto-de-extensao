@@ -1,4 +1,4 @@
-# Desenvolvimento de um Sistema de Mapeamento e Gerenciamento De Lares de Idosos e ILPIs : Uma Abordagem de Extensão no  Ambito da Tecnologia da Informação
+# Desenvolvimento de um Sistema de Mapeamento e Gerenciamento De Lares de Idosos e ILPIs : Uma Abordagem de Extensão no Ambito da Tecnologia da Informação
 
 INSTITUTO FEDERAL DE EDUCAÇÃO, CIÊNCIA E TECNOLOGIA DE SANTA CATARINA  (IFSC) - Campus Florianópolis <br>
 CURSO SUPERIOR DE TECNOLOGIA EM GESTÃO DA TECNOLOGIA DA INFORMAÇÃO <br>

@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8">
     <title> Perfil Administrativo </title>
-    <link rel="stylesheet" href="estilo.css">
+    <link rel="stylesheet" href="../css/estilo.css">
 </head>
 
 <body>
 <header>
-    <img class="img-header" src="./logo.jpg" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+    <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
 </header>  
 
     <H1> Perfil administrativo </H1>
@@ -22,13 +22,13 @@
 <?php
 session_start();
 if (isset($_POST['indicadores'])) {
-    header("location: ./admin/indicadores.php");
+    header("location: admin/indicadores.php");
 }
 if (isset($_POST['cadastro'])) {
-    header("location: ./admin/cadastroIlpi.php");
+    header("location: admin/cadastroIlpi.php");
 }
 if (isset($_POST['dadosILPI'])) {
-    header("location: ./admin/paginaTabelaIlpi.php");
+    header("location: admin/paginaTabelaIlpi.php");
 }
 ?>
 
