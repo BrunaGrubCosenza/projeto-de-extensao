@@ -1,9 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+*,
+*::before,
+*::after {
+/*Usar variáveis para as cores que iremos utilizar! Exemplo: */
+--branco: white;
+box-sizing: border-box;
+}
+
 body {
  font-family: "Barlow Condensed";
  margin: 0;
  font-size: 22px;
+}
+
+header{
+background-color: var(--branco);
+height: 80px;
+width: 100%;
+padding: 0 25px;
+border-bottom: 0.5px solid #777;
+}
+
+.img-header {
+    padding: 15px 0px;
+    cursor: pointer;
 }
 
 h1 {

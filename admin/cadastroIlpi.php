@@ -10,7 +10,7 @@
 
 <body>
     <header>
-      <img src="./logo.jpg" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+      <img class="img-header" src="./logo.jpg" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
       <nav> <i class="fa-solid fa-house"></i> <a href=""></a>
       </nav>
     </header>  

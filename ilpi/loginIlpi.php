@@ -2,25 +2,29 @@
 <html lang="pt-BR"> 
 <head> 
   <meta charset="utf-8"> 
-  <title> Login </title> 
+  <title> Login ILPI </title> 
   <link rel="stylesheet" href="estilo.css">
 </head> 
 
 <body>
-  <h1> Login ILPI </h1>
+  <header>
+    <img class="img-header" src="./logo.jpg" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+  </header>
 
-  <form action="home.php" method="post">
+  <h1> Login </h1>
+
+  <form action="loginIlpi.php" method="post">
    <fieldset>
     <legend> Validação de acesso </legend>
     <label class="alinha"> Login: </label>
     <input type="text" name="login" autofocus> <br>
 
     <label class="alinha"> Senha: </label>
-    <input type="password" name="senha" autofocus> <br>
+    <input type="password" name="senha"> <br>
 
     <div>
-     <button name="cadastrar"> Cadastrar usuário </button>
-     <button name="logar"> Logar usuário </button>
+     <button name="logar"> Entrar </button>
+     <p><a href="">Esqueci minha senha</a></p>
     </div>
    </fieldset>
   </form>
