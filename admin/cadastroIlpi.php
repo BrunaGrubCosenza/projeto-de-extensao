@@ -83,16 +83,16 @@
   </form>
 
   <?php
-  require "./includes/dados-conexao.inc.php";
-  require "./includes/conectar.inc.php";
-  require "./includes/abrir-banco.inc.php";
-  require "./includes/definir-charset.inc.php";
+  require "../includes/dados-conexao.inc.php";
+  require "../includes/conectar.inc.php";
+  require "../includes/abrir-banco.inc.php";
+  require "../includes/definir-charset.inc.php";
 
   if (isset($_POST['cadastrar'])) {
-    require "./includes/cadastrar.inc.php";
+    require "../includes/cadastrar.inc.php";
   }
 
-  require "./includes/desconectar.inc.php";
+  require "../includes/desconectar.inc.php";
   ?>
 </body>
 

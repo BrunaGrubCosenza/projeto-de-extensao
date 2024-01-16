@@ -13,22 +13,25 @@
 </header>  
 
     <H1> Perfil administrativo </H1>
-    <div>
-        <button class="botoes" name="indicadores"> Indicadores </button>
-        <button class="botoes" name="cadastro"> Cadastro de ILPIs </button>
-        <button class="botoes" name="dadosILPI"> Dados da ILPIs </button>
-    </div>
+    <form method="post" action="">
+        <div>
+            <button class="botoes" name="indicadores" type="submit">Indicadores</button>
+            <button class="botoes" name="cadastro" type="submit">Cadastro de ILPIs</button>
+            <button class="botoes" name="dadosILPI" type="submit">Dados da ILPIs</button>
+        </div>
+    </form>
 </body>
 <?php
 session_start();
-if (isset($_POST['indicadores'])) {
-    header("location: admin/indicadores.php");
+if (isset($_POST['indicadores'])) 
+{
+    header("location: ./indicadores.php");
 }
 if (isset($_POST['cadastro'])) {
-    header("location: admin/cadastroIlpi.php");
+    header("location: ./cadastroIlpi.php");
 }
 if (isset($_POST['dadosILPI'])) {
-    header("location: admin/paginaTabelaIlpi.php");
+    header("location: ./paginaTabelaIlpi.php");
 }
 ?>
 

@@ -25,7 +25,7 @@
     <div>
      <button name="logar"> Entrar </button>
 
-     <p><a href="">Esqueci minha senha</a></p>
+     <button name="recover"> Esqueci minha senha </button>
     </div>
    </fieldset>
   </form>
@@ -33,7 +33,11 @@
   <?php   
    if(isset($_POST['logar']))
     {
-    header("location: logar.php");
+    header("location: ./homeAdmin.php");
+    }
+    if(isset($_POST['recover']))
+    {
+    header("location: ./senhaAdmin.php");
     }
   ?>
 </body> 
