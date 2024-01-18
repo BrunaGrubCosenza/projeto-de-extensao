@@ -23,34 +23,34 @@
       <legend> Formulário </legend>
 
       <label class="alinha"> Nome da ILPI: </label>
-      <input type="text" name="nome" autofocus require> <br>
+      <input type="text" name="nome" autofocus required> <br>
 
       <label class="alinha"> CNPJ: </label>
-      <input type="text" name="cnpj" require> <br>
+      <input type="text" name="cnpj" required> <br>
 
       <label class="alinha"> Endereço: </label>
-      <input type="text" name="endereco" require> <br>
+      <input type="text" name="endereco" required> <br>
 
       <label class="alinha"> Municipio: </label>
-      <input type="text" name="municipio" require> <br>
+      <input type="text" name="municipio" required> <br>
 
       <label class="alinha"> CEP: </label>
-      <input type="text" name="cep" require> <br>
+      <input type="text" name="cep" required> <br>
 
       <label class="alinha"> E-mail: </label>
-      <input type="email" name="email" require> <br>
+      <input type="email" name="email" required> <br>
 
       <label class="alinha"> Telefone: </label>
-      <input type="text" name="telefone" require> <br>
+      <input type="text" name="telefone" required> <br>
 
       <label class="alinha"> Responsável: </label>
-      <input type="text" name="responsavel" require> <br>
+      <input type="text" name="responsavel" required> <br>
 
       <label class="alinha"> Capacidade de Acolhimento: </label>
-      <input type="number" name="capacidadeAcolhimento" min="0" require> <br>
+      <input type="number" name="capacidadeAcolhimento" min="0" required> <br>
 
       <label class="alinha"> Vagas Disponíveis: </label>
-      <input type="number" name="vagas" min="0" require> <br>
+      <input type="number" name="vagas" min="0" required> <br>
 
       <label class="alinha"> Convênios: </label>
       <label>
