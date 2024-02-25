@@ -25,7 +25,7 @@
     <div>
      <button name="logar"> Entrar </button>
 
-     <button name="recover"> Esqueci minha senha </button>
+     <button name="recuperarSenha"> Esqueci minha senha </button>
     </div>
    </fieldset>
   </form>
@@ -35,9 +35,9 @@
     {
     header("location: ./homeAdmin.php");
     }
-    if(isset($_POST['recover']))
+    if(isset($_POST['recuperarSenha']))
     {
-    header("location: ./senhaAdmin.php");
+    header("location: ./esqueciASenha.php");
     }
   ?>
 </body> 
