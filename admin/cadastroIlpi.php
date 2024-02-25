@@ -18,7 +18,7 @@
 
   <h1> Cadastrar ILPI </h1>
 
-  <form action="cadastroilpi.php" method="post">
+  <form action="cadastroIlpi.php" method="post">
     <fieldset>
       <legend> Formulário </legend>
 

@@ -37,7 +37,7 @@
     }
     if(isset($_POST['recuperarSenha']))
     {
-    header("location: ./esqueciASenha.php");
+    header("location: ./EsqueciASenha.php");
     }
   ?>
 </body> 
