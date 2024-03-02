@@ -54,7 +54,7 @@ $sql = "INSERT $nomeDaTabela1 VALUES(
              '$atvdSemanal')";
 $conexao->query($sql) or die($conexao->error);
 
-/*
+
 $sql = "INSERT $nomeDaTabela2 VALUES(
     null,
     '$login',
@@ -62,7 +62,7 @@ $sql = "INSERT $nomeDaTabela2 VALUES(
     '$usuarioAdmin',
     '$statusUsuario')";
 $conexao->query($sql) or die($conexao->error);
-*/
+
 
 //aqui, também, iniciaremos uma sessão para este usuário
 session_start();

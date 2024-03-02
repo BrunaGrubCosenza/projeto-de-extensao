@@ -40,5 +40,56 @@
     header("location: ./EsqueciASenha.php");
     }
   ?>
+
+
+<?php
+session_start();
+
+// Verifica se o formulário de login foi submetido
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['logar'])) {
+    // Detalhes do seu banco de dados de usuários
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "usuarios";
+
+    // Cria a conexão com o banco de dados
+    $conn = new mysqli($servername, $username, $password, $dbname);
+
+    // Verifica se houve erro na conexão
+    if ($conn->connect_error) {
+        die("Conexão falhou: " . $conn->connect_error);
+    }
+
+    // Escapa os caracteres especiais para evitar injeção de SQL
+    $email = $conn->real_escape_string($_POST['login']);
+    $senha = $conn->real_escape_string($_POST['senha']);
+
+    // Consulta SQL para verificar as credenciais do usuário
+    $sql = "SELECT * FROM usuarios WHERE email = '$email' AND usuario_admin = 1 AND status_usuario = 1";
+
+    // Executa a consulta SQL
+    $result = $conn->query($sql);
+
+    // Verifica se há uma linha correspondente na tabela de usuários
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        // Verifica se a senha fornecida corresponde ao hash no banco de dados
+        if (password_verify($senha, $row['senha_hash'])) {
+            // Credenciais válidas, inicia a sessão e redireciona para a página de destino
+            $_SESSION["usuario_admin"] = $email;
+            header("Location: homeAdmin.php");
+            exit();
+        }
+    }
+
+    // Credenciais inválidas, exibe uma mensagem de erro
+    echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+
+    // Fecha a conexão com o banco de dados
+    $conn->close();
+}
+?>
+
 </body> 
 </html> 

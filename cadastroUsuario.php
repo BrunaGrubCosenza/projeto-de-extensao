@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
+ 
 <head>
   <meta charset="utf-8">
   <title> Cadastro de ILPI</title>
@@ -83,6 +83,9 @@
   </form>
 
   <?php
+  /*AINDA VAMOS MUDAR ESSA PARTE DE CADASTRO 
+  POR ENQUANTO SÓ COPIAMOS A PÁGINA DO OUTRO COMO
+  REFERÊNCIA PARA FUTURAS ALTERAÇÕES*/
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
   require "../includes/abrir-banco.inc.php";
@@ -93,6 +96,7 @@
   }
 
   require "../includes/desconectar.inc.php";
+
   ?>
 </body>
 

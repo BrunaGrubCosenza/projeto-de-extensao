@@ -11,8 +11,8 @@
   <header>
     <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
     <nav class="nav-header">
-       <i class="fa-solid fa-house"></i> <a href=""></a>
-    </nav>
+    <a href="homeAdmin.php"><i class="fa-solid fa-house"></i></a>
+  </nav>
   </header> 
 
   <h1> Indicadores </h1>

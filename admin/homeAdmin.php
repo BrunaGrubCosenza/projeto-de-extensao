@@ -22,7 +22,6 @@
     </form>
 </body>
 <?php
-session_start();
 if (isset($_POST['indicadores'])) 
 {
     header("location: ./indicadores.php");
