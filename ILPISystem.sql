@@ -22,7 +22,7 @@ atividades_semanais text
 ) engine = innodb; 
 
 create table usuarios(
-id_ilpi int primary key,
+cnpj_ilpi int primary key,
 email varchar(100),
 senha_hash binary(64) not null, 
 usuario_admin boolean,
@@ -30,4 +30,5 @@ status_usuario int
 ) engine = innodb;
 
 alter table usuarios add constraint fk_ilpi_usuarios foreign key (id_usuario) references ilpi(id);
+
 

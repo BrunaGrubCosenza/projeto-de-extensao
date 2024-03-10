@@ -18,16 +18,6 @@ $equipe = trim($conexao->escape_string($_POST['equipe']));
 $estrutura = trim($conexao->escape_string($_POST['estrutura']));
 $atvdSemanal = trim($conexao->escape_string($_POST['atvdSemanal']));
 
-//Dados usuários
-/* 
-Precisamos entender de onde vamos puxar esses dados
-
-$login = trim($conexao->escape_string($_POST['']));
-$senha = trim($conexao->escape_string($_POST['']));
-$usuarioAdmin = trim($conexao->escape_string($_POST['']));
-$statusUsuario = trim($conexao->escape_string($_POST['']));
-*/
-
 
 //criptografar a senha
 $senha = password_hash($senha, PASSWORD_ARGON2I);
@@ -53,16 +43,6 @@ $sql = "INSERT $nomeDaTabela1 VALUES(
              '$estrutura',
              '$atvdSemanal')";
 $conexao->query($sql) or die($conexao->error);
-
-
-$sql = "INSERT $nomeDaTabela2 VALUES(
-    null,
-    '$login',
-    '$senha',
-    '$usuarioAdmin',
-    '$statusUsuario')";
-$conexao->query($sql) or die($conexao->error);
-
 
 //aqui, também, iniciaremos uma sessão para este usuário
 session_start();
