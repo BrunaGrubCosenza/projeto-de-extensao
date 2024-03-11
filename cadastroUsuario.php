@@ -31,10 +31,11 @@
       <label class="alinha"> Senha: </label>
       <input type="password" name="senha" required> <br>
 
-      <label class="alinha"> Usuário Admin: </label> 
+      <label class="alinha"> Usuário é Administrador: </label> 
       <input type="radio" class="alinha-botao" name="usuarioAdmin" value="Sim" required> <label> Sim </label> 
       <input type ="radio" class="alinha-botao" name="usuarioAdmin" value="Não" required> <label> Não </label> <br>
 
+      <label class="alinha"> Status do Usuário: </label> 
       <input type="number" name="statusUsuario">      
       <div>
         <button name="cadastrar"> Cadastrar usuário </button>
