@@ -16,26 +16,13 @@
   </header> 
 
   <h1> Dados Gerais </h1>
-  <table>
-    <tr>
-        <th>Nome</th>
-        <th>CNPJ</th>
-        <th>Município</th>
-        <th>Capacidade de Acolhimento</th>
-        <th>Vagas Disponíveis</th>    
-        <th>Convênios</th>
-    </tr>
+  
     <?php
-    while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr>";
-        echo "<td>".$row['nome']."</td>";
-        echo "<td>".$row['CNPJ']."</td>";
-        echo "<td>".$row['email']."</td>";
-        echo "</tr>";
-    }
-    
-    $sql = "SELECT * FROM nome_da_tabela";
-    $result = $conn->query($sql);
+    require "../includes/dados-conexao.inc.php";
+    require "../includes/conectar.inc.php";
+
+    $sql = "SELECT * FROM $nomeDaTabela1";
+    $result = $conexao->query($sql);
 
     // Exibir os resultados em uma tabela HTML
         if ($result->num_rows > 0) {
@@ -49,17 +36,17 @@
     </tr>";
         while($row = $result->fetch_assoc()) {
           echo "<tr>";
-          echo "<td>".$row['nomeIlpi']."</td>";
+          echo "<td>".$row['nome']."</td>";
           echo "<td>".$row['cnpj']."</td>";
           echo "<td>".$row['municipio']."</td>";
-          echo "<td>".$row['capacidadeAcolhimento']."</td>";
+          echo "<td>".$row['capacidade_acolhimento']."</td>";
           echo "<td>".$row['vagas']."</td>";
-          echo "<td>".$row['checkboxValue1']." - " .$row['checkboxValue2']." - " .$row['checkboxValue3']." - " .$row['checkboxValue4']. "</td>";
+          echo "<td>".$row['privada']." - " .$row['filantropica']." - " .$row['convenio_publico_estadual']." - " .$row['convenio_publico_municipal']. "</td>";
           echo "</tr>";
     }
         echo "</table>";
     } else {
-    echo "0 resultados";
+    echo "<p>0 resultados</p>";
     }
     ?>
 </body> 
