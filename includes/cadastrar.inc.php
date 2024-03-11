@@ -44,9 +44,17 @@ $sql = "INSERT $nomeDaTabela1 VALUES(
              '$atvdSemanal')";
 $conexao->query($sql) or die($conexao->error);
 
+if ($conexao) {
+    // Exiba o pop-up usando JavaScript
+    echo '<script>alert("Cadastro realizado com sucesso!");</script>';
+} else {
+    // Se houver um erro na consulta, você pode exibir uma mensagem de erro
+    echo '<script>alert("Erro ao cadastrar. Por favor, tente novamente.");</script>';
+}
+
 //aqui, também, iniciaremos uma sessão para este usuário
-session_start();
-$_SESSION['conectado'] = true;
+//session_start();
+//$_SESSION['conectado'] = true;
 
 //redirecionamos o usuário para a página restrita
-header("location: restrita.php");
+//header("location: restrita.php");
