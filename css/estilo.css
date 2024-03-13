@@ -79,23 +79,12 @@ button {
  
 }
 
-div{
- text-align: center;
- margin-top: 20px;
-}
-
 p {
  width: 50%;
  border: 1px solid #777;
  margin: 20px auto;
  text-align: center;
  background: #bfe7a2;
-}
-
-span {
- color: #0f083b;
- font-weight: bold;
- font-style: italic;
 }
 
 input{
@@ -136,4 +125,69 @@ input.alinha-botao{
     top: 0px;
     z-index: 1;
     background-color: #f2f2f2;
+  }
+
+  h2{
+    margin: 20px 160px; 
+  }
+
+  .perfil-ilpi{
+    margin: 30px 160px;
+    display: flex;
+  }
+
+  section.perfil-ilpi-left, .perfil-ilpi-right{
+    width: 50%;
+  }
+
+  .div-perfil{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .titulos-perfil{
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+    width: 250px;
+    display: flex;
+    justify-content: flex-start;
+    margin: 15px 0 5px 0;
+  }
+
+  .div-campo{
+    display: flex;
+  }
+
+  i{
+    font-size: 15px;
+    margin-left: 5px;
+    cursor: pointer;
+  }
+
+  i:hover{
+    color: red;
+    }
+
+  .input-perfil{
+    box-sizing: border-box;
+    margin-top: 2px;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16.5px;
+    min-height: 23px;
+    word-wrap: break-word;
+    min-width:400px;
+    max-width: 400px;
+    display: flex;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: left;
+  }
+
+  .input-text-perfil{
+    min-height: 200px;
   }
