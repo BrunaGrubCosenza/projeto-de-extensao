@@ -17,7 +17,6 @@
         <div>
             <button class="botoes" name="secretaria" type="submit">Login Secretaria</button>
             <button class="botoes" name="ilpi" type="submit">Login ILPI</button>
-            <button class="botoes" name="cadastroUsuario" type="submit">Cadastrar Usuário</button>
         </div>
     </form>
 </body>
@@ -28,9 +27,6 @@ if (isset($_POST['secretaria']))
 }
 if (isset($_POST['ilpi'])) {
     header("location: ./ilpi/loginIlpi.php");
-}
-if (isset($_POST['cadastroUsuario'])) {
-    header("location: ./cadastroUsuario.php");
 }
 ?>
 

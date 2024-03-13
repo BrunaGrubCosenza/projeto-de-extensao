@@ -23,7 +23,7 @@
     <input type="password" name="senha"> <br>
 
     <div>
-     <button name="logar"> Entrar </button>
+     <button  name="login"> Entrar </button>
 
      <button name="recuperarSenha"> Esqueci minha senha </button>
     </div>
@@ -44,36 +44,45 @@
 
 <?php
 session_start();
+require "../includes/dados-conexao.inc.php";
+require "../includes/conectar.inc.php";
+require "../includes/abrir-banco.inc.php";
+require "../includes/definir-charset.inc.php";
 
 // Verifica se o formulário de login foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['logar'])) {
-    // Detalhes do seu banco de dados de usuários
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "usuarios";
-
-    // Cria a conexão com o banco de dados
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
+if (isset($_POST["login"])) {
     // Verifica se houve erro na conexão
-    if ($conn->connect_error) {
-        die("Conexão falhou: " . $conn->connect_error);
+    if ($conexao->connect_error) {
+        die("Conexão falhou: " . $conexao->connect_error);
     }
 
     // Escapa os caracteres especiais para evitar injeção de SQL
-    $email = $conn->real_escape_string($_POST['login']);
-    $senha = $conn->real_escape_string($_POST['senha']);
+    $email = $conexao->real_escape_string($_POST['login']);
+    $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT * FROM usuarios WHERE email = '$email' AND usuario_admin = 1 AND status_usuario = 1";
+    $sql = "SELECT senha_hash, email FROM $nomeDaTabela2 WHERE email = '$email' AND senha_hash = '$senha'";
 
     // Executa a consulta SQL
-    $result = $conn->query($sql);
+    $result = $conexao->query($sql) or exit($conexao->error);
 
     // Verifica se há uma linha correspondente na tabela de usuários
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
+    $vetorRegistro = $resultado->fetch_array();
+    $senhaCriptografada = $vetorRegistro[0];
+   
+    $senhaCorreta = password_verify($senha, $senhaCriptografada);
+   
+    if($senhaCorreta)
+     {
+     session_start();
+     $_SESSION['conectado'] = true;
+     header("location: homeAdmin.php");
+     }
+   
+    else
+     {
+     echo "<p> Credenciais incorretas. </p>";
+     }
         // Verifica se a senha fornecida corresponde ao hash no banco de dados
         if (password_verify($senha, $row['senha_hash'])) {
             // Credenciais válidas, inicia a sessão e redireciona para a página de destino
@@ -87,8 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['logar'])) {
     echo "<p>Login ou senha incorretos. Tente novamente.</p>";
 
     // Fecha a conexão com o banco de dados
-    $conn->close();
-}
+    $conexao->close();
 ?>
 
 </body> 

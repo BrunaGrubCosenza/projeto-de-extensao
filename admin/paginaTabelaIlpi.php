@@ -6,38 +6,6 @@
   <link rel="stylesheet" href="../css/estilo.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head> 
-<style>
-  .tabela-dados-gerais {
-    border-collapse: collapse;
-    width: 90%;
-    margin: 20px auto;
-  }
-
-  .tabela-dados-gerais td{
-    padding: 8px;
-  }
-
-  .tabela-dados-gerais th, .tabela-dados-gerais td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
-  }
-
-  .tabela-dados-gerais th {
-    background-color: #f2f2f2;
-  }
-
-  .tabela-dados-gerais tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-
-  .tabela-dados-gerais thead {
-    position: sticky;
-    top: 0px;
-    z-index: 1;
-    background-color: #f2f2f2;
-}
-</style>
 <body>
   <header>
     <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
@@ -60,8 +28,8 @@
         echo "<table class='tabela-dados-gerais'>
         <thead>
           <tr>
-            <th>Nome</th>
             <th>CNPJ</th>
+            <th>Nome</th>
             <th>Município</th>
             <th>Capacidade de Acolhimento</th>
             <th>Vagas Disponíveis</th>    
@@ -70,9 +38,10 @@
         </thead>
         <tbody>";
         while($row = $result->fetch_assoc()) {
+          $cnpj_ilpi = $row['cnpj'];
           echo "<tr>";
-          echo "<td>".$row['nome']."</td>";
           echo "<td>".$row['cnpj']."</td>";
+          echo "<td> <a href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['nome']} </a> </td>";
           echo "<td>".$row['municipio']."</td>";
           echo "<td>".$row['capacidade_acolhimento']."</td>";
           echo "<td>".$row['vagas']."</td>";

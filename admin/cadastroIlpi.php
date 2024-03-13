@@ -21,12 +21,11 @@
   <form action="cadastroIlpi.php" method="post">
     <fieldset>
       <legend> Formulário </legend>
+      <label class="alinha"> CNPJ: </label>
+      <input type="text" name="cnpj" required> <br>
 
       <label class="alinha"> Nome da ILPI: </label>
       <input type="text" name="nome" autofocus required> <br>
-
-      <label class="alinha"> CNPJ: </label>
-      <input type="text" name="cnpj" required> <br>
 
       <label class="alinha"> Endereço: </label>
       <input type="text" name="endereco" required> <br>

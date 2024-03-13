@@ -1,7 +1,7 @@
 <?php
 //Dados ILPI
-$nomeIlpi = trim($conexao->escape_string($_POST['nome']));
 $cnpj = trim($conexao->escape_string($_POST['cnpj']));
+$nomeIlpi = trim($conexao->escape_string($_POST['nome']));
 $endereco = trim($conexao->escape_string($_POST['endereco']));
 $municipio = trim($conexao->escape_string($_POST['municipio']));
 $cep = trim($conexao->escape_string($_POST['cep']));
@@ -18,15 +18,10 @@ $equipe = trim($conexao->escape_string($_POST['equipe']));
 $estrutura = trim($conexao->escape_string($_POST['estrutura']));
 $atvdSemanal = trim($conexao->escape_string($_POST['atvdSemanal']));
 
-
-//criptografar a senha
-$senha = password_hash($senha, PASSWORD_ARGON2I);
-
 //gravamos os dados do usuário no banco
 $sql = "INSERT $nomeDaTabela1 VALUES(
-             null,
-             '$nomeIlpi',
              '$cnpj',
+             '$nomeIlpi',
              '$endereco',
              '$municipio',
              '$cep',

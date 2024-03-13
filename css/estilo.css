@@ -107,3 +107,33 @@ input.alinha-botao{
    
 }
 
+.tabela-dados-gerais {
+    border-collapse: collapse;
+    width: 90%;
+    margin: 20px auto;
+  }
+
+  .tabela-dados-gerais td{
+    padding: 8px;
+  }
+
+  .tabela-dados-gerais th, .tabela-dados-gerais td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+
+  .tabela-dados-gerais th {
+    background-color: #f2f2f2;
+  }
+
+  .tabela-dados-gerais tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+
+  .tabela-dados-gerais thead {
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+    background-color: #f2f2f2;
+  }
