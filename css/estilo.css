@@ -41,7 +41,7 @@ header{
  background: linear-gradient(var(--color1), var(--color2));
  margin: 0;
  width: 100%;
- height: 5em;
+ height: 4.8em;
  border-bottom: 1px solid var(--color8);
  align-items: center;
  justify-content: space-between;
@@ -51,8 +51,8 @@ header{
 }
 
 .img-header{
- width: 180px;
- height: 140px;
+ width: 200px;
+ height: 155px;
  margin-left: 20px;
 }
 
@@ -267,10 +267,12 @@ input, button {
     margin: 30px 160px;
     display: flex;
     color: var(--color10);
+    padding-bottom: 130px;
   }
 
   section.perfil-ilpi-left, .perfil-ilpi-right{
     width: 50%;
+    text-align: center;
   }
 
   .div-perfil{
@@ -313,9 +315,7 @@ input, button {
     font-size: 16.5px;
     min-height: 23px;
     word-wrap: break-word;
-    min-width:400px;
-    max-width: 400px;
-    display: flex;
+    width:400px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-align: left;
@@ -329,8 +329,12 @@ input, button {
     border: none;
     outline: none;
     background-color: transparent;
+    width: 300px;
   }
 
+  .botoes-editar-perfil{
+    display: inline-block;
+  }
   .botao-editar-perfil{
     border: none;
     border-radius: 5%;
@@ -347,6 +351,7 @@ input, button {
   }
 
   .container-convenios{
+    width: 500px;
     height: auto;
   }
   

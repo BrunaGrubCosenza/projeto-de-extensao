@@ -9,9 +9,17 @@
     var field = document.getElementById(fieldId);
     var value = field.innerText.trim();
     
-    // Cria um elemento de input
-    var input = document.createElement('input');
-    input.type = 'text';
+    if( fieldId=='equipe_tecnica' || fieldId=='estrutura_fisica' || fieldId=='atividades_semanais'){
+      var input = document.createElement('textarea');
+    }
+    else if( fieldId=='capacidade_acolhimento' || fieldId=='vagas_disponiveis' ){
+      var input = document.createElement('input');
+      input.type = 'number';
+    }
+    else{
+      var input = document.createElement('input');
+      input.type = 'text';
+    }
     input.value = value;
     input.classList.add('input-nao-estilizado');
     
@@ -24,37 +32,55 @@
     submitButton.type = 'button'; // Evita o envio do formulário
     submitButton.innerHTML = 'Salvar';
     submitButton.classList.add('botao-editar-perfil');
+
     submitButton.onclick = function() {
-        // Quando o botão é clicado, o valor do input é salvo e o campo é revertido para o elemento de texto original
         field.innerText = input.value;
     };
-    field.appendChild(submitButton); // Adiciona o botão ao campo
-    
-    // Foca no input recém-criado
+    field.appendChild(submitButton); 
     input.focus();
   }
   var originalContent; // Variável global para armazenar o conteúdo original
 
         function editConvenios() {
           var conveniosDiv = document.querySelector('.convenios');
-          originalContent = conveniosDiv.innerHTML; // Salva o conteúdo original
+  originalContent = conveniosDiv.innerHTML; // Salva o conteúdo original
 
-          // Criação dos checkboxes para os convênios
-          conveniosDiv.innerHTML = '';
-          conveniosDiv.innerHTML = '<div class="container-convenios">';
-          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"privado\" name=\"privado\" value=\"privado\">';
-          conveniosDiv.innerHTML += '<label for=\"privado\">Privada</label></div><br>';
-          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"filantropica\" name=\"filantropica\" value=\"filantropica\">';
-          conveniosDiv.innerHTML += '<label for=\"filantropica\">Filantrópica</label></div><br>';
-          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"convenio_publico_estadual\" name=\"convenio_publico_estadual\" value=\"convenio_publico_estadual\">';
-          conveniosDiv.innerHTML += '<label for=\"convenio_publico_estadual\">Convênio Estadual</label></div><br>';
-          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"convenio_publico_municipal\" name=\"convenio_publico_municipal\" value=\"convenio_publico_municipal\">';
-          conveniosDiv.innerHTML += '<label for=\"convenio_publico_municipal\">Convênio Municipal</label></div><br>';
-          conveniosDiv.innerHTML += '</div>';
+  // Limpa o conteúdo atual
+  conveniosDiv.innerHTML = '';
 
-          // Adiciona botões de Salvar e Cancelar
-          conveniosDiv.innerHTML += '<button class="botao-editar-perfil" onclick=\"saveConvenios()\">Salvar</button>';
-          conveniosDiv.innerHTML += '<button class="botao-editar-perfil botao-editar-cancelar-perfil" onclick=\"cancelEdit()\">Cancelar</button>';
+  // Cria um contêiner para os checkboxes
+  var containerConvenios = document.createElement('div');
+  containerConvenios.classList.add('container-convenios');
+
+  // Cria os checkboxes e seus respectivos labels
+  var convenios = [
+    { id: 'privado', label: 'Privada' },
+    { id: 'filantropica', label: 'Filantrópica' },
+    { id: 'convenio_publico_estadual', label: 'Convênio Estadual' },
+    { id: 'convenio_publico_municipal', label: 'Convênio Municipal' }
+  ];
+
+  convenios.forEach(function(convenio) {
+    var checkboxDiv = document.createElement('div');
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.id = convenio.id;
+    checkbox.name = convenio.id;
+    var label = document.createElement('label');
+    label.htmlFor = convenio.id;
+    label.textContent = convenio.label;
+
+    checkboxDiv.appendChild(checkbox);
+    checkboxDiv.appendChild(label);
+    containerConvenios.appendChild(checkboxDiv);
+  });
+
+  // Adiciona o contêiner de checkboxes ao elemento conveniosDiv
+  conveniosDiv.appendChild(containerConvenios);
+
+  // Adiciona botões de Salvar e Cancelar
+  conveniosDiv.innerHTML += '<div class="botoes-editar-perfil"><button class="botao-editar-perfil" onclick=\"saveConvenios()\">Salvar</button>';
+  conveniosDiv.innerHTML += '<button class="botao-editar-perfil botao-editar-cancelar-perfil" onclick=\"cancelEdit()\">Cancelar</button></div>';
         }
 
         function saveConvenios() {
@@ -190,7 +216,7 @@
           echo "<div class='div-perfil'> 
             <span class='titulos-perfil'>Convênios</span>
             <div class='div-campo'>
-              <div class='convenios'>";
+              <div class='input-perfil convenios'>";
                 echo $row['privada'] == 1 ? '-Privada<br>' : '';
                 echo $row['filantropica'] == 1 ? '-Filantrópica<br>' : '';
                 echo $row['convenio_publico_estadual'] == 1 ? '-Convênio Estadual<br>' : '';
