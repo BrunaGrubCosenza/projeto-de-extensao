@@ -13,6 +13,7 @@
     var input = document.createElement('input');
     input.type = 'text';
     input.value = value;
+    input.classList.add('input-nao-estilizado');
     
     // Substitui o elemento de texto pelo input
     field.innerHTML = ''; // Limpa o conteúdo do campo
@@ -21,7 +22,8 @@
     // Adiciona um botão de submit ao lado do input
     var submitButton = document.createElement('button');
     submitButton.type = 'button'; // Evita o envio do formulário
-    submitButton.innerHTML = '<i class="fas fa-check"></i>';
+    submitButton.innerHTML = 'Salvar';
+    submitButton.classList.add('botao-editar-perfil');
     submitButton.onclick = function() {
         // Quando o botão é clicado, o valor do input é salvo e o campo é revertido para o elemento de texto original
         field.innerText = input.value;
@@ -39,18 +41,20 @@
 
           // Criação dos checkboxes para os convênios
           conveniosDiv.innerHTML = '';
-          conveniosDiv.innerHTML += '<input type=\"checkbox\" id=\"privado\" name=\"privado\" value=\"privado\">';
-          conveniosDiv.innerHTML += '<label for=\"privado\">Privada</label><br>';
-          conveniosDiv.innerHTML += '<input type=\"checkbox\" id=\"filantropica\" name=\"filantropica\" value=\"filantropica\">';
-          conveniosDiv.innerHTML += '<label for=\"filantropica\">Filantrópica</label><br>';
-          conveniosDiv.innerHTML += '<input type=\"checkbox\" id=\"convenio_publico_estadual\" name=\"convenio_publico_estadual\" value=\"convenio_publico_estadual\">';
-          conveniosDiv.innerHTML += '<label for=\"convenio_publico_estadual\">Convênio Estadual</label><br>';
-          conveniosDiv.innerHTML += '<input type=\"checkbox\" id=\"convenio_publico_municipal\" name=\"convenio_publico_municipal\" value=\"convenio_publico_municipal\">';
-          conveniosDiv.innerHTML += '<label for=\"convenio_publico_municipal\">Convênio Municipal</label><br>';
+          conveniosDiv.innerHTML = '<div class="container-convenios">';
+          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"privado\" name=\"privado\" value=\"privado\">';
+          conveniosDiv.innerHTML += '<label for=\"privado\">Privada</label></div><br>';
+          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"filantropica\" name=\"filantropica\" value=\"filantropica\">';
+          conveniosDiv.innerHTML += '<label for=\"filantropica\">Filantrópica</label></div><br>';
+          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"convenio_publico_estadual\" name=\"convenio_publico_estadual\" value=\"convenio_publico_estadual\">';
+          conveniosDiv.innerHTML += '<label for=\"convenio_publico_estadual\">Convênio Estadual</label></div><br>';
+          conveniosDiv.innerHTML += '<div><input type=\"checkbox\" id=\"convenio_publico_municipal\" name=\"convenio_publico_municipal\" value=\"convenio_publico_municipal\">';
+          conveniosDiv.innerHTML += '<label for=\"convenio_publico_municipal\">Convênio Municipal</label></div><br>';
+          conveniosDiv.innerHTML += '</div>';
 
           // Adiciona botões de Salvar e Cancelar
-          conveniosDiv.innerHTML += '<button onclick=\"saveConvenios()\">Salvar</button>';
-          conveniosDiv.innerHTML += '<button onclick=\"cancelEdit()\">Cancelar</button>';
+          conveniosDiv.innerHTML += '<button class="botao-editar-perfil" onclick=\"saveConvenios()\">Salvar</button>';
+          conveniosDiv.innerHTML += '<button class="botao-editar-perfil botao-editar-cancelar-perfil" onclick=\"cancelEdit()\">Cancelar</button>';
         }
 
         function saveConvenios() {
@@ -186,7 +190,7 @@
           echo "<div class='div-perfil'> 
             <span class='titulos-perfil'>Convênios</span>
             <div class='div-campo'>
-              <div class='input-perfil convenios'>";
+              <div class='convenios'>";
                 echo $row['privada'] == 1 ? '-Privada<br>' : '';
                 echo $row['filantropica'] == 1 ? '-Filantrópica<br>' : '';
                 echo $row['convenio_publico_estadual'] == 1 ? '-Convênio Estadual<br>' : '';

@@ -10,14 +10,14 @@
 <body>
 <header>
     <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+    <h1 class="h1-estilizado-home"> Perfil administrativo </h1>
 </header>  
 
-    <H1> Perfil administrativo </H1>
     <form method="post" action="">
-        <div>
-            <button class="botoes" name="indicadores" type="submit">Indicadores</button>
-            <button class="botoes" name="cadastro" type="submit">Cadastro de ILPIs</button>
-            <button class="botoes" name="dadosILPI" type="submit">Dados da ILPIs</button>
+        <div class="div-botoes-home">
+            <button class="botoes-home" name="indicadores" type="submit">Indicadores</button>
+            <button class="botoes-home" name="dadosILPI" type="submit">Dados da ILPIs</button>
+            <button class="botoes-home" name="cadastro" type="submit">Cadastro de ILPIs</button>
         </div>
     </form>
 </body>

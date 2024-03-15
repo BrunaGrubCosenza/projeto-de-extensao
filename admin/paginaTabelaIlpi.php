@@ -14,7 +14,8 @@
   </nav>
   </header> 
 
-  <h1> Dados Gerais </h1>
+  <section class="section-dados-gerais">
+  <h1 class='h1-estilizado'> Dados Gerais </h1>
   
     <?php
     require "../includes/dados-conexao.inc.php";
@@ -40,8 +41,8 @@
         while($row = $result->fetch_assoc()) {
           $cnpj_ilpi = $row['cnpj'];
           echo "<tr>";
-          echo "<td>".$row['cnpj']."</td>";
-          echo "<td> <a href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['nome']} </a> </td>";
+          echo "<td> <a class='link-tabela-dados-gerais' href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['cnpj']} </a> </td>";
+          echo "<td> <a class='link-tabela-dados-gerais' href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['nome']} </a> </td>";
           echo "<td>".$row['municipio']."</td>";
           echo "<td>".$row['capacidade_acolhimento']."</td>";
           echo "<td>".$row['vagas']."</td>";
@@ -62,5 +63,6 @@
     echo "<p>0 resultados</p>";
     }
     ?>
+    </section>
 </body> 
 </html> 
