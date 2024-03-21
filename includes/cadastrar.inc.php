@@ -1,5 +1,6 @@
 <?php
 //Dados ILPI
+
 $cnpj = trim($conexao->escape_string($_POST['cnpj']));
 $nomeIlpi = trim($conexao->escape_string($_POST['nome']));
 $endereco = trim($conexao->escape_string($_POST['endereco']));
@@ -41,12 +42,17 @@ $conexao->query($sql) or die($conexao->error);
 
 if ($conexao) {
     // Exiba o pop-up usando JavaScript
-    echo '<script>alert("Cadastro realizado com sucesso!");</script>';
+    echo '<script>
+    if (confirm("Cadastro realizado com sucesso! Deseja cadastrar outra ILPI?")) {
+        window.location.href = "../admin/cadastroIlpi.php"; // substitua "pagina_a.php" pelo URL da página A
+    } else {
+        window.location.href = "../admin/homeAdmin.php"; // substitua "pagina_b.php" pelo URL da página B
+    }
+    </script>';
 } else {
     // Se houver um erro na consulta, você pode exibir uma mensagem de erro
     echo '<script>alert("Erro ao cadastrar. Por favor, tente novamente.");</script>';
 }
-
 //aqui, também, iniciaremos uma sessão para este usuário
 //session_start();
 //$_SESSION['conectado'] = true;
