@@ -360,3 +360,15 @@ input, button {
     display: block;
     margin-bottom: 5px; 
 }
+
+/* Estilos para centralizar os gráficos e colocá-los um ao lado do outro */
+.container-graficos {
+  display: flex;
+  justify-content: center;
+}
+
+.grafico {
+  width: 400px;
+  height: 400px;
+  margin: 0 150px; /* Espaçamento entre os gráficos */
+}

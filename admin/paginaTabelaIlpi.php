@@ -15,7 +15,10 @@
   </header> 
 
   <section class="section-dados-gerais">
-  <h1 class='h1-estilizado'> Dados Gerais </h1>
+    <h1 class='h1-estilizado'> Dados Gerais </h1>
+
+    <!-- Botão para Ordenar por Vagas Disponíveis -->
+    <button id="ordenarVagas">Ordenar Vagas</button>
   
     <?php
     require "../includes/dados-conexao.inc.php";
@@ -63,6 +66,23 @@
     echo "<p>0 resultados</p>";
     }
     ?>
-    </section>
+    <script>
+    document.getElementById('ordenarVagas').addEventListener('click', function() {
+      var linhas = Array.from(document.querySelectorAll('.tabela-dados-gerais tbody tr'));
+      
+      linhas.sort(function(a, b) {
+        var vagasA = parseInt(a.querySelector('td:nth-child(5)').textContent);
+        var vagasB = parseInt(b.querySelector('td:nth-child(5)').textContent);
+        return vagasB - vagasA;
+      });
+
+      var tbody = document.querySelector('.tabela-dados-gerais tbody');
+      tbody.innerHTML = '';
+      linhas.forEach(function(linha) {
+        tbody.appendChild(linha);
+      });
+    });
+  </script>
+  </section>
 </body> 
 </html> 
