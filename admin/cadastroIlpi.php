@@ -29,28 +29,28 @@
       <input type="text" name="nome" autofocus required><span title="Preenchimento obrigatório"> *</span> <br>
 
       <label class="alinha"> Endereço: </label>
-      <input type="text" name="endereco" required> <br>
+      <input type="text" name="endereco"> <br>
 
       <label class="alinha"> Municipio: </label>
-      <input type="text" name="municipio" required> <br>
+      <input type="text" name="municipio" required><span title="Preenchimento obrigatório"> *</span> <br>
 
       <label class="alinha"> CEP: </label>
-      <input type="text" name="cep" required> <br>
+      <input type="text" name="cep"> <br>
 
       <label class="alinha"> E-mail: </label>
       <input type="email" name="email" required><span title="Preenchimento obrigatório"> *</span> <br>
 
       <label class="alinha"> Telefone: </label>
-      <input type="text" name="telefone" required> <br>
+      <input type="text" name="telefone" required><span title="Preenchimento obrigatório"> *</span> <br>
 
       <label class="alinha"> Responsável: </label>
-      <input type="text" name="responsavel" required> <br>
+      <input type="text" name="responsavel"> <br>
 
       <label class="alinha"> Capacidade de Acolhimento: </label>
-      <input type="number" name="capacidadeAcolhimento" min="0" required> <br>
+      <input type="number" name="capacidadeAcolhimento" min="0"> <br>
 
       <label class="alinha"> Vagas Disponíveis: </label>
-      <input type="number" name="vagas" min="0" required> <br>
+      <input type="number" name="vagas" min="0"> <br>
 
       <label class="alinha"> Convênios: </label>
       <label class="checkbox">
