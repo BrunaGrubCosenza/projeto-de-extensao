@@ -82,7 +82,7 @@ header{
   color: var(--color10);
 }
 
-.section-cadastro-ilpi input[type='text'], input[type='email'], input[type='number']{
+input[type='text'], input[type='email'], input[type='number']{
   border: 1px solid var(--color8);
   width: 350px;
   min-height: 26px;
@@ -92,11 +92,11 @@ header{
   font-size: 18px;
   border-radius: 6px;
 }
-.section-cadastro-ilpi input[type='number']{
+input[type='number']{
   font-size: 20px;
   width: 60px;
 }
-.section-cadastro-ilpi input[type='checkbox']{
+input[type='checkbox']{
   width: auto;
 }
 .textarea{
@@ -259,9 +259,10 @@ input, button {
   }
 
   /**** Perfil Ilpi ***/
-  h2{
-    margin: 20px 160px; 
+  .h2-titulo{
+    margin: 20px 180px; 
     color: var(--color10);
+    font-size: 26px;
   }
 
   .perfil-ilpi{
@@ -274,6 +275,10 @@ input, button {
   section.perfil-ilpi-left, .perfil-ilpi-right{
     width: 50%;
     text-align: center;
+  }
+  .perfil-ilpi-right div, .perfil-ilpi-left div{
+    width: 401px;
+    margin: auto;
   }
 
   .div-perfil{
@@ -293,18 +298,16 @@ input, button {
 
   .div-campo{
     display: flex;
-  }
-
-  .div-campo i{
-    font-size: 15px;
-    margin-left: 5px;
-    cursor: pointer;
-    color: var(--color10);
-  }
-
-  .div-campo i:hover{
-    color: red;
+    i{
+      font-size: 15px;
+      margin-left: 5px;
+      cursor: pointer;
+      color: var(--color10);
     }
+    i:hover{
+      color: red;
+    }
+  }
 
   .input-perfil{
     box-sizing: border-box;
@@ -314,7 +317,7 @@ input, button {
     padding: 8px;
     border-radius: 4px;
     font-size: 16.5px;
-    min-height: 23px;
+    min-height: 32px;
     word-wrap: break-word;
     width:400px;
     word-wrap: break-word;
@@ -326,41 +329,88 @@ input, button {
     min-height: 200px;
   }
 
-  .input-nao-estilizado {
-    border: none;
-    outline: none;
-    background-color: transparent;
-    width: 300px;
-  }
 
-  .botoes-editar-perfil{
-    display: inline-block;
-  }
-  .botao-editar-perfil{
-    border: none;
-    border-radius: 5%;
-    width: 70px;
-    font-size: 13px;
-  }
-
-  .botao-editar-perfil:hover{
-    background-color: var(--color11);
-  }
-
-  .botao-editar-cancelar-perfil:hover{
-    background-color: var(--color12);
-  }
-
-  .container-convenios{
-    width: 500px;
-    height: auto;
-  }
-  
-  .container-convenios div {
-    display: block;
-    margin-bottom: 5px; 
+/*** Modal de edição ***/
+#modalEditarPerfil {
+  position: fixed;
+  width: 1000px;
+  height: 650px;
+  background-color: var(--color6);
+  padding: 0 !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; 
+  border-radius: 10px;
 }
 
+.modal-header{
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  width: 100%;
+  line-height: 40px;
+  background-color: var(--color5);
+  border-radius: 10px;
+  span{
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 40px;
+    margin: auto;
+  }
+}
+
+.modal-body {
+  box-sizing: border-box;
+  margin-top: 10px;
+  height: 600px;
+  overflow-y: auto;
+  padding-left: 50px;
+  padding-top: 10px;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(5px); 
+  z-index: 999;
+}
+
+/*botões*/
+button#btnEditarPerfil {
+  position: absolute;
+  top: 122px;
+  right: 160px;
+  background-color: var(-color7);
+}
+.botao-modal{
+  border: none;
+  height: 40px;
+  border-radius: 10px;
+}
+.botao-modal:hover{
+  background-color: var(--color8);
+}
+.botao-modal.salvar{
+  width: 40%;
+  margin-top: 20px;
+  margin-left: 250px;
+  color: white;
+  background-color: #61be1e;
+}
+.salvar:hover{
+  background-color: #56af16;
+}
+.botao-modal.fechar{
+  width: 40px;
+}
+
+
+/*** Gráficos ***/
 /* Estilos para centralizar os gráficos e colocá-los um ao lado do outro */
 .container-graficos {
   display: flex;

@@ -57,13 +57,13 @@
         <input type="checkbox" name="opcao1" value="privada"> Privado
       </label><br>
       <label class="checkbox">
-        <input type="checkbox" name="opcao2" value="convenio_publico_estadual"> Convênio Público Estadual
+        <input type="checkbox" name="opcao2" value="filantropica"> Filantrópico
       </label><br>
       <label class="checkbox">
-        <input type="checkbox" name="opcao3" value="convenio_publico_municipal"> Convênio Público Municipal
+        <input type="checkbox" name="opcao3" value="convenio_publico_estadual"> Convênio Público Estadual
       </label><br>
       <label class="checkbox">
-        <input type="checkbox" name="opcao4" value="filantropica"> Filantrópico
+        <input type="checkbox" name="opcao4" value="convenio_publico_municipal"> Convênio Público Municipal
       </label><br>
       <br>
 

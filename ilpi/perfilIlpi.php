@@ -1,270 +1,272 @@
-<html lang="pt-BR"> 
-<head> 
-  <meta charset="utf-8"> 
-  <title> Perfil ILPI </title> 
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8">
+  <title> Perfil ILPI </title>
   <link rel="stylesheet" href="../css/estilo.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-<script>
-  function editField(fieldId) {
-    var field = document.getElementById(fieldId);
-    var value = field.innerText.trim();
-    
-    if( fieldId=='equipe_tecnica' || fieldId=='estrutura_fisica' || fieldId=='atividades_semanais'){
-      var input = document.createElement('textarea');
-    }
-    else if( fieldId=='capacidade_acolhimento' || fieldId=='vagas_disponiveis' ){
-      var input = document.createElement('input');
-      input.type = 'number';
-    }
-    else{
-      var input = document.createElement('input');
-      input.type = 'text';
-    }
-    input.value = value;
-    input.classList.add('input-nao-estilizado');
-    
-    // Substitui o elemento de texto pelo input
-    field.innerHTML = ''; // Limpa o conteúdo do campo
-    field.appendChild(input); // Adiciona o input ao campo
-    
-    // Adiciona um botão de submit ao lado do input
-    var submitButton = document.createElement('button');
-    submitButton.type = 'button'; // Evita o envio do formulário
-    submitButton.innerHTML = 'Salvar';
-    submitButton.classList.add('botao-editar-perfil');
+</head>
 
-    submitButton.onclick = function() {
-        field.innerText = input.value;
-    };
-    field.appendChild(submitButton); 
-    input.focus();
-  }
-  var originalContent; // Variável global para armazenar o conteúdo original
-
-        function editConvenios() {
-          var conveniosDiv = document.querySelector('.convenios');
-  originalContent = conveniosDiv.innerHTML; // Salva o conteúdo original
-
-  // Limpa o conteúdo atual
-  conveniosDiv.innerHTML = '';
-
-  // Cria um contêiner para os checkboxes
-  var containerConvenios = document.createElement('div');
-  containerConvenios.classList.add('container-convenios');
-
-  // Cria os checkboxes e seus respectivos labels
-  var convenios = [
-    { id: 'privado', label: 'Privada' },
-    { id: 'filantropica', label: 'Filantrópica' },
-    { id: 'convenio_publico_estadual', label: 'Convênio Estadual' },
-    { id: 'convenio_publico_municipal', label: 'Convênio Municipal' }
-  ];
-
-  convenios.forEach(function(convenio) {
-    var checkboxDiv = document.createElement('div');
-    var checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.id = convenio.id;
-    checkbox.name = convenio.id;
-    var label = document.createElement('label');
-    label.htmlFor = convenio.id;
-    label.textContent = convenio.label;
-
-    checkboxDiv.appendChild(checkbox);
-    checkboxDiv.appendChild(label);
-    containerConvenios.appendChild(checkboxDiv);
-  });
-
-  // Adiciona o contêiner de checkboxes ao elemento conveniosDiv
-  conveniosDiv.appendChild(containerConvenios);
-
-  // Adiciona botões de Salvar e Cancelar
-  conveniosDiv.innerHTML += '<div class="botoes-editar-perfil"><button class="botao-editar-perfil" onclick=\"saveConvenios()\">Salvar</button>';
-  conveniosDiv.innerHTML += '<button class="botao-editar-perfil botao-editar-cancelar-perfil" onclick=\"cancelEdit()\">Cancelar</button></div>';
-        }
-
-        function saveConvenios() {
-          // Captura os valores dos checkboxes atualizados
-          var privadaChecked = document.querySelector('#privado').checked;
-          var filantropicaChecked = document.querySelector('#filantropica').checked;
-          var convenioEstadualChecked = document.querySelector('#convenio_publico_estadual').checked;
-          var convenioMunicipalChecked = document.querySelector('#convenio_publico_municipal').checked;
-
-          // Atualiza o texto exibido com base nos valores dos checkboxes
-          var newText = '';
-          if (privadaChecked) newText += '-Privada<br>';
-          if (filantropicaChecked) newText += '-Filantrópica<br>';
-          if (convenioEstadualChecked) newText += '-Convênio Estadual<br>';
-          if (convenioMunicipalChecked) newText += '-Convênio Municipal<br>';
-          if (!privadaChecked && !filantropicaChecked && !convenioEstadualChecked && !convenioMunicipalChecked) newText += 'Não há convênios';
-
-          // Exibe o novo texto na div
-          var conveniosDiv = document.querySelector('.convenios');
-          conveniosDiv.innerHTML = newText;
-        }
-
-        function cancelEdit() {
-          // Restaura o conteúdo original
-          var conveniosDiv = document.querySelector('.convenios');
-          conveniosDiv.innerHTML = originalContent;
-        }
-</script>
-</head> 
 <body>
   <header>
-    <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-  </header> 
+    <img class="img-header" src="../logo.png"
+      alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+  </header>
 
-  <h2> Perfil </h2>
+  <h2 class="h2-titulo"> Perfil </h2>
 
-<?php
+  <button id="btnEditarPerfil" class='botao-modal'><i class="fas fa-edit edit-icon"></i> Editar</button>
+
+  <?php
+
+  if (isset($_GET['cnpj_ilpi'])) {
+    session_start();
+    $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
+  }
+
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
+  require "../includes/abrir-banco.inc.php";
+  require "../includes/definir-charset.inc.php";
 
-  $cnpjAtual = $_GET['cnpj_ilpi'];
+  if (isset($_SESSION['cnpj_ilpi'])) {
+    $cnpjAtual = $_SESSION['cnpj_ilpi'];
+    $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
+    $result = $conexao->query($sql);
 
-  // Consulta SQL para recuperar os dados da ILPI com base no CNPJ
-  $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
-  $result = $conexao->query($sql);
-
-  // Exibir os resultados em HTML
-        if ($result->num_rows > 0) {
-        echo "<div class='perfil-ilpi'>
-        <section class='perfil-ilpi-left'>";
-        while($row = $result->fetch_assoc()) {
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Nome</span> 
-            <div class='div-campo'>
-              <div id='nome' class='input-perfil'>".$row['nome']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"nome\")'></i>
-            </div>
-          </div>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>CNPJ</span> 
-            <div class='div-campo'>
-              <div id='cnpj' class='input-perfil'>".$row['cnpj']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"cnpj\")'></i>
-            </div>
-          </div>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Endereço</span> 
-            <div class='div-campo'>
-              <div id='endereco' class='input-perfil'>".$row['endereco']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"endereco\")'></i>
-            </div>
-          </div>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Município</span> 
-            <div class='div-campo'>
-              <div id='municipio' class='input-perfil'>".$row['municipio']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"municipio\")'></i>
-            </div>
-          </div>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>CEP</span> 
-            <div class='div-campo'>
-              <div id='cep' class='input-perfil'>".$row['cep']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"cep\")'></i>
-            </div>
-          </div>";
-          
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>E-mail</span> 
-            <div class='div-campo'>
-              <div id='email' class='input-perfil'>".$row['email']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"email\")'></i>
-            </div>
-          </div>";
-          
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Telefone</span> 
-            <div class='div-campo'>
-              <div id='telefone' class='input-perfil'>".$row['telefone']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"telefone\")'></i>
-            </div>
-          </div>";
-          
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Responsável</span> 
-            <div class='div-campo'>
-              <div id='responsavel' class='input-perfil'>".$row['responsavel']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"responsavel\")'></i>
-            </div>
-          </div>";
-          
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Capacidade de Acolhimento</span> 
-            <div class='div-campo'>
-              <div id='capacidade_acolhimento' class='input-perfil'>".$row['capacidade_acolhimento']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"capacidade_acolhimento\")'></i>
-            </div>
-          </div>";
-          
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Vagas Disponíveis</span> 
-            <div class='div-campo'>
-              <div id='vagas_disponiveis' class='input-perfil'>".$row['vagas']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"vagas_disponiveis\")'></i>
-            </div>
-          </div>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Convênios</span>
-            <div class='div-campo'>
-              <div class='input-perfil convenios'>";
-                echo $row['privada'] == 1 ? '-Privada<br>' : '';
-                echo $row['filantropica'] == 1 ? '-Filantrópica<br>' : '';
-                echo $row['convenio_publico_estadual'] == 1 ? '-Convênio Estadual<br>' : '';
-                echo $row['convenio_publico_municipal'] == 1 ? '-Convênio Municipal<br>' : '';
-                if ($row['privada'] != 1 && $row['filantropica'] != 1 && $row['convenio_publico_estadual'] != 1 && $row['convenio_publico_municipal'] != 1) {
-                  echo "Não há convênios";
-                }
-              echo "</div>
-              <i class='fas fa-edit edit-icon' onclick='editConvenios()'></i>
-            </div>
-          </div>";
-
-          echo "</section>
-          <section class='perfil-ilpi-right'>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Equipe técnica</span> 
-            <div class='div-campo'>
-              <div id='equipe_tecnica' class='input-perfil input-text-perfil'>".$row['equipe_tecnica']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"equipe_tecnica\")'></i>
-            </div>
-          </div>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Estrutura Física</span> 
-            <div class='div-campo'>
-              <div id='estrutura_fisica' class='input-perfil input-text-perfil'>".$row['estrutura_fisica']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"estrutura_fisica\")'></i>
-            </div>
-          </div>";
-
-          echo "<div class='div-perfil'> 
-            <span class='titulos-perfil'>Atividades Semanais</span> 
-            <div class='div-campo'>
-              <div id='atividades_semanais' class='input-perfil input-text-perfil'>".$row['atividades_semanais']."</div>
-              <i class='fas fa-edit edit-icon' onclick='editField(\"atividades_semanais\")'></i>
-            </div>
-          </div>";
-          }
-
-        echo "</section>
-        </div>";
-      } 
-      else {
-        echo "<p>O perfil procurado não foi encontrado. </p>";
+    if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+        $nome = $row['nome'];
+        $cnpj = $row['cnpj'];
+        $endereco = $row['endereco'];
+        $municipio = $row['municipio'];
+        $cep = $row['cep'];
+        $email = $row['email'];
+        $telefone = $row['telefone'];
+        $responsavel = $row['responsavel'];
+        $capacidade_acolhimento = $row['capacidade_acolhimento'];
+        $vagas_disponiveis = $row['vagas'];
+        $vagas_disponiveis = $row['vagas'];
+        $privada = $row['privada'];
+        $filantropica = $row['filantropica'];
+        $convenio_publico_estadual = $row['convenio_publico_estadual'];
+        $convenio_publico_municipal = $row['convenio_publico_municipal'];
+        $equipe_tecnica = $row['equipe_tecnica'];
+        $estrutura_fisica = $row['estrutura_fisica'];
+        $atividades_semanais = $row['atividades_semanais'];
       }
+    }
 
-?>
+    echo "
+        <div class='perfil-ilpi'>
+          <section class='perfil-ilpi-left'>
+          <div>
+
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Nome</span> 
+              <div id='nome' class='input-perfil'>", $nome, "</div>
+            </div>
+
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>CNPJ</span> 
+              <div id='cnpj' class='input-perfil'>", $cnpj, "</div>
+            </div>
+
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Endereço</span> 
+              <div id='endereco' class='input-perfil'>", $endereco, "</div>
+            </div>
+
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Município</span> 
+              <div id='municipio' class='input-perfil'>", $municipio, "</div>
+            </div>
+
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>CEP</span> 
+              <div id='cep' class='input-perfil'>", $cep, "</div>
+            </div>
+          
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>E-mail</span> 
+              <div id='email' class='input-perfil'>", $email, "</div>
+            </div>
+          
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Telefone</span> 
+              <div id='telefone' class='input-perfil'>", $telefone, "</div>
+            </div>
+          
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Responsável</span> 
+              <div id='responsavel' class='input-perfil'>", $responsavel, "</div>
+            </div>
+          
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Capacidade de Acolhimento</span> 
+              <div id='capacidade_acolhimento' class='input-perfil'>", $capacidade_acolhimento, "</div>
+
+            </div>
+          
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Vagas Disponíveis</span> 
+              <div id='vagas_disponiveis' class='input-perfil'>", $vagas_disponiveis, "</div>
+            </div>
+
+          </div>
+          </section>
+          <section class='perfil-ilpi-right'>
+            <div>
+              <div class='div-perfil'> 
+                <span class='titulos-perfil'>Convênios</span>
+                <div class='input-perfil convenios'>";
+                  echo $privada == 1 ? '-Privada<br>' : '';
+                  echo $filantropica == 1 ? '-Filantrópica<br>' : '';
+                  echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
+                  echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
+                  if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
+                    echo "Não há convênios";
+                  }
+                echo "</div>
+              </div>
+
+              <div class='div-perfil'> 
+                <span class='titulos-perfil'>Equipe técnica</span> 
+                <textarea id='equipe_tecnica' class='textarea input-perfil input-text-perfil' disabled>", $equipe_tecnica, "</textarea>
+              </div>
+
+              <div class='div-perfil'> 
+                <span class='titulos-perfil'>Estrutura Física</span> 
+                <textarea id='estrutura_fisica' class='textarea input-perfil input-text-perfil' disabled>", $estrutura_fisica, "</textarea>
+              </div>
+
+              <div class='div-perfil'> 
+                <span class='titulos-perfil'>Atividades Semanais</span>
+                <textarea id='atividades_semanais' class='textarea input-perfil input-text-perfil' disabled>", $atividades_semanais, "</textarea>
+              </div>
+            </div>
+          </section>
+        </div>
+        
+        
+        <div id='modalEditarPerfil' style='display: none;'>
+          <div class='modal-header'>
+            <span><i class='fas fa-edit edit-icon'></i> Editar</span>
+            <button class='botao-modal fechar'>X</button>
+          </div>
+          <div class='modal-body'>
+            <form id='formEditarPerfil' action='perfilIlpi.php' method='post'>
+              <input type='hidden' name='cnpjAtual' value='", $cnpjAtual, "'>
+              <label class='alinha' title='Não pode ser alterado'> CNPJ: </label>
+              <input type='text' name='cnpj' value='", $cnpj, "' required disabled title='Não pode ser alterado'><span title='Preenchimento obrigatório'> *</span> <br>
+
+              <label class='alinha'> Nome: </label>
+              <input type='text' name='nome' value='", $nome, "' required><span title='Preenchimento obrigatório'> *</span> <br>        
+              
+              <label class='alinha'> Endereço: </label>
+              <input type='text' name='endereco' value='", $endereco, "'> <br>
+              
+              
+              <label class='alinha'> Municipio: </label>
+              <input type='text' name='municipio' value='", $municipio, "' required><span title='Preenchimento obrigatório'> *</span> <br>
+              
+              
+              <label class='alinha'> CEP: </label>
+              <input type='text' name='cep' value='", $cep, "'> <br>
+              
+              
+              <label class='alinha'> E-mail: </label>
+              <input type='email' name='email' value='", $email, "' required><span title='Preenchimento obrigatório'> *</span> <br>
+              
+              
+              <label class='alinha'> Telefone: </label>
+              <input type='text' name='telefone' value='", $telefone, "' required><span title='Preenchimento obrigatório'> *</span> <br>
+              
+              
+              <label class='alinha'> Responsável: </label>
+              <input type='text' name='responsavel' value='", $responsavel, "'> <br>
+              
+              
+              <label class='alinha'> Capacidade de Acolhimento: </label>
+              <input type='number' name='capacidadeAcolhimento' min='0' value='", $capacidade_acolhimento, "'> <br>
+              
+              
+              <label class='alinha'> Vagas Disponíveis: </label>
+              <input type='number' name='vagas' min='0' value='", $vagas_disponiveis, "'> <br>
+              
+              
+              <label class='alinha'> Convênios: </label>
+              <label class='checkbox'>
+                <input type='checkbox' name='opcao1' value='1'", $privada == 1 ? 'checked' : '', " >Privado
+              </label><br>
+              <label class='checkbox'>
+                <input type='checkbox' name='opcao2' value='1'", $filantropica == 1 ? 'checked' : '', " >Filantrópico
+              </label><br>
+              <label class='checkbox'>
+                <input type='checkbox' name='opcao3' value='1'", $convenio_publico_estadual == 1 ? 'checked' : '', " >Convênio Público Estadual
+              </label><br>
+              <label class='checkbox'>
+                <input type='checkbox' name='opcao4' value='1'", $convenio_publico_municipal == 1 ? 'checked' : '', " >Convênio Público Municipal
+              </label><br>
+              <br>
+              
+              
+              <label class='alinha'> Equipe Tecnica: </label>
+              <textarea class='textarea' name='equipe'>", $equipe_tecnica, "</textarea> <br>
+              
+              
+              <label class='alinha'> Estrutura Física: </label>
+              <textarea class='textarea' name='estrutura'>", $estrutura_fisica, "</textarea> <br>
+              
+              
+              <label class='alinha'> Atividades Semanais: </label>
+              <textarea class='textarea' name='atvdSemanal'>", $atividades_semanais, "</textarea> <br>
+
+              <button type='submit' class='botao-modal salvar' name='editar'>Salvar</button>
+            </form>
+          </div>
+        </div>
+        <div id='overlay' style='display: none;'></div>        
+    ";
+
+  } else {
+    echo "<p>O perfil procurado não foi encontrado. </p>";
+  }
+
+  if (isset($_POST['editar'])) {
+
+    $nome = $_POST['nome'];
+    $endereco = $_POST['endereco'];
+    $municipio = $_POST['municipio'];
+    $cep = $_POST['cep'];
+    $email = $_POST['email'];
+    $telefone = $_POST['telefone'];
+    $responsavel = $_POST['responsavel'];
+    $capacidade_acolhimento = $_POST['capacidadeAcolhimento'];
+    $vagas_disponiveis = $_POST['vagas'];
+    $privada = isset($_POST['opcao1']) ? 1 : 0;
+    $filantropica = isset($_POST['opcao2']) ? 1 : 0;
+    $convenio_publico_estadual = isset($_POST['opcao3']) ? 1 : 0;
+    $convenio_publico_municipal = isset($_POST['opcao4']) ? 1 : 0;
+    $equipe_tecnica = $_POST['equipe'];
+    $estrutura_fisica = $_POST['estrutura'];
+    $atividades_semanais = $_POST['atvdSemanal'];
+
+    require "../includes/editarPerfil.inc.php";
+  }
+
+  ?>
+  <script>
+    document.getElementById('btnEditarPerfil').addEventListener('click', function () {
+      document.getElementById('modalEditarPerfil').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    });
+
+    document.querySelector('.fechar').addEventListener('click', function () {
+      document.getElementById('modalEditarPerfil').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    });
+  </script>
   
 </body>
 </html>
