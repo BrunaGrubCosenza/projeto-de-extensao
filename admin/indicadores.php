@@ -5,6 +5,14 @@
   <title> Indicadores </title> 
   <link rel="stylesheet" href="../css/estilo.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Adicione o CSS e o JS do Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <style>
+    #map {
+      height: 400px;
+    }
+  </style>
 </head> 
 
 <body>
@@ -17,7 +25,12 @@
 
   <h1> Indicadores </h1>
 
-  <!-- Divs para envolver os gráficos e ajustar o posicionamento -->
+  <!-- Div para envolver o mapa e os gráficos -->
+<div class="container">
+  <!-- Div para o mapa -->
+  <div id="map"></div>
+
+  <!-- Div para os gráficos -->
   <div class="container-graficos">
     <!-- Div para o gráfico de torta -->
     <div class="grafico">
@@ -29,6 +42,7 @@
       <canvas id="bar-chart"></canvas>
     </div>
   </div>
+</div>
 
   <?php
   // Inclua o arquivo de conexão com o banco de dados
@@ -142,5 +156,44 @@
       options: optionsBar
   });
   </script>
+
+  <!-- Script para criar o mapa de Santa Catarina -->
+  <script>
+  var map = L.map('map').setView([-27.5953778, -48.5480499], 7); // Centraliza o mapa em Santa Catarina
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { // Adiciona um layer de azulejos do OpenStreetMap
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  // Função para formatar números com separador de milhares
+  function formatNumber(number) {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+  // Consulta SQL para obter a quantidade de vagas em Florianópolis
+  <?php
+  $sql_florianopolis_vagas = "SELECT SUM(vagas) AS total_vagas FROM $nomeDaTabela1 WHERE municipio = 'Florianópolis'";
+  $resultado_florianopolis_vagas = $conexao->query($sql_florianopolis_vagas);
+  $total_florianopolis_vagas = $resultado_florianopolis_vagas->fetch_assoc()['total_vagas'];
+  ?>
+
+  // Adiciona um marcador em Florianópolis
+  var marker = L.marker([-27.5953778, -48.5480499]).addTo(map);
+  // Adiciona uma pop-up ao marcador com a quantidade de vagas disponíveis em Florianópolis
+  marker.bindPopup(formatNumber(<?php echo $total_florianopolis_vagas; ?>) + " vagas disponíveis").openPopup();
+
+  // Consulta SQL para obter a quantidade de vagas em São José
+  <?php
+  $sql_sao_jose_vagas = "SELECT SUM(vagas) AS total_vagas FROM $nomeDaTabela1 WHERE municipio = 'São José'";
+  $resultado_sao_jose_vagas = $conexao->query($sql_sao_jose_vagas);
+  $total_sao_jose_vagas = $resultado_sao_jose_vagas->fetch_assoc()['total_vagas'];
+  ?>
+
+  // Adiciona um marcador em São José
+  var markerSaoJose = L.marker([-27.6136, -48.6367]).addTo(map);
+  // Adiciona uma pop-up ao marcador com a quantidade de vagas disponíveis em São José
+  markerSaoJose.bindPopup(formatNumber(<?php echo $total_sao_jose_vagas; ?>) + " vagas disponíveis").openPopup();
+  </script>
+
 </body>
 </html>

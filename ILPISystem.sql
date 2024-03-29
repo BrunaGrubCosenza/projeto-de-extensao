@@ -24,6 +24,13 @@ create table usuarios(
 id int auto_increment primary key,
 cnpj_ilpi varchar(18),
 email varchar(18),
+senha_hash varchar(200) not null,
+usuario_admin boolean 
+) engine = innodb;
+
+create table usuarioAdmin(
+id int auto_increment primary key,
+email varchar(18),
 senha_hash varchar(200) not null, 
 usuario_admin boolean
 ) engine = innodb;
@@ -31,7 +38,6 @@ usuario_admin boolean
 CREATE INDEX idx_email ON ILPI(email);
 alter table usuarios add constraint fk_ilpi_email foreign key (email) references ilpi(email);
 
-INSERT INTO usuarios (cnpj_ilpi, email, senha_hash, usuario_admin) 
-VALUES ('12345', 'teste@email.com', 'senha', 1);
+INSERT INTO usuarioAdmin (email, senha_hash, usuario_admin) 
+VALUES ('teste@email.com', '$argon2i$v=19$m=12,t=3,p=1$bW96eGtzZHA4c2EwMDAwMA$wjavWle25i/PaAqSZukvCQ', 1);
 
-SELECT senha_hash, email FROM usuarios WHERE email = 'teste@email.com' AND senha_hash = 'senha1234'

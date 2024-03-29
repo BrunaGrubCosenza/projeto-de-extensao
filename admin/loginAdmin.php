@@ -61,7 +61,7 @@ if (isset($_POST["login"])) {
     $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT senha_hash, email FROM $nomeDaTabela2 WHERE email = '$email'";
+    $sql = "SELECT senha_hash, email FROM $nomeDaTabela3 WHERE email = '$email'";
 
     // Executa a consulta SQL
     $resultado = $conexao->query($sql) or exit($conexao->error);

@@ -6,3 +6,4 @@
  $nomeDoBanco  = "ILPISystem";
  $nomeDaTabela1 = "ilpi";
  $nomeDaTabela2 = "usuarios";
+ $nomeDaTabela3 = "usuarioAdmin";
