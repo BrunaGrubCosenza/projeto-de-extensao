@@ -17,7 +17,7 @@
    <fieldset>
     <legend> Validação de acesso </legend>
     <label class="alinha"> Login: </label>
-    <input type="text" name="login" autofocus> <br>
+    <input type="text" name="email" autofocus> <br>
 
     <label class="alinha"> Senha: </label>
     <input type="password" name="senha"> <br>
@@ -57,47 +57,42 @@ if (isset($_POST["login"])) {
     }
 
     // Escapa os caracteres especiais para evitar injeção de SQL
-    $email = $conexao->real_escape_string($_POST['login']);
+    $email = $conexao->real_escape_string($_POST['email']);
     $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT senha_hash, email FROM $nomeDaTabela2 WHERE email = '$email' AND senha_hash = '$senha'";
+    $sql = "SELECT senha_hash, email FROM $nomeDaTabela2 WHERE email = '$email'";
 
     // Executa a consulta SQL
-    $result = $conexao->query($sql) or exit($conexao->error);
+    $resultado = $conexao->query($sql) or exit($conexao->error);
 
     // Verifica se há uma linha correspondente na tabela de usuários
     $vetorRegistro = $resultado->fetch_array();
-    $senhaCriptografada = $vetorRegistro[0];
-   
+    if(!isset($vetorRegistro)){
+      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+      exit();
+    }
+    $senhaCriptografada = $vetorRegistro['senha_hash'];
     $senhaCorreta = password_verify($senha, $senhaCriptografada);
-   
-    if($senhaCorreta)
+if($senhaCorreta)
      {
      session_start();
      $_SESSION['conectado'] = true;
      header("location: homeAdmin.php");
-     }
+     exit();
+    }
    
     else
      {
-     echo "<p> Credenciais incorretas. </p>";
+      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
      }
         // Verifica se a senha fornecida corresponde ao hash no banco de dados
-        if (password_verify($senha, $row['senha_hash'])) {
-            // Credenciais válidas, inicia a sessão e redireciona para a página de destino
-            $_SESSION["usuario_admin"] = $email;
-            header("Location: homeAdmin.php");
-            exit();
-        }
     }
 
-    // Credenciais inválidas, exibe uma mensagem de erro
-    echo "<p>Login ou senha incorretos. Tente novamente.</p>";
 
     // Fecha a conexão com o banco de dados
     $conexao->close();
 ?>
 
 </body> 
-</html> 
+</html>

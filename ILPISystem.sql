@@ -28,7 +28,10 @@ senha_hash varchar(200) not null,
 usuario_admin boolean
 ) engine = innodb;
 
-alter table usuarios add constraint fk_ilpi_cnpj foreign key (cnpj_ilpi) references ilpi(cnpj);
-
 CREATE INDEX idx_email ON ILPI(email);
 alter table usuarios add constraint fk_ilpi_email foreign key (email) references ilpi(email);
+
+INSERT INTO usuarios (cnpj_ilpi, email, senha_hash, usuario_admin) 
+VALUES ('12345', 'teste@email.com', 'senha', 1);
+
+SELECT senha_hash, email FROM usuarios WHERE email = 'teste@email.com' AND senha_hash = 'senha1234'
