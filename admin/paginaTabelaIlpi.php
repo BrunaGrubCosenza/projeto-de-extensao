@@ -16,9 +16,9 @@
 
   <section class="filtros">
 
-    <div title="Buscar ILPI por nome ou CNPJ">
+    <div title="Buscar ILPI por nome, CNPJ ou município">
       <label for="filtro"><i class="fas fa-search"></i> </label>
-      <input type="text" id="filtro" placeholder="Buscar por nome ou CNPJ" oninput="filtrarPorNomeOuCNPJ()">
+      <input type="text" id="filtro" placeholder="Buscar por nome, CNPJ ou município" oninput="filtrarPorNomeOuCNPJOuMunicipio()">
     </div>
 
     <div class="select-container" title="Filtrar por município">
@@ -68,6 +68,22 @@
     <button id="ordenarVagas">Ordenar por vagas</button>
   </section>
 
+  <!--Excluindo ILPI-->
+  <span id="spanExcluir" style="color: red; display: none;">Excluir</span>
+  <!-- Modal -->
+  <div id="modalExcluir" class="modal" style="display: none">
+    <div class="modal-header">
+      <span>Excluir</span>
+      <span class="close">&times;</span>
+    </div>
+    <div class="modal-content">
+      <span>Deseja realmente excluir este item?</span>
+      <button id="btnConfirmarExclusao" name="excluirIlpi">Confirmar</button>
+      <button id="btnCancelarExclusao">Cancelar</button>
+    </div>
+  </div>
+  <div id='overlay' style='display: none;'></div>  
+
   <section class="section-dados-gerais">
     <h1 class='h1-estilizado'> Dados Gerais </h1>
   
@@ -83,6 +99,7 @@
         echo "<table class='tabela-dados-gerais'>
         <thead>
           <tr>
+            <th></th>
             <th>CNPJ</th>
             <th>Nome</th>
             <th>Município</th>
@@ -95,6 +112,7 @@
         while($row = $result->fetch_assoc()) {
           $cnpj_ilpi = $row['cnpj'];
           echo "<tr>";
+          echo "<td><input type='checkbox' value='$cnpj_ilpi'></td>";
           echo "<td> <div style='width: 120px' class='link-tabela-dados-gerais'> <a href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['cnpj']} </a> </div> </td>";
           echo "<td> <div style='width: 180px' class='link-tabela-dados-gerais'> <a href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['nome']} </a> </div> </td>";
           echo "<td>".$row['municipio']."</td>";
@@ -114,7 +132,23 @@
         echo "</tbody>
               </table>";
     } else {
-    echo "<p>0 resultados</p>";
+      echo "<table class='tabela-dados-gerais'>
+    <thead>
+      <tr>
+        <th>CNPJ</th>
+        <th>Nome</th>
+        <th>Município</th>
+        <th style='text-align: center'>Capacidade de Acolhimento</th>
+        <th style='text-align: center'>Vagas Disponíveis</th>    
+        <th>Convênios</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td colspan='6' style='text-align: center;'>0 resultados</td>
+      </tr>
+    </tbody>
+    </table>";
     }
     ?>
     <script>
@@ -190,25 +224,167 @@
     filtrarConvenio();
   });
 
-  function filtrarPorNomeOuCNPJ() {
-    // Definir filtros de convênio e município como "todos"
-    document.getElementById('convenio').value = 'todos';
-    document.getElementById('municipio').value = 'todos';
-
-    var filtro = document.getElementById('filtro').value.trim().toLowerCase();
+  function filtrarPorNomeOuCNPJOuMunicipio() {
+    var filtro = removerAcentos(document.getElementById('filtro').value.trim().toLowerCase());
     var linhas = Array.from(document.querySelectorAll('.tabela-dados-gerais tbody tr'));
 
-    linhas.forEach(function(linha) {
-      var nome = linha.querySelector('td:nth-child(2)').textContent.trim().toLowerCase(); // Coluna do nome
-      var cnpj = linha.querySelector('td:nth-child(1)').textContent.trim().toLowerCase(); // Coluna do CNPJ
+    // Desativar os campos de filtro de município e convênio se o campo de busca estiver preenchido
+    var camposDesativados = filtro !== '';
+    document.getElementById('municipio').disabled = camposDesativados;
+    document.getElementById('convenio').disabled = camposDesativados;
 
-      // Verifica se o nome ou o CNPJ contém o termo de busca
-      var mostrarLinha = nome.includes(filtro) || cnpj.includes(filtro);
+    // Definir filtros de convênio e município como "todos" se o campo de busca estiver preenchido
+    if (camposDesativados) {
+      document.getElementById('convenio').value = 'todos';
+      document.getElementById('municipio').value = 'todos';
+    }
+
+    linhas.forEach(function(linha) {
+      var nome = removerAcentos(linha.querySelector('td:nth-child(2)').textContent.trim().toLowerCase()); // Coluna do nome
+      var cnpj = removerAcentos(linha.querySelector('td:nth-child(1)').textContent.trim().toLowerCase()); // Coluna do CNPJ
+      var municipio = removerAcentos(linha.querySelector('td:nth-child(3)').textContent.trim().toLowerCase()); // Coluna do Município
+
+      // Verifica se o nome, CNPJ ou Município contém o termo de busca
+      var mostrarLinha = nome.includes(filtro) || cnpj.includes(filtro) || municipio.includes(filtro);
 
       // Exibe ou oculta a linha com base no filtro
       linha.style.display = mostrarLinha ? '' : 'none';
     });
   }
+
+  // Adicionar evento para limpar o filtro quando o campo de busca é limpo
+  document.getElementById('filtro').addEventListener('input', function() {
+    if (this.value.trim() === '') {
+      document.getElementById('municipio').disabled = false;
+      document.getElementById('convenio').disabled = false;
+      filtrarPorNomeOuCNPJ(); // Chamar a função de filtragem para restaurar os filtros de município e convênio
+    }
+  });
+
+  //EXCLUINDO ILPI
+   function verificarSelecao() {
+    var checkboxes = document.querySelectorAll('.tabela-dados-gerais tbody input[type="checkbox"]');
+    var spanExcluir = document.getElementById('spanExcluir');
+
+    // Verificar se algum checkbox está selecionado
+    var algumSelecionado = false;
+    checkboxes.forEach(function(checkbox) {
+      if (checkbox.checked) {
+        algumSelecionado = true;
+      }
+    });
+
+    // Alterar o estilo do span "Excluir" com base na seleção dos checkboxes
+    if (algumSelecionado) {
+      spanExcluir.style.display = 'inline'; // Tornar o span visível
+    } else {
+      spanExcluir.style.display = 'none'; // Ocultar o span
+    }
+  }
+
+  // Adicionar evento para ouvir a mudança de estado dos checkboxes
+  document.querySelectorAll('.tabela-dados-gerais tbody input[type="checkbox"]').forEach(function(checkbox) {
+    checkbox.addEventListener('change', verificarSelecao);
+  });
+
+
+  // Função para abrir o modal
+function abrirModal() {
+  var modal = document.getElementById('modalExcluir');
+  modal.style.display = 'block';
+  document.getElementById('overlay').style.display = 'block';
+}
+
+// Função para fechar o modal
+function fecharModal() {
+  var modal = document.getElementById('modalExcluir');
+    modal.style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+    // Recarregar a página
+    location.reload();
+}
+
+// Função para lidar com o clique no botão "Confirmar"
+document.getElementById('btnConfirmarExclusao').addEventListener('click', function() {
+    // Recupera todos os checkboxes marcados na tabela
+    var checkboxes = document.querySelectorAll('.tabela-dados-gerais tbody input[type="checkbox"]:checked');
+    
+    // Array para armazenar os CNPJs selecionados
+    var cnpjsSelecionados = [];
+    
+    // Itera sobre os checkboxes marcados para obter os CNPJs
+    checkboxes.forEach(function(checkbox) {
+        // Adiciona o valor do CNPJ ao array de CNPJs selecionados
+        cnpjsSelecionados.push(checkbox.value);
+    });
+    
+    // Verifica se algum CNPJ foi selecionado
+    if (cnpjsSelecionados.length > 0) {
+        // Envia uma solicitação AJAX para o script PHP de exclusão
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "../includes/excluir-ilpi.inc.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    // Exibe a resposta do servidor (pode ser uma mensagem de sucesso ou erro)
+                    console.log(xhr.responseText);
+                    fecharModal();
+                } else {
+                    // Exibe uma mensagem de erro caso a solicitação falhe
+                    console.error("Erro na solicitação AJAX: " + xhr.statusText);
+                }
+            }
+        };
+        // Envia os CNPJs selecionados como parâmetros da solicitação POST
+        xhr.send("ilpisSelecionadas=" + JSON.stringify(cnpjsSelecionados));
+    } else {
+        // Se nenhum CNPJ estiver selecionado, exibe uma mensagem de erro ou realiza outra ação apropriada
+        console.log("Nenhum CNPJ selecionado");
+    }
+});
+
+// Função para lidar com o clique no botão "Cancelar"
+document.getElementById('btnCancelarExclusao').addEventListener('click', function() {
+  // Se o usuário cancelar a exclusão, basta fechar o modal
+  fecharModal();
+});
+
+// Adicionar evento de clique ao elemento "Excluir" para abrir o modal
+document.getElementById('spanExcluir').addEventListener('click', function() {
+  abrirModal(); 
+});
+document.querySelector('.modal .close').addEventListener('click', fecharModal);
+
+// Adicionar evento para fechar o modal quando o usuário clicar fora dele
+/*window.addEventListener('click', function(event) {
+  var modal = document.getElementById('modalExcluir');
+  if (event.target == modal) {
+    fecharModal();
+  }
+});*/
+
+xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+        if (xhr.status == 200) {
+            if (xhr.responseText === "Exclusão bem-sucedida") {
+                // Se a exclusão for bem-sucedida, feche o modal
+                fecharModal();
+                // Redirecione o usuário após um breve intervalo de tempo
+                setTimeout(function() {
+                    window.location.href = 'paginaTabelaIlpi.php'; // Redireciona para a página desejada
+                }, 1000); // Tempo em milissegundos (1 segundo, ajuste conforme necessário)
+            } else {
+                // Se houver um erro na exclusão, exiba uma mensagem de erro
+                console.error("Erro ao excluir: " + xhr.responseText);
+            }
+        } else {
+            // Se houver um erro na requisição AJAX
+            console.error("Erro na requisição AJAX");
+        }
+    }
+};
+
 </script>
 
   </section>

@@ -496,3 +496,17 @@ button#btnEditarPerfil {
   height: 200px;
   margin-bottom: 20px;
 }
+
+/*** Modão de excluir ILPi***/
+#modalExcluir{
+  position: fixed;
+  width: 450px;
+  height: 300px;
+  background-color: var(--color6);
+  padding: 0 !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; 
+  border-radius: 10px;
+}
