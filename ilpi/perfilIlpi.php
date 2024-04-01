@@ -19,10 +19,12 @@
 
   <?php
 
-  if (isset($_GET['cnpj_ilpi'])) {
-    session_start();
-    $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
-  }
+session_start();
+if (!isset($_SESSION['cnpj_ilpi'])) {
+    // Redirecionar para a página de login se o CNPJ não estiver definido na sessão
+    header("Location: loginIlpi.php");
+    exit(); // Certifique-se de sair do script após redirecionar
+}
 
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
@@ -32,9 +34,29 @@
   if (isset($_SESSION['cnpj_ilpi'])) {
     $cnpjAtual = $_SESSION['cnpj_ilpi'];
     $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
-    $result = $conexao->query($sql);
-
-    if ($result->num_rows > 0) {
+    $resultado = $conexao->query($sql);
+    
+    //criando as variáveis
+    $nome; 
+    $cnpj;
+    $endereco; 
+    $municipio; 
+    $cep;
+    $email; 
+    $telefone; 
+    $responsavel; 
+    $capacidade_acolhimento;
+    $vagas_disponiveis;
+    $privada;
+    $filantropica;
+    $convenio_publico_estadual; 
+    $convenio_publico_municipal; 
+    $equipe_tecnica; 
+    $estrutura_fisica;
+    $atividades_semanais;
+    
+    //definido as variáveis 
+    if ($resultado->num_rows > 0) {
       while ($row = $result->fetch_assoc()) {
         $nome = $row['nome'];
         $cnpj = $row['cnpj'];
@@ -46,7 +68,6 @@
         $responsavel = $row['responsavel'];
         $capacidade_acolhimento = $row['capacidade_acolhimento'];
         $vagas_disponiveis = $row['vagas'];
-        $vagas_disponiveis = $row['vagas'];
         $privada = $row['privada'];
         $filantropica = $row['filantropica'];
         $convenio_publico_estadual = $row['convenio_publico_estadual'];
@@ -56,6 +77,8 @@
         $atividades_semanais = $row['atividades_semanais'];
       }
     }
+
+    echo '<pre>'; print_r($resultado); echo '</pre>';
 
     echo "
         <div class='perfil-ilpi'>
@@ -120,14 +143,14 @@
               <div class='div-perfil'> 
                 <span class='titulos-perfil'>Convênios</span>
                 <div class='input-perfil convenios'>";
-                  echo $privada == 1 ? '-Privada<br>' : '';
-                  echo $filantropica == 1 ? '-Filantrópica<br>' : '';
-                  echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
-                  echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
-                  if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
-                    echo "Não há convênios";
-                  }
-                echo "</div>
+    echo $privada == 1 ? '-Privada<br>' : '';
+    echo $filantropica == 1 ? '-Filantrópica<br>' : '';
+    echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
+    echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
+    if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
+      echo "Não há convênios";
+    }
+    echo "</div>
               </div>
 
               <div class='div-perfil'> 
@@ -267,6 +290,7 @@
       document.getElementById('overlay').style.display = 'none';
     });
   </script>
-  
+
 </body>
+
 </html>

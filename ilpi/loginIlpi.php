@@ -16,8 +16,8 @@
   <form action="loginIlpi.php" method="post">
    <fieldset>
     <legend> Validação de acesso </legend>
-    <label class="alinha"> Login: </label>
-    <input type="text" name="login" autofocus> <br>
+    <label class="alinha"> Email: </label>
+    <input type="text" name="email" autofocus> <br>
 
     <label class="alinha"> Senha: </label>
     <input type="password" name="senha"> <br>
@@ -29,67 +29,56 @@
    </fieldset>
   </form>
 
-  <?php   
-   if(isset($_POST['logar']))
-   {
-   header("location: ./perfilIlpi.php");
-   }
-   if(isset($_POST['recover']))
-   {
-   header("location: ./senhaIlpi.php");
-   }
-  ?>
-
-
 <?php
 session_start();
+require "../includes/dados-conexao.inc.php";
+require "../includes/conectar.inc.php";
+require "../includes/abrir-banco.inc.php";
+require "../includes/definir-charset.inc.php";
 
 // Verifica se o formulário de login foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['logar'])) {
-    // Detalhes do seu banco de dados ILPISystem
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "usuarios";
-
-    // Cria a conexão com o banco de dados
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
+if (isset($_POST["logar"])) {
     // Verifica se houve erro na conexão
-    if ($conn->connect_error) {
-        die("Conexão falhou: " . $conn->connect_error);
+    if ($conexao->connect_error) {
+      die("Conexão falhou: " . $conexao->connect_error);
     }
 
     // Escapa os caracteres especiais para evitar injeção de SQL
-    $email = $conn->real_escape_string($_POST['login']);
-    $senha = $conn->real_escape_string($_POST['senha']);
+    $email = $conexao->real_escape_string($_POST['email']);
+    $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT * FROM usuarios WHERE email = '$email'";
+    $sql = "SELECT senha_hash, email FROM $nomeDaTabela2 WHERE email = '$email'";
 
     // Executa a consulta SQL
-    $result = $conn->query($sql);
+    $resultado = $conexao->query($sql) or exit($conexao->error);
 
-    // Verifica se há uma linha correspondente na tabela de usuários
-    if ($result->num_rows == 1) {
-        $row = $result->fetch_assoc();
+    $vetorRegistro = $resultado->fetch_array();
+    if(!isset($vetorRegistro)){
+      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+      exit();
+    }
+    $senhaCriptografada = $vetorRegistro['senha_hash'];
+    $senhaCorreta = password_verify($senha, $senhaCriptografada);
+if($senhaCorreta)
+     {
+     session_start();
+     $_SESSION['conectado'] = true;
+     header("location: perfililpi.php");
+     exit();
+    }
+   
+    else
+     {
+      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+     }
         // Verifica se a senha fornecida corresponde ao hash no banco de dados
-        if (password_verify($senha, $row['senha_hash'])) {
-            // Credenciais válidas, inicia a sessão e redireciona para a página de destino
-            $_SESSION["usuario_ilpi"] = $email;
-            header("Location: atualizarDadosIlpi.php");
-            exit();
-        }
     }
 
-    // Credenciais inválidas, exibe uma mensagem de erro
-    echo "<p>Login ou senha incorretos. Tente novamente.</p>";
 
     // Fecha a conexão com o banco de dados
-    $conn->close();
-}
+    $conexao->close();
 ?>
 
-
 </body> 
-</html> 
+</html>

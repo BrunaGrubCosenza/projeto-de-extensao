@@ -40,6 +40,11 @@ $sql = "INSERT $nomeDaTabela1 VALUES(
              '$atvdSemanal')";
 $conexao->query($sql) or die($conexao->error);
 
+// Inserindo dados na tabela usuarios
+$senha = password_hash($cnpj, PASSWORD_ARGON2I);
+$sql_usuarios = "INSERT INTO usuarios (cnpj_ilpi, email, senha_hash, usuario_admin) VALUES ('$cnpj', '$email', '$senha', 0)";
+$conexao->query($sql_usuarios) or die($conexao->error);
+
 if ($conexao) {
     // Exiba o pop-up usando JavaScript
     echo '<script>
@@ -53,9 +58,3 @@ if ($conexao) {
     // Se houver um erro na consulta, você pode exibir uma mensagem de erro
     echo '<script>alert("Erro ao cadastrar. Por favor, tente novamente.");</script>';
 }
-//aqui, também, iniciaremos uma sessão para este usuário
-//session_start();
-//$_SESSION['conectado'] = true;
-
-//redirecionamos o usuário para a página restrita
-//header("location: restrita.php");
