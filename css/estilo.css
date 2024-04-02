@@ -82,7 +82,7 @@ header{
   color: var(--color10);
 }
 
-input[type='text'], input[type='email'], input[type='number']{
+input[type='text'], input[type='email'], input[type='number'], input[type='password']{
   border: 1px solid var(--color8);
   width: 350px;
   min-height: 26px;
@@ -171,15 +171,6 @@ input, button {
 
 
 /****  Home Perfil Administrativo   ****/
-.h1-estilizado-home{
-  position: absolute;
-  left: 650px;
-  top: 16px;
-  font-size: 25px;
-  color: var(--color10);
-  margin-top: 15px;
-}
-
 .div-botoes-home{
   width: 100%;
   margin: 70px auto;
@@ -303,14 +294,65 @@ input, button {
     border: none;
     border-radius: 10px;
     background-color: var(--color1);
-    font-size: 15px;
+    font-size: 16px;
   }
   button#ordenarVagas:hover{
     background-color: var(--color7);
     cursor: pointer;
-    font-size: 16px;
   }
 
+  /* exclusão / modal */
+  span#spanExcluir {
+    position: absolute;
+    top: 240px;
+    left: 300px;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
+    color: red;
+  }
+  span#spanExcluir:hover {
+    color: rgb(216, 8, 8);
+    cursor: pointer;
+  }
+  div#modalExcluir{
+    position: fixed;
+    width: 450px;
+    height: 250px;
+    background-color: var(--color6);
+    padding: 0 !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000; 
+    border-radius: 10px;
+    .modal-body{
+      padding: 30px !important;
+      margin: 0 !important;
+      div {
+        display: flex;
+        margin-top: 90px;
+      }
+    }
+  }
+  
+  #btnConfirmarExclusao{
+    background-color: #61be1e;
+    color: var(--color1);
+  }
+  #btnConfirmarExclusao:hover{
+    background-color:#56af16;
+    cursor: pointer;
+  }
+
+  #btnCancelarExclusao{
+    background-color: red;
+    color: var(--color1);
+  }  
+  #btnCancelarExclusao:hover{
+    background-color: rgb(216, 8, 8);
+    cursor: pointer;
+  }  
 
   /**** Perfil Ilpi ***/
   .h2-titulo{
@@ -495,18 +537,4 @@ button#btnEditarPerfil {
   width: 100%; /* Ocupa toda a largura da div pai */
   height: 200px;
   margin-bottom: 20px;
-}
-
-/*** Modão de excluir ILPi***/
-#modalExcluir{
-  position: fixed;
-  width: 450px;
-  height: 300px;
-  background-color: var(--color6);
-  padding: 0 !important;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1000; 
-  border-radius: 10px;
 }

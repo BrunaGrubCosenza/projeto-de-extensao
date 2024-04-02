@@ -15,16 +15,20 @@
 
   <h2 class="h2-titulo"> Perfil </h2>
 
-  <button id="btnEditarPerfil" class='botao-modal'><i class="fas fa-edit edit-icon"></i> Editar</button>
-
   <?php
 
+if (isset($_GET['cnpj_ilpi'])) {
+  session_start();
+  $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
+}
+
+/*Código do rodrigo comentado ---- Isso só pode aparecer se for um perfil de ILPI
 session_start();
 if (!isset($_SESSION['cnpj_ilpi'])) {
     // Redirecionar para a página de login se o CNPJ não estiver definido na sessão
     header("Location: loginIlpi.php");
     exit(); // Certifique-se de sair do script após redirecionar
-}
+}*/
 
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
@@ -36,7 +40,7 @@ if (!isset($_SESSION['cnpj_ilpi'])) {
     $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
     $resultado = $conexao->query($sql);
     
-    //criando as variáveis
+    /*criando as variáveis
     $nome; 
     $cnpj;
     $endereco; 
@@ -53,11 +57,11 @@ if (!isset($_SESSION['cnpj_ilpi'])) {
     $convenio_publico_municipal; 
     $equipe_tecnica; 
     $estrutura_fisica;
-    $atividades_semanais;
+    $atividades_semanais;*/
     
     //definido as variáveis 
     if ($resultado->num_rows > 0) {
-      while ($row = $result->fetch_assoc()) {
+      while ($row = $resultado->fetch_assoc()) {
         $nome = $row['nome'];
         $cnpj = $row['cnpj'];
         $endereco = $row['endereco'];
@@ -78,7 +82,7 @@ if (!isset($_SESSION['cnpj_ilpi'])) {
       }
     }
 
-    echo '<pre>'; print_r($resultado); echo '</pre>';
+    /*echo '<pre>'; print_r($resultado); echo '</pre>';*/
 
     echo "
         <div class='perfil-ilpi'>
@@ -249,7 +253,8 @@ if (!isset($_SESSION['cnpj_ilpi'])) {
             </form>
           </div>
         </div>
-        <div id='overlay' style='display: none;'></div>        
+        <div id='overlay' style='display: none;'></div>  
+        <button id='btnEditarPerfil' class='botao-modal'><i class='fas fa-edit edit-icon'></i> Editar</button>      
     ";
 
   } else {

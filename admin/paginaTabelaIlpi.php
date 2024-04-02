@@ -69,17 +69,19 @@
   </section>
 
   <!--Excluindo ILPI-->
-  <span id="spanExcluir" style="color: red; display: none;">Excluir</span>
+  <span id="spanExcluir" style="display: none;">Excluir</span>
   <!-- Modal -->
   <div id="modalExcluir" class="modal" style="display: none">
     <div class="modal-header">
       <span>Excluir</span>
-      <span class="close">&times;</span>
+      <button class="botao-modal fechar close">&times;</button>
     </div>
-    <div class="modal-content">
+    <div class="modal-body">
       <span>Deseja realmente excluir este item?</span>
-      <button id="btnConfirmarExclusao" name="excluirIlpi">Confirmar</button>
-      <button id="btnCancelarExclusao">Cancelar</button>
+      <div>
+      <button id="btnCancelarExclusao" class="botao-modal">Cancelar</button>
+      <button id="btnConfirmarExclusao" class="botao-modal" name="excluirIlpi">Confirmar</button>
+      </div>
     </div>
   </div>
   <div id='overlay' style='display: none;'></div>  
@@ -156,8 +158,8 @@
     var linhas = Array.from(document.querySelectorAll('.tabela-dados-gerais tbody tr'));
     
     linhas.sort(function(a, b) {
-      var vagasA = parseInt(a.querySelector('td:nth-child(5)').textContent);
-      var vagasB = parseInt(b.querySelector('td:nth-child(5)').textContent);
+      var vagasA = parseInt(a.querySelector('td:nth-child(6)').textContent);
+      var vagasB = parseInt(b.querySelector('td:nth-child(6)').textContent);
       return vagasB - vagasA;
     });
 
@@ -175,7 +177,7 @@
     var linhas = Array.from(document.querySelectorAll('.tabela-dados-gerais tbody tr'));
 
     linhas.forEach(function(linha) {
-      var convenios = linha.querySelector('td:nth-child(6)').innerHTML;
+      var convenios = linha.querySelector('td:nth-child(7)').innerHTML;
 
       var mostrarPorConvenio = filtrosSelecionados.includes('todos') || filtrosSelecionados.some(function(filtro) {
         if (filtro === 'sem_convenio') {
@@ -191,7 +193,7 @@
         }
       });
 
-      var municipio = removerAcentos(linha.querySelector('td:nth-child(3)').textContent.trim().toLowerCase());
+      var municipio = removerAcentos(linha.querySelector('td:nth-child(4)').textContent.trim().toLowerCase());
       var mostrarPorMunicipio = (filtroMunicipio === 'todos' || municipio === filtroMunicipio);
 
       linha.style.display = mostrarPorConvenio && mostrarPorMunicipio ? '' : 'none';
@@ -208,7 +210,7 @@
     var linhas = Array.from(document.querySelectorAll('.tabela-dados-gerais tbody tr'));
 
     linhas.forEach(function(linha) {
-      var municipio = removerAcentos(linha.querySelector('td:nth-child(3)').textContent.trim().toLowerCase()); // Converter para minúsculas e remover acentos
+      var municipio = removerAcentos(linha.querySelector('td:nth-child(4)').textContent.trim().toLowerCase()); // Converter para minúsculas e remover acentos
       var mostrarLinha = (filtroSelecionado === 'todos' || municipio === filtroSelecionado);
       linha.style.display = mostrarLinha ? '' : 'none';
     });
@@ -223,6 +225,7 @@
   document.getElementById('convenio').addEventListener('change', function() {
     filtrarConvenio();
   });
+
 
   function filtrarPorNomeOuCNPJOuMunicipio() {
     var filtro = removerAcentos(document.getElementById('filtro').value.trim().toLowerCase());
@@ -240,9 +243,9 @@
     }
 
     linhas.forEach(function(linha) {
-      var nome = removerAcentos(linha.querySelector('td:nth-child(2)').textContent.trim().toLowerCase()); // Coluna do nome
-      var cnpj = removerAcentos(linha.querySelector('td:nth-child(1)').textContent.trim().toLowerCase()); // Coluna do CNPJ
-      var municipio = removerAcentos(linha.querySelector('td:nth-child(3)').textContent.trim().toLowerCase()); // Coluna do Município
+      var nome = removerAcentos(linha.querySelector('td:nth-child(3)').textContent.trim().toLowerCase()); // Coluna do nome
+      var cnpj = removerAcentos(linha.querySelector('td:nth-child(2)').textContent.trim().toLowerCase()); // Coluna do CNPJ
+      var municipio = removerAcentos(linha.querySelector('td:nth-child(4)').textContent.trim().toLowerCase()); // Coluna do Município
 
       // Verifica se o nome, CNPJ ou Município contém o termo de busca
       var mostrarLinha = nome.includes(filtro) || cnpj.includes(filtro) || municipio.includes(filtro);
@@ -355,14 +358,6 @@ document.getElementById('spanExcluir').addEventListener('click', function() {
   abrirModal(); 
 });
 document.querySelector('.modal .close').addEventListener('click', fecharModal);
-
-// Adicionar evento para fechar o modal quando o usuário clicar fora dele
-/*window.addEventListener('click', function(event) {
-  var modal = document.getElementById('modalExcluir');
-  if (event.target == modal) {
-    fecharModal();
-  }
-});*/
 
 xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {

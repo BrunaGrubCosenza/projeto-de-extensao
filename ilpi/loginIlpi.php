@@ -48,7 +48,7 @@ if (isset($_POST["logar"])) {
     $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT senha_hash, email FROM $nomeDaTabela2 WHERE email = '$email'";
+    $sql = "SELECT senha_hash, email, cnpj_ilpi FROM $nomeDaTabela2 WHERE email = '$email'";
 
     // Executa a consulta SQL
     $resultado = $conexao->query($sql) or exit($conexao->error);
@@ -58,14 +58,16 @@ if (isset($_POST["logar"])) {
       echo "<p>Login ou senha incorretos. Tente novamente.</p>";
       exit();
     }
+
     $senhaCriptografada = $vetorRegistro['senha_hash'];
     $senhaCorreta = password_verify($senha, $senhaCriptografada);
-if($senhaCorreta)
-     {
-     session_start();
-     $_SESSION['conectado'] = true;
-     header("location: perfililpi.php");
-     exit();
+
+    if($senhaCorreta){
+      $cnpj_ilpi = $vetorRegistro['cnpj_ilpi'];
+      session_start();
+      $_SESSION['conectado'] = true;
+      header("location: perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi");
+      exit();
     }
    
     else

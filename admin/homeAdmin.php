@@ -10,8 +10,8 @@
 <body>
 <header>
     <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-    <h1 class="h1-estilizado-home"> Perfil administrativo </h1>
 </header>  
+    <h1 class="h1-estilizado"> Perfil administrativo </h1>
 
     <form method="post" action="">
         <div class="div-botoes-home">
