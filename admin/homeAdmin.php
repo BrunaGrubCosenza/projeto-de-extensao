@@ -8,9 +8,11 @@
 </head>
 
 <body>
-<header>
-    <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-</header>  
+    <header>
+        <img class="img-header" src="../logo.png"
+            alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+        <button id="logoutButton">Sair do Sistema</button>
+    </header>
     <h1 class="h1-estilizado"> Perfil administrativo </h1>
 
     <form method="post" action="">
@@ -20,10 +22,17 @@
             <button class="botoes-home" name="cadastro" type="submit">Cadastro de ILPIs</button>
         </div>
     </form>
+
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            // Aqui você pode colocar a lógica para o logout, como limpar a sessão do usuário
+            // e redirecioná-lo para a página de login
+            window.location.href = "loginAdmin.php";
+        });
+    </script>
 </body>
 <?php
-if (isset($_POST['indicadores'])) 
-{
+if (isset($_POST['indicadores'])) {
     header("location: ./indicadores.php");
 }
 if (isset($_POST['cadastro'])) {

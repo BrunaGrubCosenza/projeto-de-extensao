@@ -538,3 +538,7 @@ button#btnEditarPerfil {
   height: 200px;
   margin-bottom: 20px;
 }
+
+#logoutButton {
+ margin-right: 45px;
+}

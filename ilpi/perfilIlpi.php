@@ -9,9 +9,11 @@
 
 <body>
   <header>
+    
     <img class="img-header" src="../logo.png"
       alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-  </header>
+      <button id="logoutButton">Sair do Sistema</button>
+    </header>
 
   <h2 class="h2-titulo"> Perfil </h2>
 
@@ -23,12 +25,13 @@ if (isset($_GET['cnpj_ilpi'])) {
 }
 
 /*Código do rodrigo comentado ---- Isso só pode aparecer se for um perfil de ILPI
+if ($usuario_admin == 0) {
 session_start();
 if (!isset($_SESSION['cnpj_ilpi'])) {
     // Redirecionar para a página de login se o CNPJ não estiver definido na sessão
     header("Location: loginIlpi.php");
     exit(); // Certifique-se de sair do script após redirecionar
-}*/
+}}*/
 
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
@@ -39,25 +42,6 @@ if (!isset($_SESSION['cnpj_ilpi'])) {
     $cnpjAtual = $_SESSION['cnpj_ilpi'];
     $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
     $resultado = $conexao->query($sql);
-    
-    /*criando as variáveis
-    $nome; 
-    $cnpj;
-    $endereco; 
-    $municipio; 
-    $cep;
-    $email; 
-    $telefone; 
-    $responsavel; 
-    $capacidade_acolhimento;
-    $vagas_disponiveis;
-    $privada;
-    $filantropica;
-    $convenio_publico_estadual; 
-    $convenio_publico_municipal; 
-    $equipe_tecnica; 
-    $estrutura_fisica;
-    $atividades_semanais;*/
     
     //definido as variáveis 
     if ($resultado->num_rows > 0) {
@@ -81,8 +65,6 @@ if (!isset($_SESSION['cnpj_ilpi'])) {
         $atividades_semanais = $row['atividades_semanais'];
       }
     }
-
-    /*echo '<pre>'; print_r($resultado); echo '</pre>';*/
 
     echo "
         <div class='perfil-ilpi'>
@@ -293,6 +275,15 @@ if (!isset($_SESSION['cnpj_ilpi'])) {
     document.querySelector('.fechar').addEventListener('click', function () {
       document.getElementById('modalEditarPerfil').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
+    });
+  </script>
+
+<script>
+    // Adicionando evento de clique - logout
+    document.getElementById('logoutButton').addEventListener('click', function() {
+      // Limpar a sessão do usuário ou realizar qualquer ação de logout necessária
+      // Redirecionar para a página de login
+      window.location.href = "loginIlpi.php";
     });
   </script>
 
