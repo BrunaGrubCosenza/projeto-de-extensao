@@ -26,7 +26,5 @@
 
   </form>
 
-  <p> Lembrou? <a href="loginAdmin.php">Clique aqui</a> para logar! </p>
-
 </body>
 </html>
