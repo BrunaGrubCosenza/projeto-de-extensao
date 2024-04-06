@@ -10,7 +10,3 @@ $sql = "INSERT $nomeDaTabela2 VALUES(
     '$senha',
     '$radioValue')";
 $conexao->query($sql) or die($conexao->error);
-
-/*aqui, também, iniciaremos uma sessão para este usuário
-session_start();
-$_SESSION['conectado'] = true;*/ 

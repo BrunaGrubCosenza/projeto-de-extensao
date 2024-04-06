@@ -42,11 +42,10 @@
   require "../includes/abrir-banco.inc.php";
   require "../includes/definir-charset.inc.php";
 
-  // Verifica se o formulário de login foi submetido
   if (isset($_POST["logar"])) {
     // Verifica se houve erro na conexão
     if ($conexao->connect_error) {
-      die("Conexão falhou: " . $conexao->connect_error);
+        die("Conexão falhou: " . $conexao->connect_error);
     }
 
     // Escapa os caracteres especiais para evitar injeção de SQL
@@ -54,31 +53,43 @@
     $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT senha_hash, email, cnpj_ilpi FROM $nomeDaTabela2 WHERE email = '$email'";
+    $sql = "SELECT senha_hash, email, cnpj_ilpi, primeiro_acesso FROM $nomeDaTabela2 WHERE email = '$email'";
 
     // Executa a consulta SQL
     $resultado = $conexao->query($sql) or exit($conexao->error);
 
     $vetorRegistro = $resultado->fetch_array();
     if (!isset($vetorRegistro)) {
-      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
-      exit();
+        echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+        exit();
     }
 
     $senhaCriptografada = $vetorRegistro['senha_hash'];
     $senhaCorreta = password_verify($senha, $senhaCriptografada);
+    $primeiroAcesso = $vetorRegistro['primeiro_acesso'];
 
     if ($senhaCorreta) {
-      $cnpj_ilpi = $vetorRegistro['cnpj_ilpi'];
-      session_start();
-      $_SESSION['conectado'] = true;
-      header("location: perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi");
-      exit();
+        $cnpj_ilpi = $vetorRegistro['cnpj_ilpi'];
+
+        // Se for o primeiro acesso, redirecione para a página de alteração de senha
+        if ($primeiroAcesso == true) {
+            session_start();
+            $_SESSION['primeiro_acesso'] = true;
+            $_SESSION['email'] = $email;
+            header("location: atualizarSenha.php");
+            exit();
+        } else {
+            // Se não for o primeiro acesso, entre no sistema
+            session_start();
+            $_SESSION['conectado'] = true;
+            header("location: perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi");
+            exit();
+        }
     } else {
-      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+        echo "<p>Login ou senha incorretos. Tente novamente.</p>";
     }
     // Verifica se a senha fornecida corresponde ao hash no banco de dados
-  }
+}
 
 
   // Fecha a conexão com o banco de dados
