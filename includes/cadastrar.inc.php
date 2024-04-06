@@ -42,7 +42,7 @@ $conexao->query($sql) or die($conexao->error);
 
 // Inserindo dados na tabela usuarios
 $senha = password_hash($cnpj, PASSWORD_ARGON2I);
-$sql_usuarios = "INSERT INTO usuarios (cnpj_ilpi, email, senha_hash, usuario_admin) VALUES ('$cnpj', '$email', '$senha', 0)";
+$sql_usuarios = "INSERT INTO usuarios (cnpj_ilpi, email, senha_hash, usuario_admin, primeiro_acesso) VALUES ('$cnpj', '$email', '$senha', 0, 1)";
 $conexao->query($sql_usuarios) or die($conexao->error);
 
 if ($conexao) {

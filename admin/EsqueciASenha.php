@@ -11,7 +11,7 @@
   <header>
     <img class="img-header" src="../logo.png"
       alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-    <a href="loginAdmin.php"><button>Voltar</button></a>
+    <a href="loginAdmin.php"><button class="voltar">Voltar</button></a>
   </header>
 
   <h1>Recuperação de Senha</h1>

@@ -25,7 +25,8 @@ id int auto_increment primary key,
 cnpj_ilpi varchar(18),
 email varchar(18),
 senha_hash varchar(200) not null,
-usuario_admin boolean 
+usuario_admin boolean,
+primeiro_acesso boolean  
 ) engine = innodb;
 
 create table usuarioAdmin(
