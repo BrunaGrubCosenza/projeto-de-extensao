@@ -14,9 +14,9 @@
 
     <H1> Selecionar tipo de Login </H1>
     <form method="post" action="">
-        <div>
-            <button class="botoes" name="secretaria" type="submit">Login Secretaria</button>
-            <button class="botoes" name="ilpi" type="submit">Login ILPI</button>
+        <div class="div-botoes-inicio">
+            <button class="botoes-inicio" name="ilpi" type="submit">ILPI</button>
+            <button class="botoes-inicio" name="secretaria" type="submit">Secretaria</button>
         </div>
     </form>
 </body>
