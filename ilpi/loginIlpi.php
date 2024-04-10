@@ -11,6 +11,7 @@
   <header>
     <img class="img-header" src="../logo.png"
       alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+      <a href="../direcionamentoLogin.php"><button class="voltar">Voltar</button></a>
   </header>
 
   <h1> Login </h1>

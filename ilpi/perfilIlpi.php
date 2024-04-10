@@ -23,16 +23,6 @@ if (isset($_GET['cnpj_ilpi'])) {
   session_start();
   $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
 }
-
-/*Código do rodrigo comentado ---- Isso só pode aparecer se for um perfil de ILPI
-if ($usuario_admin == 0) {
-session_start();
-if (!isset($_SESSION['cnpj_ilpi'])) {
-    // Redirecionar para a página de login se o CNPJ não estiver definido na sessão
-    header("Location: loginIlpi.php");
-    exit(); // Certifique-se de sair do script após redirecionar
-}}*/
-
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
   require "../includes/abrir-banco.inc.php";

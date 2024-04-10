@@ -413,7 +413,11 @@
 
   <!-- Script para criar o mapa de Santa Catarina -->
   <script>
-    var map = L.map('map').setView([-27.5953778, -48.5480499], 7); // Centraliza o mapa em Santa Catarina
+     var map = L.map('map', {
+    minZoom: 7,
+    maxZoom: 13
+}).setView([-27.5953778, -48.5480499], 7); // Centraliza o mapa em Santa Catarina
+
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { // Adiciona um layer de azulejos do OpenStreetMap
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

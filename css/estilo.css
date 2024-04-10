@@ -4,7 +4,7 @@
 *::before,
 *::after {
 /**** Usar variáveis para as cores que iremos utilizar! ****/
---color1: white;
+--color1: rgb(255, 255, 255);
 --color2: rgb(216, 209, 209);
 --color3: rgba(64, 100, 52, 0.753);
 
@@ -512,12 +512,18 @@ button#btnEditarPerfil {
   display: flex;
   flex-direction: column; /* Empilhar os gráficos verticalmente */
   align-items: center; /* Centralizar os gráficos horizontalmente */
+  margin-left: auto;
+  margin-right: auto;
+  border: 0,5px solid var(--color4);
+  width: 30%;
+  background: linear-gradient(rgb(216, 209, 209, 0.4), rgb(255,255,255,0.4) );
+  border-radius: 6px;
 }
 
 .grafico {
   width: 200px;
   height: 200px;
-  margin-bottom: 20px; /* Espaçamento entre os gráficos */
+  margin-bottom: 30px; /* Espaçamento entre os gráficos */
 }
 
 #map {
