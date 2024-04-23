@@ -54,7 +54,7 @@
     $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT senha_hash, email, cnpj_ilpi, primeiro_acesso FROM $nomeDaTabela2 WHERE email = '$email'";
+    $sql = "SELECT senha_hash, email, cnpj_ilpi, primeiro_acesso, usuario_admin FROM $nomeDaTabela2 WHERE email = '$email'";
 
     // Executa a consulta SQL
     $resultado = $conexao->query($sql) or exit($conexao->error);
@@ -68,6 +68,7 @@
     $senhaCriptografada = $vetorRegistro['senha_hash'];
     $senhaCorreta = password_verify($senha, $senhaCriptografada);
     $primeiroAcesso = $vetorRegistro['primeiro_acesso'];
+    $usuario_admin = $vetorRegistro['usuario_admin'];
 
     if ($senhaCorreta) {
         $cnpj_ilpi = $vetorRegistro['cnpj_ilpi'];
@@ -83,6 +84,7 @@
             // Se não for o primeiro acesso, entre no sistema
             session_start();
             $_SESSION['conectado'] = true;
+            $_SESSION['usuario_admin'] = $usuario_admin;
             header("location: perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi");
             exit();
         }

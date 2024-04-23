@@ -5,31 +5,57 @@
   <title> Perfil ILPI </title>
   <link rel="stylesheet" href="../css/estilo.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
   <header>
     
-    <img class="img-header" src="../logo.png"
-      alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-      <button id="logoutButton">Sair do Sistema</button>
-    </header>
+    <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+    <?php
+      session_start();
+      if (isset($_SESSION["usuario_admin"])){
+        $usuario_admin = $_SESSION['usuario_admin'];
+      }
+      if($usuario_admin==1){
+        echo '
+          <nav class="nav-header">
+            <a href="../admin/homeAdmin.php" style="margin-right: 15px"><i class="fa-solid fa-house"></i></a>
+            <button id="logoutButtonAdmin">Sair do sistema</button>
+          </nav>
+        ';
+      }
+      if($usuario_admin!=1) {
+        echo '<a href="loginIlpi.php" id="logout">Sair do sistema</a>';
+      }
+    ?>
+
+  </header>
 
   <h2 class="h2-titulo"> Perfil </h2>
+  
 
   <?php
-
-if (isset($_GET['cnpj_ilpi'])) {
-  session_start();
-  $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
-}
-  require "../includes/dados-conexao.inc.php";
-  require "../includes/conectar.inc.php";
-  require "../includes/abrir-banco.inc.php";
-  require "../includes/definir-charset.inc.php";
+  if (isset($_GET['cnpj_ilpi'])) {
+    $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
+  }
 
   if (isset($_SESSION['cnpj_ilpi'])) {
+    require "../includes/dados-conexao.inc.php";
+    require "../includes/conectar.inc.php";
+    require "../includes/abrir-banco.inc.php";
+    require "../includes/definir-charset.inc.php";
     $cnpjAtual = $_SESSION['cnpj_ilpi'];
+
+    $sql = "SELECT id FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
+    $resultado = $conexao->query($sql);
+    $vetorRegistro = $resultado->fetch_array();
+    $id = $vetorRegistro['id'];
+    if($usuario_admin==1){
+      echo '<div id="idIlpi" title="Caso a ILPI precise trocar sua senha, ela precisará entrar em contato para saber qual seu ID">ID: ', $id, '</div>';
+    }
+
+
     $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
     $resultado = $conexao->query($sql);
     
@@ -266,17 +292,17 @@ if (isset($_GET['cnpj_ilpi'])) {
       document.getElementById('modalEditarPerfil').style.display = 'none';
       document.getElementById('overlay').style.display = 'none';
     });
-  </script>
 
-<script>
-    // Adicionando evento de clique - logout
-    document.getElementById('logoutButton').addEventListener('click', function() {
+
+     // Adicionando evento de clique - logout
+     document.getElementById('logoutButtonAdmin').addEventListener('click', function() {
       // Limpar a sessão do usuário ou realizar qualquer ação de logout necessária
       // Redirecionar para a página de login
-      window.location.href = "loginIlpi.php";
+      window.location.href = "../admin/loginAdmin.php";
     });
-  </script>
-
+    
+  </script> 
+ 
 </body>
 
 </html>

@@ -318,7 +318,7 @@ input, button {
   div#modalExcluir{
     position: fixed;
     width: 450px;
-    height: 250px;
+    height: 310px;
     background-color: var(--color6);
     padding: 0 !important;
     top: 50%;
@@ -327,11 +327,26 @@ input, button {
     z-index: 1000; 
     border-radius: 10px;
     .modal-body{
-      padding: 30px !important;
+      padding: 10px !important;
       margin: 0 !important;
+      text-align: center;
+      span{
+        font-size: 19px;
+      }
+      ul{
+        font-size: 18px;
+      }
+      .ilpisSelecionadas{
+        height: 150px;
+        width: 400px;
+        border: 0.4px solid var(--color8);
+        border-radius: 10px;
+        overflow-y: auto;
+        margin: 15px auto;
+        text-align: start;
+      }
       div {
         display: flex;
-        margin-top: 90px;
       }
     }
   }
@@ -364,6 +379,8 @@ input, button {
   .perfil-ilpi{
     margin: 30px 160px;
     display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
     color: var(--color10);
     padding-bottom: 130px;
   }
@@ -416,7 +433,6 @@ input, button {
     min-height: 32px;
     word-wrap: break-word;
     width:400px;
-    word-wrap: break-word;
     overflow-wrap: break-word;
     text-align: left;
   }
@@ -560,4 +576,49 @@ button#btnEditarPerfil {
   justify-content: space-around;
   background-color: var(--color7);
   border-radius: 15px;
+}
+
+
+#logout{
+  text-decoration: none;
+  color: var(--color10);
+  font-weight: 600;
+  margin-right: 20px;
+}
+#logout:hover{
+  color: var(--color4);
+}
+
+
+#idIlpi {
+  font-size: 16px;
+  color: var(--color4);
+  font-weight: 600;
+  position: relative;
+  bottom: 16px;
+  left: 180px;
+}
+
+
+/*RESPONSIVIDADE*/
+@media only screen and (max-width: 1200px) {
+  .div-botoes-home{
+    width: 350px;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    flex-direction: column;
+    .botoes-home{
+      margin-top: 30px;
+    }
+  }
+  .perfil-ilpi{
+    flex-direction: column;
+  }
+  #modalEditarPerfil {
+    width: 700px;
+    .botao-modal.salvar {
+      margin-left: 160px;
+    }
+  }
 }

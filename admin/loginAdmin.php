@@ -61,7 +61,7 @@
     $senha = $conexao->real_escape_string($_POST['senha']);
 
     // Consulta SQL para verificar as credenciais do usuário
-    $sql = "SELECT senha_hash, email FROM $nomeDaTabela3 WHERE email = '$email'";
+    $sql = "SELECT senha_hash, email, usuario_admin FROM $nomeDaTabela3 WHERE email = '$email'";
 
     // Executa a consulta SQL
     $resultado = $conexao->query($sql) or exit($conexao->error);
@@ -74,9 +74,11 @@
     }
     $senhaCriptografada = $vetorRegistro['senha_hash'];
     $senhaCorreta = password_verify($senha, $senhaCriptografada);
+    $usuario_admin= $vetorRegistro['usuario_admin'];
     if ($senhaCorreta) {
       session_start();
       $_SESSION['conectado'] = true;
+      $_SESSION['usuario_admin'] = $usuario_admin;
       header("location: homeAdmin.php");
       exit();
     } else {

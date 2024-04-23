@@ -77,10 +77,13 @@
       <button class="botao-modal fechar close">&times;</button>
     </div>
     <div class="modal-body">
-      <span>Deseja realmente excluir este item?</span>
+      <span>Deseja realmente excluir este(s) item(ns)?</span>
+      <div class="ilpisSelecionadas">
+        <ul id="nomesSelecionados"></ul>
+      </div>
       <div>
-      <button id="btnCancelarExclusao" class="botao-modal">Cancelar</button>
-      <button id="btnConfirmarExclusao" class="botao-modal" name="excluirIlpi">Confirmar</button>
+        <button id="btnCancelarExclusao" class="botao-modal">Cancelar</button>
+        <button id="btnConfirmarExclusao" class="botao-modal" name="excluirIlpi">Confirmar</button>
       </div>
     </div>
   </div>
@@ -265,20 +268,26 @@
   });
 
   //EXCLUINDO ILPI
-   function verificarSelecao() {
+  var nomesSelecionados = []; // Array para armazenar os nomes dos itens selecionados
+
+  // Função para verificar a seleção dos checkboxes
+  function verificarSelecao() {
     var checkboxes = document.querySelectorAll('.tabela-dados-gerais tbody input[type="checkbox"]');
     var spanExcluir = document.getElementById('spanExcluir');
 
-    // Verificar se algum checkbox está selecionado
-    var algumSelecionado = false;
+    // Limpar o array de nomes selecionados
+    nomesSelecionados = [];
+
+    // Verificar se algum checkbox está selecionado e adicionar o nome correspondente ao array
     checkboxes.forEach(function(checkbox) {
       if (checkbox.checked) {
-        algumSelecionado = true;
+        var nome = checkbox.closest('tr').querySelector('td:nth-child(3)').textContent; // Obter o nome do item
+        nomesSelecionados.push(nome); // Adicionar o nome ao array
       }
     });
 
     // Alterar o estilo do span "Excluir" com base na seleção dos checkboxes
-    if (algumSelecionado) {
+    if (nomesSelecionados.length > 0) {
       spanExcluir.style.display = 'inline'; // Tornar o span visível
     } else {
       spanExcluir.style.display = 'none'; // Ocultar o span
@@ -290,12 +299,20 @@
     checkbox.addEventListener('change', verificarSelecao);
   });
 
-
   // Função para abrir o modal
-function abrirModal() {
+  function abrirModal() {
   var modal = document.getElementById('modalExcluir');
   modal.style.display = 'block';
   document.getElementById('overlay').style.display = 'block';
+
+  // Exibir os nomes dos itens selecionados no modal
+  var listaNomes = document.getElementById('nomesSelecionados');
+  listaNomes.innerHTML = '';
+  nomesSelecionados.forEach(function(nome) {
+    var li = document.createElement('li');
+    li.textContent = nome;
+    listaNomes.appendChild(li);
+  });
 }
 
 // Função para fechar o modal

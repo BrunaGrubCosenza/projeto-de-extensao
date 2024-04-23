@@ -38,8 +38,13 @@ $sql = "UPDATE $nomeDaTabela1 SET
             ";
 
 if ($conexao->query($sql) === TRUE) {
-    header("Location: ../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpjAtual");
-    exit();
+    echo "<script>
+    setTimeout(function() {
+        window.location.href = '../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpjAtual';
+    }, 200); // Atraso para não dar erro
+  </script>";
+exit();
 } else {
     echo "Erro ao atualizar os dados: " . $conexao->error;
 }
+?>
