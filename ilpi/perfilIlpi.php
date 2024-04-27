@@ -79,6 +79,7 @@
         $equipe_tecnica = $row['equipe_tecnica'];
         $estrutura_fisica = $row['estrutura_fisica'];
         $atividades_semanais = $row['atividades_semanais'];
+        $custo_vaga = $row['custo_vaga'];
       }
     }
 
@@ -169,6 +170,11 @@
                 <span class='titulos-perfil'>Atividades Semanais</span>
                 <textarea id='atividades_semanais' class='textarea input-perfil input-text-perfil' disabled>", $atividades_semanais, "</textarea>
               </div>
+
+              <div class='div-perfil'> 
+                <span class='titulos-perfil'>Atividades Semanais</span>
+                <textarea id='custo_vaga' class='textarea input-perfil input-text-perfil' disabled>", $custo_vaga, "</textarea>
+              </div>
             </div>
           </section>
         </div>
@@ -247,6 +253,9 @@
               <label class='alinha'> Atividades Semanais: </label>
               <textarea class='textarea' name='atvdSemanal'>", $atividades_semanais, "</textarea> <br>
 
+              <label class='alinha'> Custo Mensal por Vaga: </label>
+              <textarea class='textarea' name='custoVaga'>", $custo_vaga, "</textarea> <br>
+
               <button type='submit' class='botao-modal salvar' name='editar'>Salvar</button>
             </form>
           </div>
@@ -277,6 +286,7 @@
     $equipe_tecnica = $_POST['equipe'];
     $estrutura_fisica = $_POST['estrutura'];
     $atividades_semanais = $_POST['atvdSemanal'];
+    $custo_vaga = $_POST['custoVaga'];
 
     require "../includes/editarPerfil.inc.php";
   }

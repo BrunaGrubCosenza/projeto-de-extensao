@@ -76,6 +76,9 @@
     <label class="alinha"> Atividades Semanais: </label>
     <textarea class="textarea" name="atvdSemanal"></textarea> <br>
 
+    <label class="alinha"> Custo Mensal por Vaga: </label>
+    <textarea class="textarea" name="custoVaga"></textarea> <br>
+
       <div style="width: 100%">
         <button name="cadastrar" class="botao-cadastrar-ilpi"> Cadastrar </button>
       </div>

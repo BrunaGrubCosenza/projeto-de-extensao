@@ -352,8 +352,14 @@
   $resultado_vagas = $conexao->query($sql_vagas);
   $total_vagas = $resultado_vagas->fetch_assoc()['total_vagas'];
 
-  // Calcular a porcentagem de vagas disponíveis
-  $porcentagem_vagas_disponiveis = ($total_vagas / $total_capacidade) * 100;
+  if ($total_capacidade != 0) {
+    // Calcular a porcentagem de vagas disponíveis
+    $porcentagem_vagas_disponiveis = ($total_vagas / $total_capacidade) * 100;
+  } else {
+
+    echo "<p> Nenhum dado cadastrado! </p>";
+  }
+
 
 
   // Consulta SQL para obter vagas disponíveis por município
@@ -379,44 +385,44 @@
   <!-- Script para criar o gráfico de torta -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-  // Obtenha o elemento de canvas para o gráfico de torta
-  var ctxPie = document.getElementById('pie-chart').getContext('2d');
+    // Obtenha o elemento de canvas para o gráfico de torta
+    var ctxPie = document.getElementById('pie-chart').getContext('2d');
 
-  // Dados do gráfico de torta
-  var dataPie = {
+    // Dados do gráfico de torta
+    var dataPie = {
       labels: ['Vagas Disponíveis', 'Ocupadas'],
       datasets: [{
-          data: [<?php echo $porcentagem_vagas_disponiveis; ?>, <?php echo 100 - $porcentagem_vagas_disponiveis; ?>],
-          backgroundColor: [
-              'green',
-              'red'
-          ]
+        data: [<?php echo $porcentagem_vagas_disponiveis; ?>, <?php echo 100 - $porcentagem_vagas_disponiveis; ?>],
+        backgroundColor: [
+          'green',
+          'red'
+        ]
       }]
-  };
+    };
 
-  // Opções do gráfico de torta
-  var optionsPie = {
+    // Opções do gráfico de torta
+    var optionsPie = {
       title: {
-          display: true,
-          text: 'Porcentagem de Vagas Disponíveis'
+        display: true,
+        text: 'Porcentagem de Vagas Disponíveis'
       }
-  };
+    };
 
-  // Crie o gráfico de torta
-  var pieChart = new Chart(ctxPie, {
+    // Crie o gráfico de torta
+    var pieChart = new Chart(ctxPie, {
       type: 'pie',
       data: dataPie,
       options: optionsPie
-  });
+    });
   </script>
-  
+
 
   <!-- Script para criar o mapa de Santa Catarina -->
   <script>
-     var map = L.map('map', {
-    minZoom: 7,
-    maxZoom: 13
-}).setView([-27.5953778, -48.5480499], 7); // Centraliza o mapa em Santa Catarina
+    var map = L.map('map', {
+      minZoom: 7,
+      maxZoom: 13
+    }).setView([-27.5953778, -48.5480499], 7); // Centraliza o mapa em Santa Catarina
 
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { // Adiciona um layer de azulejos do OpenStreetMap
