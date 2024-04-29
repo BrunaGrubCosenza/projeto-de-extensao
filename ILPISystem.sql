@@ -22,7 +22,7 @@ custo_vaga text
 ) engine = innodb; 
 
 create table usuarios(
-id int auto_increment primary key,
+id varchar(6) primary key,
 cnpj_ilpi varchar(18),
 email varchar(255),
 senha_hash varchar(200) not null,

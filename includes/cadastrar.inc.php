@@ -53,12 +53,35 @@ $sql = "INSERT $nomeDaTabela1 VALUES(
              '$custoVaga')";
 $conexao->query($sql) or die($conexao->error);
 
+//ID Randômico de seis dígitos
+function generateRandomId() {
+    return str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+}
+
+// Gere um número aleatório de seis dígitos para o ID
+$random_id = generateRandomId();
+
+// Verifique se o ID já existe na tabela de usuários
+$sql_check_id = "SELECT COUNT(*) AS total FROM usuarios WHERE id = '$random_id'";
+$result_check_id = $conexao->query($sql_check_id);
+$row_check_id = $result_check_id->fetch_assoc();
+
+// Verifica se o ID já está em uso
+while ($row_check_id['total'] > 0) {
+    // Se o ID já estiver em uso, gere um novo número
+    $random_id = generateRandomId();
+    $sql_check_id = "SELECT COUNT(*) AS total FROM usuarios WHERE id = '$random_id'";
+    $result_check_id = $conexao->query($sql_check_id);
+    $row_check_id = $result_check_id->fetch_assoc();
+}
+
 // Senha a partir do CNPJ (apenas para exemplo)
 $senha = password_hash($cnpj, PASSWORD_ARGON2I);
 
 // Inserir dados na tabela de usuários, incluindo o ID aleatório gerado
-$sql_usuarios = "INSERT INTO usuarios (cnpj_ilpi, email, senha_hash, usuario_admin, primeiro_acesso) VALUES ('$cnpj', '$email', '$senha', 0, 1)";
+$sql_usuarios = "INSERT INTO usuarios (id, cnpj_ilpi, email, senha_hash, usuario_admin, primeiro_acesso) VALUES ('$random_id', '$cnpj', '$email', '$senha', 0, 1)";
 $conexao->query($sql_usuarios) or die($conexao->error);
+
 
 if ($conexao) {
     // Exiba o pop-up usando JavaScript
