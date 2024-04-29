@@ -18,6 +18,18 @@ $checkboxValue4 = trim($conexao->escape_string(isset($_POST['opcao4']) ? 1 : 0))
 $equipe = trim($conexao->escape_string($_POST['equipe']));
 $estrutura = trim($conexao->escape_string($_POST['estrutura']));
 $atvdSemanal = trim($conexao->escape_string($_POST['atvdSemanal']));
+$custoVaga = trim($conexao->escape_string($_POST['custoVaga']));
+
+// Consulta para verificar se o CNPJ já existe no banco de dados
+$sql_check_cnpj = "SELECT COUNT(*) AS total FROM $nomeDaTabela1 WHERE cnpj = '$cnpj'";
+$result_check_cnpj = $conexao->query($sql_check_cnpj);
+$row_check_cnpj = $result_check_cnpj->fetch_assoc();
+
+// Verifica se já existe um registro com o CNPJ informado
+if ($row_check_cnpj['total'] > 0) {
+    // Se o CNPJ já existir, exibe uma mensagem de erro
+    echo '<script>alert("Já existe uma ILPI cadastrada com este CNPJ. Por favor, verifique as informações e tente novamente.");</script>';
+}
 
 //gravamos os dados do usuário no banco
 $sql = "INSERT $nomeDaTabela1 VALUES(
@@ -37,11 +49,14 @@ $sql = "INSERT $nomeDaTabela1 VALUES(
              '$checkboxValue4',
              '$equipe',
              '$estrutura',
-             '$atvdSemanal')";
+             '$atvdSemanal',
+             '$custoVaga')";
 $conexao->query($sql) or die($conexao->error);
 
-// Inserindo dados na tabela usuarios
+// Senha a partir do CNPJ (apenas para exemplo)
 $senha = password_hash($cnpj, PASSWORD_ARGON2I);
+
+// Inserir dados na tabela de usuários, incluindo o ID aleatório gerado
 $sql_usuarios = "INSERT INTO usuarios (cnpj_ilpi, email, senha_hash, usuario_admin, primeiro_acesso) VALUES ('$cnpj', '$email', '$senha', 0, 1)";
 $conexao->query($sql_usuarios) or die($conexao->error);
 

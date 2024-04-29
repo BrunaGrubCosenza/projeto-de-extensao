@@ -15,6 +15,7 @@ $checkboxValue4 = trim($conexao->escape_string(isset($_POST['opcao4']) ? 1 : 0))
 $equipe = trim($conexao->escape_string($_POST['equipe']));
 $estrutura = trim($conexao->escape_string($_POST['estrutura']));
 $atvdSemanal = trim($conexao->escape_string($_POST['atvdSemanal']));
+$custoVaga = trim($conexao->escape_string($_POST['custoVaga']));
 $cnpjAtual = $_POST['cnpjAtual'];
 
 $sql = "UPDATE $nomeDaTabela1 SET 
@@ -34,7 +35,8 @@ $sql = "UPDATE $nomeDaTabela1 SET
             `convenio_publico_municipal` = '$checkboxValue4',
             `equipe_tecnica` = '$equipe',
             `estrutura_fisica` = '$estrutura',
-            `atividades_semanais` = '$atvdSemanal'
+            `atividades_semanais` = '$atvdSemanal',
+            `custo_vaga` = '$custoVaga'
             WHERE `cnpj` = '$cnpjAtual'
             ";
 
