@@ -18,6 +18,7 @@ $atvdSemanal = trim($conexao->escape_string($_POST['atvdSemanal']));
 $cnpjAtual = $_POST['cnpjAtual'];
 
 $sql = "UPDATE $nomeDaTabela1 SET 
+            `cnpj` = '$cnpj',
             `nome` = '$nomeIlpi',
             `endereco` = '$endereco',
             `municipio` = '$municipio',
@@ -38,13 +39,26 @@ $sql = "UPDATE $nomeDaTabela1 SET
             ";
 
 if ($conexao->query($sql) === TRUE) {
-    echo "<script>
-    setTimeout(function() {
-        window.location.href = '../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpjAtual';
-    }, 200); // Atraso para não dar erro
-  </script>";
-exit();
+
+    $sql2 = "UPDATE $nomeDaTabela2 SET 
+            `cnpj_ilpi` = '$cnpj'
+            /*O e-mail deve ser atualizado também, mas ele dá problema na foreign key `email` = '$email'*/
+            WHERE `cnpj_ilpi` = '$cnpjAtual'
+            ";
+    
+    if ($conexao->query($sql2) === TRUE) {
+        echo "<script>
+                setTimeout(function() {
+                    window.location.href = '../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj';
+                }, 200); // Atraso para não dar erro
+            </script>";
+        exit();
+    } else {
+        echo "Erro ao atualizar a tabela $nomeDaTabela2: " . $conexao->error;
+        exit();
+    }
+
 } else {
-    echo "Erro ao atualizar os dados: " . $conexao->error;
+    echo "Erro ao atualizar a tabela $nomeDaTabela1: " . $conexao->error;
+    exit();
 }
-?>

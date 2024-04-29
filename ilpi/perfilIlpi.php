@@ -40,17 +40,28 @@
     $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
   }
 
-  if (isset($_SESSION['cnpj_ilpi'])) {
-    require "../includes/dados-conexao.inc.php";
-    require "../includes/conectar.inc.php";
-    require "../includes/abrir-banco.inc.php";
-    require "../includes/definir-charset.inc.php";
-    $cnpjAtual = $_SESSION['cnpj_ilpi'];
+  require "../includes/dados-conexao.inc.php";
+  require "../includes/conectar.inc.php";
+  require "../includes/abrir-banco.inc.php";
+  require "../includes/definir-charset.inc.php";
 
-    $sql = "SELECT id FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
+  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editar'])) {
+    // Se o formulário de edição foi enviado, usamos os dados do formulário
+    $cnpjAtual = $_POST['cnpjAtual'];
+  } elseif(isset($_SESSION['cnpj_ilpi'])) {
+    // Se não estamos lidando com um envio de formulário, mas a sessão cnpj_ilpi está definida, então podemos carregar o perfil normalmente
+    $cnpjAtual = $_SESSION['cnpj_ilpi'];
+}
+
+  if (isset($_SESSION['cnpj_ilpi'])) {
+
+    
+
+    /*$sql = "SELECT id FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
     $resultado = $conexao->query($sql);
-    $vetorRegistro = $resultado->fetch_array();
-    $id = $vetorRegistro['id'];
+    $vetor = $resultado->fetch_array();
+    $id = $vetor['id'];*/
+    $id = null;
     if($usuario_admin==1){
       echo '<div id="idIlpi" title="Caso a ILPI precise trocar sua senha, ela precisará entrar em contato para saber qual seu ID">ID: ', $id, '</div>';
     }
@@ -145,30 +156,30 @@
               <div class='div-perfil'> 
                 <span class='titulos-perfil'>Convênios</span>
                 <div class='input-perfil convenios'>";
-    echo $privada == 1 ? '-Privada<br>' : '';
-    echo $filantropica == 1 ? '-Filantrópica<br>' : '';
-    echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
-    echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
-    if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
-      echo "Não há convênios";
-    }
-    echo "</div>
-              </div>
+                  echo $privada == 1 ? '-Privada<br>' : '';
+                  echo $filantropica == 1 ? '-Filantrópica<br>' : '';
+                  echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
+                  echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
+                  if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
+                    echo "Não há convênios";
+                  }
+                  echo "</div>
+                </div>
 
-              <div class='div-perfil'> 
-                <span class='titulos-perfil'>Equipe técnica</span> 
-                <textarea id='equipe_tecnica' class='textarea input-perfil input-text-perfil' disabled>", $equipe_tecnica, "</textarea>
-              </div>
+                <div class='div-perfil'> 
+                  <span class='titulos-perfil'>Equipe técnica</span> 
+                  <textarea id='equipe_tecnica' class='textarea input-perfil input-text-perfil' disabled>", $equipe_tecnica, "</textarea>
+                </div>
 
-              <div class='div-perfil'> 
-                <span class='titulos-perfil'>Estrutura Física</span> 
-                <textarea id='estrutura_fisica' class='textarea input-perfil input-text-perfil' disabled>", $estrutura_fisica, "</textarea>
-              </div>
+                <div class='div-perfil'> 
+                  <span class='titulos-perfil'>Estrutura Física</span> 
+                  <textarea id='estrutura_fisica' class='textarea input-perfil input-text-perfil' disabled>", $estrutura_fisica, "</textarea>
+                </div>
 
-              <div class='div-perfil'> 
-                <span class='titulos-perfil'>Atividades Semanais</span>
-                <textarea id='atividades_semanais' class='textarea input-perfil input-text-perfil' disabled>", $atividades_semanais, "</textarea>
-              </div>
+                <div class='div-perfil'> 
+                  <span class='titulos-perfil'>Atividades Semanais</span>
+                  <textarea id='atividades_semanais' class='textarea input-perfil input-text-perfil' disabled>", $atividades_semanais, "</textarea>
+                </div>
             </div>
           </section>
         </div>
@@ -182,8 +193,8 @@
           <div class='modal-body'>
             <form id='formEditarPerfil' action='perfilIlpi.php' method='post'>
               <input type='hidden' name='cnpjAtual' value='", $cnpjAtual, "'>
-              <label class='alinha' title='Não pode ser alterado'> CNPJ: </label>
-              <input type='text' name='cnpj' value='", $cnpj, "' required disabled title='Não pode ser alterado'><span title='Preenchimento obrigatório'> *</span> <br>
+              <label class='alinha' > CNPJ: </label>
+              <input type='text' name='cnpj' value='", $cnpj, "' required><span title='Preenchimento obrigatório'> *</span> <br>
 
               <label class='alinha'> Nome: </label>
               <input type='text' name='nome' value='", $nome, "' required><span title='Preenchimento obrigatório'> *</span> <br>        
@@ -261,6 +272,7 @@
 
   if (isset($_POST['editar'])) {
 
+    $cnpj = $_POST['cnpj'];
     $nome = $_POST['nome'];
     $endereco = $_POST['endereco'];
     $municipio = $_POST['municipio'];
