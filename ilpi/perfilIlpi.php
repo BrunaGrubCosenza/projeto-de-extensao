@@ -57,11 +57,10 @@
 
     
 
-    /*$sql = "SELECT id FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
+    $sql = "SELECT id FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
     $resultado = $conexao->query($sql);
     $vetor = $resultado->fetch_array();
-    $id = $vetor['id'];*/
-    $id = null;
+    $id = $vetor['id'];
     if($usuario_admin==1){
       echo '<div id="idIlpi" title="Caso a ILPI precise trocar sua senha, ela precisará entrar em contato para saber qual seu ID">ID: ', $id, '</div>';
     }
@@ -150,23 +149,23 @@
               <div id='vagas_disponiveis' class='input-perfil'>", $vagas_disponiveis, "</div>
             </div>
 
+            <div class='div-perfil'> 
+              <span class='titulos-perfil'>Convênios</span>
+              <div class='input-perfil convenios'>";
+                echo $privada == 1 ? '-Privada<br>' : '';
+                echo $filantropica == 1 ? '-Filantrópica<br>' : '';
+                echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
+                echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
+                if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
+                  echo "Não há convênios";
+                }
+                echo "</div>
+              </div>
+
           </div>
           </section>
           <section class='perfil-ilpi-right'>
             <div>
-              <div class='div-perfil'> 
-                <span class='titulos-perfil'>Convênios</span>
-                <div class='input-perfil convenios'>";
-                  echo $privada == 1 ? '-Privada<br>' : '';
-                  echo $filantropica == 1 ? '-Filantrópica<br>' : '';
-                  echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
-                  echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
-                  if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
-                    echo "Não há convênios";
-                  }
-                  echo "</div>
-                </div>
-
                 <div class='div-perfil'> 
                   <span class='titulos-perfil'>Equipe técnica</span> 
                   <textarea id='equipe_tecnica' class='textarea input-perfil input-text-perfil' disabled>", $equipe_tecnica, "</textarea>
@@ -177,22 +176,15 @@
                   <textarea id='estrutura_fisica' class='textarea input-perfil input-text-perfil' disabled>", $estrutura_fisica, "</textarea>
                 </div>
 
-<<<<<<< HEAD
                 <div class='div-perfil'> 
                   <span class='titulos-perfil'>Atividades Semanais</span>
                   <textarea id='atividades_semanais' class='textarea input-perfil input-text-perfil' disabled>", $atividades_semanais, "</textarea>
                 </div>
-=======
-              <div class='div-perfil'> 
-                <span class='titulos-perfil'>Atividades Semanais</span>
-                <textarea id='atividades_semanais' class='textarea input-perfil input-text-perfil' disabled>", $atividades_semanais, "</textarea>
-              </div>
 
               <div class='div-perfil'> 
-                <span class='titulos-perfil'>Atividades Semanais</span>
+                <span class='titulos-perfil'>Custo Mensal por Vaga</span>
                 <textarea id='custo_vaga' class='textarea input-perfil input-text-perfil' disabled>", $custo_vaga, "</textarea>
               </div>
->>>>>>> 5c776428e75b81da9e5e216993595cc510d7ffb9
             </div>
           </section>
         </div>
