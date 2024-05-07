@@ -371,13 +371,13 @@ input, button {
 
   /**** Perfil Ilpi ***/
   .h2-titulo{
-    margin: 20px 180px; 
+    margin: 35px 180px 10px; 
     color: var(--color10);
     font-size: 26px;
   }
 
   .perfil-ilpi{
-    margin: 30px 160px;
+    margin: 10px 160px;
     display: flex;
     flex-wrap: wrap; 
     justify-content: space-between;
@@ -393,7 +393,7 @@ input, button {
     width: 401px;
     margin: auto;
   }
-
+  
   .div-perfil{
     display: flex;
     flex-direction: column;
@@ -495,7 +495,7 @@ input, button {
 /*botões*/
 button#btnEditarPerfil {
   position: absolute;
-  top: 122px;
+  top: 135px;
   right: 160px;
   background-color: var(-color7);
 }
@@ -595,8 +595,20 @@ button#btnEditarPerfil {
   color: var(--color4);
   font-weight: 600;
   position: relative;
-  bottom: 16px;
+  bottom: 8px;
   left: 180px;
+  width: 200px;
+}
+
+#aviso-primeiro-acesso{
+  font-size: 16px;
+  color: red;
+  font-weight: 600;
+  position: relative;
+  bottom: 10px;
+  left: 180px;
+  margin-top: 10px;
+  width: 400px;
 }
 
 
@@ -614,11 +626,17 @@ button#btnEditarPerfil {
   }
   .perfil-ilpi{
     flex-direction: column;
+    margin-top: 40px;
   }
   #modalEditarPerfil {
     width: 700px;
     .botao-modal.salvar {
       margin-left: 160px;
     }
+  }
+  button#btnEditarPerfil {
+    position: absolute;
+    top: 250px;
+    left: 180px;
   }
 }

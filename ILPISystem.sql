@@ -37,9 +37,6 @@ senha_hash varchar(200) not null,
 usuario_admin boolean
 ) engine = innodb;
 
-CREATE INDEX idx_email ON ILPI(email);
-alter table usuarios add constraint fk_ilpi_email foreign key (email) references ilpi(email);
-
 INSERT INTO usuarioAdmin (email, senha_hash, usuario_admin) 
 VALUES ('teste@email.com', '$argon2i$v=19$m=12,t=3,p=1$bW96eGtzZHA4c2EwMDAwMA$wjavWle25i/PaAqSZukvCQ', 1);
 

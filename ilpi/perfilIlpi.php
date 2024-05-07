@@ -30,10 +30,7 @@
       }
     ?>
 
-  </header>
-
-  <h2 class="h2-titulo"> Perfil </h2>
-  
+  </header> 
 
   <?php
   if (isset($_GET['cnpj_ilpi'])) {
@@ -54,17 +51,6 @@
 }
 
   if (isset($_SESSION['cnpj_ilpi'])) {
-
-    
-
-    $sql = "SELECT id FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
-    $resultado = $conexao->query($sql);
-    $vetor = $resultado->fetch_array();
-    $id = $vetor['id'];
-    if($usuario_admin==1){
-      echo '<div id="idIlpi" title="Caso a ILPI precise trocar sua senha, ela precisará entrar em contato para saber qual seu ID">ID: ', $id, '</div>';
-    }
-
 
     $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
     $resultado = $conexao->query($sql);
@@ -93,15 +79,26 @@
       }
     }
 
+    //Cabeçalho
+    echo "<h2 class='h2-titulo'>", $nome, "</h2>";
+    $sql = "SELECT id, primeiro_acesso FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
+    $resultado = $conexao->query($sql);
+    $vetor = $resultado->fetch_array();
+    $id = $vetor['id'];
+    $primeiro_acesso = $vetor['primeiro_acesso'];
+    if($usuario_admin==1){
+      echo '<div id="idIlpi" title="Caso a ILPI precise trocar sua senha, ela pode entrar em contato para perguntar acerca do Id deste perfil.">Id: ', $id, '</div>';
+      if($primeiro_acesso==1){
+        echo '<div id="aviso-primeiro-acesso"> Esta ILPI ainda não realizou seu primeiro acesso. <br> Portanto, alguns dados podem estar desatualizados. </div>';
+      }
+    } else{
+      echo '<div id="idIlpi" title="O Id é essencial caso precise trocar sua senha de acesso, pode ser interessante anotá-lo!">Id: ', $id, '</div>';
+    }
+
     echo "
         <div class='perfil-ilpi'>
           <section class='perfil-ilpi-left'>
           <div>
-
-            <div class='div-perfil'> 
-              <span class='titulos-perfil'>Nome</span> 
-              <div id='nome' class='input-perfil'>", $nome, "</div>
-            </div>
 
             <div class='div-perfil'> 
               <span class='titulos-perfil'>CNPJ</span> 

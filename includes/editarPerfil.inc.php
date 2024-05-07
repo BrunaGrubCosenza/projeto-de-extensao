@@ -43,8 +43,8 @@ $sql = "UPDATE $nomeDaTabela1 SET
 if ($conexao->query($sql) === TRUE) {
 
     $sql2 = "UPDATE $nomeDaTabela2 SET 
-            `cnpj_ilpi` = '$cnpj'
-            /*O e-mail deve ser atualizado também, mas ele dá problema na foreign key `email` = '$email'*/
+            `cnpj_ilpi` = '$cnpj',
+            `email` = '$email'
             WHERE `cnpj_ilpi` = '$cnpjAtual'
             ";
     
