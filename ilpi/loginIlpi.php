@@ -11,7 +11,7 @@
   <header>
     <img class="img-header" src="../logo.png"
       alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-      <a href="../direcionamentoLogin.php"><button class="voltar">Voltar</button></a>
+    <a href="../direcionamentoLogin.php"><button class="voltar">Voltar</button></a>
   </header>
 
   <h1> Login </h1>
@@ -36,8 +36,6 @@
   if (isset($_POST['recuperarSenha'])) {
     header("location: ./EsqueciASenha.php");
   }
-
-  session_start();
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
   require "../includes/abrir-banco.inc.php";
@@ -46,7 +44,7 @@
   if (isset($_POST["logar"])) {
     // Verifica se houve erro na conexão
     if ($conexao->connect_error) {
-        die("Conexão falhou: " . $conexao->connect_error);
+      die("Conexão falhou: " . $conexao->connect_error);
     }
 
     // Escapa os caracteres especiais para evitar injeção de SQL
@@ -61,8 +59,8 @@
 
     $vetorRegistro = $resultado->fetch_array();
     if (!isset($vetorRegistro)) {
-        echo "<p>Login ou senha incorretos. Tente novamente.</p>";
-        exit();
+      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+      exit();
     }
 
     $senhaCriptografada = $vetorRegistro['senha_hash'];
@@ -71,28 +69,28 @@
     $usuario_admin = $vetorRegistro['usuario_admin'];
 
     if ($senhaCorreta) {
-        $cnpj_ilpi = $vetorRegistro['cnpj_ilpi'];
+      $cnpj_ilpi = $vetorRegistro['cnpj_ilpi'];
 
-        // Se for o primeiro acesso, redirecione para a página de alteração de senha
-        if ($primeiroAcesso == true) {
-            session_start();
-            $_SESSION['primeiro_acesso'] = true;
-            $_SESSION['email'] = $email;
-            header("location: atualizarSenha.php");
-            exit();
-        } else {
-            // Se não for o primeiro acesso, entre no sistema
-            session_start();
-            $_SESSION['conectado'] = true;
-            $_SESSION['usuario_admin'] = $usuario_admin;
-            header("location: perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi");
-            exit();
-        }
+      // Se for o primeiro acesso, redirecione para a página de alteração de senha
+      if ($primeiroAcesso == true) {
+        session_start();
+        $_SESSION['primeiro_acesso'] = true;
+        $_SESSION['email'] = $email;
+        header("location: atualizarSenha.php");
+        exit();
+      } else {
+        // Se não for o primeiro acesso, entre no sistema
+        session_start();
+        $_SESSION['conectado'] = true;
+        $_SESSION['usuario_admin'] = $usuario_admin;
+        header("location: perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi");
+        exit();
+      }
     } else {
-        echo "<p>Login ou senha incorretos. Tente novamente.</p>";
+      echo "<p>Login ou senha incorretos. Tente novamente.</p>";
     }
     // Verifica se a senha fornecida corresponde ao hash no banco de dados
-}
+  }
 
 
   // Fecha a conexão com o banco de dados

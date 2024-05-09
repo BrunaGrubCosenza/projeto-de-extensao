@@ -1,3 +1,6 @@
+<?php
+require_once "../includes/valida-acesso.inc.php";
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 

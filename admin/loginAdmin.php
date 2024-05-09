@@ -43,7 +43,6 @@
 
 
   <?php
-  session_start();
   require "../includes/dados-conexao.inc.php";
   require "../includes/conectar.inc.php";
   require "../includes/abrir-banco.inc.php";
@@ -74,11 +73,11 @@
     }
     $senhaCriptografada = $vetorRegistro['senha_hash'];
     $senhaCorreta = password_verify($senha, $senhaCriptografada);
-    $usuario_admin= $vetorRegistro['usuario_admin'];
+    $usuario_admin = $vetorRegistro['usuario_admin'];
     if ($senhaCorreta) {
       session_start();
       $_SESSION['conectado'] = true;
-      $_SESSION['usuario_admin'] = $usuario_admin;
+      $_SESSION['usuario_admin'] = $usuario_admin == 1;
       header("location: homeAdmin.php");
       exit();
     } else {

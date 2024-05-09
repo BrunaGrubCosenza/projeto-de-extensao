@@ -3,28 +3,28 @@
 *,
 *::before,
 *::after {
-/**** Usar variáveis para as cores que iremos utilizar! ****/
---color1: rgb(255, 255, 255);
---color2: rgb(216, 209, 209);
---color3: rgba(64, 100, 52, 0.753);
+  /**** Usar variáveis para as cores que iremos utilizar! ****/
+  --color1: rgb(255, 255, 255);
+  --color2: rgb(216, 209, 209);
+  --color3: rgba(64, 100, 52, 0.753);
 
---color4: #777;
---color5: #f2f2f2;
---color6: #f9f9f9;
---color7: #edecec;
---color8: #ddd;
---color10: rgb(66, 63, 63);
---color13: #ccc;
+  --color4: #777;
+  --color5: #f2f2f2;
+  --color6: #f9f9f9;
+  --color7: #edecec;
+  --color8: #ddd;
+  --color10: rgb(66, 63, 63);
+  --color13: #ccc;
 
---color9: rgb(197, 204, 218);
---color11: #a3b99d;
---color12: rgb(47, 47, 208);
+  --color9: rgb(197, 204, 218);
+  --color11: #a3b99d;
+  --color12: rgb(47, 47, 208);
 }
 
 body {
- font-family: "Roboto";
- margin: 0;
- font-size: 22px;
+  font-family: "Roboto";
+  margin: 0;
+  font-size: 22px;
 }
 
 h1 {
@@ -32,57 +32,63 @@ h1 {
   text-align: center;
   margin: 0 auto;
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
- }
+}
 
 /**** HEADER ****/
-header{
- display: flex;
- flex-direction: row;
- background: linear-gradient(var(--color1), var(--color2));
- margin: 0;
- width: 100%;
- height: 4.8em;
- border-bottom: 1px solid var(--color8);
- align-items: center;
- justify-content: space-between;
- a i {
-  color: var(--color10);
- }
+header {
+  display: flex;
+  flex-direction: row;
+  background: linear-gradient(var(--color1), var(--color2));
+  margin: 0;
+  width: 100%;
+  height: 4.8em;
+  border-bottom: 1px solid var(--color8);
+  align-items: center;
+  justify-content: space-between;
+
+  a i {
+    color: var(--color10);
+  }
 }
 
-.img-header{
- width: 200px;
- height: 155px;
- margin-left: 20px;
+.img-header {
+  width: 200px;
+  height: 155px;
+  margin-left: 20px;
 }
 
-.nav-header{
- margin-right: 40px;
+.nav-header {
+  margin-right: 40px;
 }
 
 
 
 /**** Cadastrar Ilpi****/
-.botao-cadastrar-ilpi{
+.botao-cadastrar-ilpi {
   border-radius: 25px;
   display: block;
   margin: 20px auto;
   border: none;
   height: 50px;
-  background-color:var(--color13);
+  background-color: var(--color13);
 }
-.botao-cadastrar-ilpi:hover{
+
+.botao-cadastrar-ilpi:hover {
   background-color: var(--color4);
 }
 
-.section-dados-gerais, .section-cadastro-ilpi{
+.section-dados-gerais,
+.section-cadastro-ilpi {
   width: 90%;
   display: block;
   margin: 60px auto;
   color: var(--color10);
 }
 
-input[type='text'], input[type='email'], input[type='number'], input[type='password']{
+input[type='text'],
+input[type='email'],
+input[type='number'],
+input[type='password'] {
   border: 1px solid var(--color8);
   width: 350px;
   min-height: 26px;
@@ -92,14 +98,17 @@ input[type='text'], input[type='email'], input[type='number'], input[type='passw
   font-size: 18px;
   border-radius: 6px;
 }
-input[type='number']{
+
+input[type='number'] {
   font-size: 20px;
   width: 60px;
 }
-input[type='checkbox']{
+
+input[type='checkbox'] {
   width: auto;
 }
-.textarea{
+
+.textarea {
   border: 1px solid var(--color8);
   color: var(--color10);
   margin-top: 5px;
@@ -113,71 +122,73 @@ input[type='checkbox']{
   font-family: "Roboto";
 }
 
-.h1-estilizado{
+.h1-estilizado {
   text-align: center;
   font-size: 30px;
   color: var(--color10);
   margin-top: 26px;
-  }
+}
 
 fieldset {
- width: 70%;
- margin: 10px auto 80px;
- padding-top: 50px;
- padding-left: 90px;
- padding-right: 90px;
- border-radius: 10px;
- background-color: var(--color5);
- border: none;
- box-sizing: border-box;
+  width: 70%;
+  margin: 10px auto 80px;
+  padding-top: 50px;
+  padding-left: 90px;
+  padding-right: 90px;
+  border-radius: 10px;
+  background-color: var(--color5);
+  border: none;
+  box-sizing: border-box;
 }
 
 label.alinha {
- font-size: 20px;
- font-weight: 600;
- width: 350px;
- display: block;
- margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 350px;
+  display: block;
+  margin-bottom: 5px;
 }
-label.checkbox{
+
+label.checkbox {
   font-size: 18px;
 }
 
-input, button {
+input,
+button {
   font-family: "Roboto";
   color: var(--color10);
- }
- 
- button {
+}
+
+button {
   font-size: 20px;
   font-weight: bold;
   width: 250px;
   height: 40px;
-  
- }
- 
- p {
+
+}
+
+p {
   width: 50%;
   border: 1px solid var(--color4);
   margin: 20px auto;
   text-align: center;
   background: var(--color5);
   border-radius: 15px;
- }
- 
- input.alinha-botao{
-     width: 50px;  
- }
+}
+
+input.alinha-botao {
+  width: 50px;
+}
 
 
 /****  Home Perfil Administrativo   ****/
-.div-botoes-home{
+.div-botoes-home {
   width: 100%;
   margin: 70px auto;
   text-align: center;
 }
 
-.botoes-home{
+.botoes-home {
   font-size: 30px;
   color: var(--color10);
   text-align: center;
@@ -190,256 +201,277 @@ input, button {
   border-radius: 15px;
 }
 
-.botoes-home:hover{
+.botoes-home:hover {
   background-color: var(--color4);
 }
 
 
 /**** Tabela Dados Gerais   ****/
-.section-dados-gerais{
-  .h1-estilizado{
+.section-dados-gerais {
+  .h1-estilizado {
     text-align: left;
   }
 }
+
 .tabela-dados-gerais {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 5px auto;
-    font-family: 'Roboto';
-  }
+  border-collapse: collapse;
+  width: 100%;
+  margin: 5px auto;
+  font-family: 'Roboto';
+}
 
-  .tabela-dados-gerais td{
-    padding: 18px;
-    font-size: 14px;
-  }
+.tabela-dados-gerais td {
+  padding: 18px;
+  font-size: 14px;
+}
 
-  .tabela-dados-gerais th, .tabela-dados-gerais td {
-    border: 1px solid var(--color8);
-    padding: 20px;
-    text-align: left;
-  }
+.tabela-dados-gerais th,
+.tabela-dados-gerais td {
+  border: 1px solid var(--color8);
+  padding: 20px;
+  text-align: left;
+}
 
-  .tabela-dados-gerais th {
-    background-color: var(--color5);
-    font-size: 15px;
-  }
+.tabela-dados-gerais th {
+  background-color: var(--color5);
+  font-size: 15px;
+}
 
-  .tabela-dados-gerais tr:nth-child(even) {
-    background-color: var(--color6);
-  }
+.tabela-dados-gerais tr:nth-child(even) {
+  background-color: var(--color6);
+}
 
-  .tabela-dados-gerais tr:hover {
-    background-color: var(--color7);
-  }
+.tabela-dados-gerais tr:hover {
+  background-color: var(--color7);
+}
 
-  .tabela-dados-gerais thead {
-    position: sticky;
-    top: 0px;
-    z-index: 1;
-    background-color: var(--color5);
-  }
+.tabela-dados-gerais thead {
+  position: sticky;
+  top: 0px;
+  z-index: 1;
+  background-color: var(--color5);
+}
 
-  .link-tabela-dados-gerais{
-    padding: 12px;
-    a{
-      color: var(--color12);
-      font-style: none;
+.link-tabela-dados-gerais {
+  padding: 12px;
+
+  a {
+    color: var(--color12);
+    font-style: none;
+  }
+}
+
+.link-tabela-dados-gerais:hover {
+  background-color: var(--color13);
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+/*Filtros tabela dados gerais*/
+section.filtros {
+  width: 100%;
+  height: 60px;
+  background-color: var(--color11);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-bottom: 1px solid var(--color8);
+}
+
+input#filtro {
+  margin: 0;
+  min-height: 20px;
+  width: 300px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.select-container {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+select {
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+select#municipio {
+  width: 250px;
+}
+
+select#convenio {
+  width: 160px;
+}
+
+button#ordenarVagas {
+  width: 200px;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--color1);
+  font-size: 16px;
+}
+
+button#ordenarVagas:hover {
+  background-color: var(--color7);
+  cursor: pointer;
+}
+
+/* exclusão / modal */
+span#spanExcluir {
+  position: absolute;
+  top: 240px;
+  left: 300px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: underline;
+  color: red;
+}
+
+span#spanExcluir:hover {
+  color: rgb(216, 8, 8);
+  cursor: pointer;
+}
+
+div#modalExcluir {
+  position: fixed;
+  width: 450px;
+  height: 310px;
+  background-color: var(--color6);
+  padding: 0 !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  border-radius: 10px;
+
+  .modal-body {
+    padding: 10px !important;
+    margin: 0 !important;
+    text-align: center;
+
+    span {
+      font-size: 19px;
+    }
+
+    ul {
+      font-size: 18px;
+    }
+
+    .ilpisSelecionadas {
+      height: 150px;
+      width: 400px;
+      border: 0.4px solid var(--color8);
+      border-radius: 10px;
+      overflow-y: auto;
+      margin: 15px auto;
+      text-align: start;
+    }
+
+    div {
+      display: flex;
     }
   }
-  .link-tabela-dados-gerais:hover{
-    background-color: var(--color13);
-    cursor: pointer;
-    border-radius: 10px;
-  }
+}
 
-  /*Filtros tabela dados gerais*/
-  section.filtros {
-    width: 100%;
-    height: 60px;
-    background-color: var(--color11);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    border-bottom: 1px solid var(--color8);
-  } 
+#btnConfirmarExclusao {
+  background-color: #61be1e;
+  color: var(--color1);
+}
 
-  input#filtro {
-    margin: 0;
-    min-height: 20px;
-    width: 300px;
-    border-radius: 10px;
+#btnConfirmarExclusao:hover {
+  background-color: #56af16;
+  cursor: pointer;
+}
+
+#btnCancelarExclusao {
+  background-color: red;
+  color: var(--color1);
+}
+
+#btnCancelarExclusao:hover {
+  background-color: rgb(216, 8, 8);
+  cursor: pointer;
+}
+
+/**** Perfil Ilpi ***/
+.h2-titulo {
+  margin: 35px 180px 10px;
+  color: var(--color10);
+  font-size: 26px;
+}
+
+.perfil-ilpi {
+  margin: 10px 160px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  color: var(--color10);
+  padding-bottom: 130px;
+}
+
+section.perfil-ilpi-left,
+.perfil-ilpi-right {
+  width: 50%;
+  text-align: center;
+}
+
+.perfil-ilpi-right div,
+.perfil-ilpi-left div {
+  width: 401px;
+  margin: auto;
+}
+
+.div-perfil {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.titulos-perfil {
+  font-size: 18px;
+  font-weight: bold;
+  width: 250px;
+  display: flex;
+  justify-content: flex-start;
+  margin: 15px 0 5px 0;
+}
+
+.div-campo {
+  display: flex;
+
+  i {
     font-size: 15px;
-  }
-
-  .select-container{
-    font-size: 15px;
-    font-weight: 600;
-  }
-
-  select{
-    height: 30px;
-    border: none;
-    border-radius: 10px;
-    font-size: 14px;
-  }
-  select#municipio {
-    width: 250px;
-  }
-  select#convenio {
-    width: 160px;
-  }
-
-  button#ordenarVagas{
-    width: 200px;
-    border: none;
-    border-radius: 10px;
-    background-color: var(--color1);
-    font-size: 16px;
-  }
-  button#ordenarVagas:hover{
-    background-color: var(--color7);
+    margin-left: 5px;
     cursor: pointer;
+    color: var(--color10);
   }
 
-  /* exclusão / modal */
-  span#spanExcluir {
-    position: absolute;
-    top: 240px;
-    left: 300px;
-    font-size: 16px;
-    font-weight: 600;
-    text-decoration: underline;
+  i:hover {
     color: red;
   }
-  span#spanExcluir:hover {
-    color: rgb(216, 8, 8);
-    cursor: pointer;
-  }
-  div#modalExcluir{
-    position: fixed;
-    width: 450px;
-    height: 310px;
-    background-color: var(--color6);
-    padding: 0 !important;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000; 
-    border-radius: 10px;
-    .modal-body{
-      padding: 10px !important;
-      margin: 0 !important;
-      text-align: center;
-      span{
-        font-size: 19px;
-      }
-      ul{
-        font-size: 18px;
-      }
-      .ilpisSelecionadas{
-        height: 150px;
-        width: 400px;
-        border: 0.4px solid var(--color8);
-        border-radius: 10px;
-        overflow-y: auto;
-        margin: 15px auto;
-        text-align: start;
-      }
-      div {
-        display: flex;
-      }
-    }
-  }
-  
-  #btnConfirmarExclusao{
-    background-color: #61be1e;
-    color: var(--color1);
-  }
-  #btnConfirmarExclusao:hover{
-    background-color:#56af16;
-    cursor: pointer;
-  }
+}
 
-  #btnCancelarExclusao{
-    background-color: red;
-    color: var(--color1);
-  }  
-  #btnCancelarExclusao:hover{
-    background-color: rgb(216, 8, 8);
-    cursor: pointer;
-  }  
+.input-perfil {
+  box-sizing: border-box;
+  margin-top: 2px;
+  border: 1px solid var(--color13);
+  background-color: var(--color1);
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 16.5px;
+  min-height: 32px;
+  word-wrap: break-word;
+  width: 400px;
+  overflow-wrap: break-word;
+  text-align: left;
+}
 
-  /**** Perfil Ilpi ***/
-  .h2-titulo{
-    margin: 35px 180px 10px; 
-    color: var(--color10);
-    font-size: 26px;
-  }
-
-  .perfil-ilpi{
-    margin: 10px 160px;
-    display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between;
-    color: var(--color10);
-    padding-bottom: 130px;
-  }
-
-  section.perfil-ilpi-left, .perfil-ilpi-right{
-    width: 50%;
-    text-align: center;
-  }
-  .perfil-ilpi-right div, .perfil-ilpi-left div{
-    width: 401px;
-    margin: auto;
-  }
-  
-  .div-perfil{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  .titulos-perfil{
-    font-size: 18px;
-    font-weight: bold;
-    width: 250px;
-    display: flex;
-    justify-content: flex-start;
-    margin: 15px 0 5px 0;
-  }
-
-  .div-campo{
-    display: flex;
-    i{
-      font-size: 15px;
-      margin-left: 5px;
-      cursor: pointer;
-      color: var(--color10);
-    }
-    i:hover{
-      color: red;
-    }
-  }
-
-  .input-perfil{
-    box-sizing: border-box;
-    margin-top: 2px;
-    border: 1px solid var(--color13);
-    background-color: var(--color1);
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 16.5px;
-    min-height: 32px;
-    word-wrap: break-word;
-    width:400px;
-    overflow-wrap: break-word;
-    text-align: left;
-  }
-
-  .input-text-perfil{
-    min-height: 200px;
-  }
+.input-text-perfil {
+  min-height: 200px;
+}
 
 
 /*** Modal de edição ***/
@@ -452,11 +484,11 @@ input, button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1000; 
+  z-index: 1000;
   border-radius: 10px;
 }
 
-.modal-header{
+.modal-header {
   display: flex;
   justify-content: space-between;
   height: 40px;
@@ -464,7 +496,8 @@ input, button {
   line-height: 40px;
   background-color: var(--color5);
   border-radius: 10px;
-  span{
+
+  span {
     font-weight: 600;
     font-size: 22px;
     line-height: 40px;
@@ -487,8 +520,8 @@ input, button {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  backdrop-filter: blur(5px); 
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
   z-index: 999;
 }
 
@@ -499,25 +532,30 @@ button#btnEditarPerfil {
   right: 160px;
   background-color: var(-color7);
 }
-.botao-modal{
+
+.botao-modal {
   border: none;
   height: 40px;
   border-radius: 10px;
 }
-.botao-modal:hover{
+
+.botao-modal:hover {
   background-color: var(--color8);
 }
-.botao-modal.salvar{
+
+.botao-modal.salvar {
   width: 40%;
   margin-top: 20px;
   margin-left: 250px;
   color: white;
   background-color: #61be1e;
 }
-.salvar:hover{
+
+.salvar:hover {
   background-color: #56af16;
 }
-.botao-modal.fechar{
+
+.botao-modal.fechar {
   width: 40px;
 }
 
@@ -526,20 +564,23 @@ button#btnEditarPerfil {
 /* Estilos para centralizar os gráficos e colocá-los um ao lado do outro */
 .container-graficos {
   display: flex;
-  flex-direction: column; /* Empilhar os gráficos verticalmente */
-  align-items: center; /* Centralizar os gráficos horizontalmente */
+  flex-direction: column;
+  /* Empilhar os gráficos verticalmente */
+  align-items: center;
+  /* Centralizar os gráficos horizontalmente */
   margin-left: auto;
   margin-right: auto;
-  border: 0,5px solid var(--color4);
+  border: 0, 5px solid var(--color4);
   width: 30%;
-  background: linear-gradient(rgb(216, 209, 209, 0.4), rgb(255,255,255,0.4) );
+  background: linear-gradient(rgb(216, 209, 209, 0.4), rgb(255, 255, 255, 0.4));
   border-radius: 6px;
 }
 
 .grafico {
   width: 200px;
   height: 200px;
-  margin-bottom: 30px; /* Espaçamento entre os gráficos */
+  margin-bottom: 30px;
+  /* Espaçamento entre os gráficos */
 }
 
 #map {
@@ -549,23 +590,22 @@ button#btnEditarPerfil {
 
 .container-map {
   display: flex;
-  justify-content: center; /* Centralizar o mapa horizontalmente */
+  justify-content: center;
+  /* Centralizar o mapa horizontalmente */
 }
-#logoutButton {
- margin-right: 45px;
-}
+
 
 .voltar {
   margin-right: 45px;
 }
 
-.div-botoes-login-inicio{
+.div-botoes-login-inicio {
   width: 100%;
   margin: 70px auto;
   text-align: center;
 }
 
-.botoes-login{
+.botoes-login {
   font-size: 30px;
   color: var(--color10);
   text-align: center;
@@ -579,13 +619,14 @@ button#btnEditarPerfil {
 }
 
 
-#logout{
+.logout {
   text-decoration: none;
   color: var(--color10);
   font-weight: 600;
   margin-right: 20px;
 }
-#logout:hover{
+
+#logout:hover {
   color: var(--color4);
 }
 
@@ -600,7 +641,7 @@ button#btnEditarPerfil {
   width: 200px;
 }
 
-#aviso-primeiro-acesso{
+#aviso-primeiro-acesso {
   font-size: 16px;
   color: red;
   font-weight: 600;
@@ -614,26 +655,31 @@ button#btnEditarPerfil {
 
 /*RESPONSIVIDADE*/
 @media only screen and (max-width: 1200px) {
-  .div-botoes-home{
+  .div-botoes-home {
     width: 350px;
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: space-between; 
+    flex-wrap: wrap;
+    justify-content: space-between;
     flex-direction: column;
-    .botoes-home{
+
+    .botoes-home {
       margin-top: 30px;
     }
   }
-  .perfil-ilpi{
+
+  .perfil-ilpi {
     flex-direction: column;
     margin-top: 40px;
   }
+
   #modalEditarPerfil {
     width: 700px;
+
     .botao-modal.salvar {
       margin-left: 160px;
     }
   }
+
   button#btnEditarPerfil {
     position: absolute;
     top: 250px;

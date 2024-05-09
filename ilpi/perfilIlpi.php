@@ -1,3 +1,7 @@
+<?php
+require_once "../includes/valida-acesso.inc.php";
+?>
+
 <html lang="pt-BR">
 
 <head>
@@ -5,34 +9,41 @@
   <title> Perfil ILPI </title>
   <link rel="stylesheet" href="../css/estilo.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
   <header>
-    
-    <img class="img-header" src="../logo.png" alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
+
+    <img class="img-header" src="../logo.png"
+      alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
     <?php
-      session_start();
-      if (isset($_SESSION["usuario_admin"])){
-        $usuario_admin = $_SESSION['usuario_admin'];
-      }
-      if($usuario_admin==1){
-        echo '
+    if (isset($_SESSION["usuario_admin"])) {
+      $usuario_admin = $_SESSION['usuario_admin'];
+    }
+    if ($usuario_admin == 1) {
+      echo '
           <nav class="nav-header">
             <a href="../admin/homeAdmin.php" style="margin-right: 15px"><i class="fa-solid fa-house"></i></a>
-            <button id="logoutButtonAdmin">Sair do sistema</button>
           </nav>
         ';
-      }
-      if($usuario_admin!=1) {
-        echo '<a href="loginIlpi.php" id="logout">Sair do sistema</a>';
-      }
+    }
+    if ($usuario_admin != 1) {
+      echo '<form method="post" action="">
+        <button name="logoutButtonIlpi" class="logout">Sair do Sistema</button>
+    </form>';
+    }
     ?>
 
-  </header> 
+  </header>
 
   <?php
+  if (isset($_POST['logoutButtonIlpi'])) {
+    session_destroy();
+    header('location: loginIlpi.php');
+  }
   if (isset($_GET['cnpj_ilpi'])) {
     $_SESSION['cnpj_ilpi'] = $_GET['cnpj_ilpi'];
   }
@@ -45,16 +56,16 @@
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['editar'])) {
     // Se o formulário de edição foi enviado, usamos os dados do formulário
     $cnpjAtual = $_POST['cnpjAtual'];
-  } elseif(isset($_SESSION['cnpj_ilpi'])) {
+  } elseif (isset($_SESSION['cnpj_ilpi'])) {
     // Se não estamos lidando com um envio de formulário, mas a sessão cnpj_ilpi está definida, então podemos carregar o perfil normalmente
     $cnpjAtual = $_SESSION['cnpj_ilpi'];
-}
+  }
 
   if (isset($_SESSION['cnpj_ilpi'])) {
 
     $sql = "SELECT * FROM $nomeDaTabela1 WHERE cnpj = '$cnpjAtual' ";
     $resultado = $conexao->query($sql);
-    
+
     //definido as variáveis 
     if ($resultado->num_rows > 0) {
       while ($row = $resultado->fetch_assoc()) {
@@ -86,12 +97,12 @@
     $vetor = $resultado->fetch_array();
     $id = $vetor['id'];
     $primeiro_acesso = $vetor['primeiro_acesso'];
-    if($usuario_admin==1){
+    if ($usuario_admin == 1) {
       echo '<div id="idIlpi" title="Caso a ILPI precise trocar sua senha, ela pode entrar em contato para perguntar acerca do Id deste perfil.">Id: ', $id, '</div>';
-      if($primeiro_acesso==1){
+      if ($primeiro_acesso == 1) {
         echo '<div id="aviso-primeiro-acesso"> Esta ILPI ainda não realizou seu primeiro acesso. <br> Portanto, alguns dados podem estar desatualizados. </div>';
       }
-    } else{
+    } else {
       echo '<div id="idIlpi" title="O Id é essencial caso precise trocar sua senha de acesso, pode ser interessante anotá-lo!">Id: ', $id, '</div>';
     }
 
@@ -149,14 +160,14 @@
             <div class='div-perfil'> 
               <span class='titulos-perfil'>Convênios</span>
               <div class='input-perfil convenios'>";
-                echo $privada == 1 ? '-Privada<br>' : '';
-                echo $filantropica == 1 ? '-Filantrópica<br>' : '';
-                echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
-                echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
-                if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
-                  echo "Não há convênios";
-                }
-                echo "</div>
+    echo $privada == 1 ? '-Privada<br>' : '';
+    echo $filantropica == 1 ? '-Filantrópica<br>' : '';
+    echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
+    echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
+    if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
+      echo "Não há convênios";
+    }
+    echo "</div>
               </div>
 
           </div>
@@ -312,15 +323,15 @@
     });
 
 
-     // Adicionando evento de clique - logout
-     document.getElementById('logoutButtonAdmin').addEventListener('click', function() {
+    // Adicionando evento de clique - logout
+    document.getElementById('logoutButtonAdmin').addEventListener('click', function () {
       // Limpar a sessão do usuário ou realizar qualquer ação de logout necessária
       // Redirecionar para a página de login
       window.location.href = "../admin/loginAdmin.php";
     });
-    
-  </script> 
- 
+
+  </script>
+
 </body>
 
 </html>

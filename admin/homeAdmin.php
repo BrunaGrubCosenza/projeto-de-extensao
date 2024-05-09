@@ -1,3 +1,6 @@
+<?php
+require_once "../includes/valida-acesso.inc.php";
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -11,7 +14,9 @@
     <header>
         <img class="img-header" src="../logo.png"
             alt="Logo Secretaria da Assistencia Social, Mulher e Familia de Santa Catarina">
-        <button id="logoutButton">Sair do Sistema</button>
+        <form method="post" action="">
+            <button name="logoutButton" class="logout">Sair do Sistema</button>
+        </form>
     </header>
     <h1 class="h1-estilizado"> Perfil administrativo </h1>
 
@@ -22,16 +27,11 @@
             <button class="botoes-home" name="cadastro" type="submit">Cadastro de ILPIs</button>
         </div>
     </form>
-
-    <script>
-        document.getElementById('logoutButton').addEventListener('click', function () {
-            // Aqui você pode colocar a lógica para o logout, como limpar a sessão do usuário
-            // e redirecioná-lo para a página de login
-            window.location.href = "loginAdmin.php";
-        });
-    </script>
 </body>
 <?php
+if (!session_status()) {
+    header("location: ../direcionamentoLogin.php");
+}
 if (isset($_POST['indicadores'])) {
     header("location: ./indicadores.php");
 }
@@ -40,6 +40,10 @@ if (isset($_POST['cadastro'])) {
 }
 if (isset($_POST['dadosILPI'])) {
     header("location: ./paginaTabelaIlpi.php");
+}
+if (isset($_POST['logoutButton'])) {
+    session_destroy();
+    header('location: loginAdmin.php');
 }
 ?>
 
