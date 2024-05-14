@@ -1,5 +1,5 @@
 <?php
-require_once "../includes/valida-acesso.inc.php";
+require_once "../includes/valida-acesso-admin.inc.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -29,9 +29,6 @@ require_once "../includes/valida-acesso.inc.php";
     </form>
 </body>
 <?php
-if (!session_status()) {
-    header("location: ../direcionamentoLogin.php");
-}
 if (isset($_POST['indicadores'])) {
     header("location: ./indicadores.php");
 }

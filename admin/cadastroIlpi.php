@@ -1,5 +1,5 @@
 <?php
-require_once "../includes/valida-acesso.inc.php";
+require_once "../includes/valida-acesso-admin.inc.php";
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
