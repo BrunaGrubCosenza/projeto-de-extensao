@@ -25,7 +25,7 @@ require_once "../includes/valida-acesso.inc.php";
     </nav>
   </header>
 
-  <h1> Indicadores </h1>
+  <h1 class="h1-estilizado" style="font-size: 31px;"> Indicadores </h1>
 
   <!-- Div para os gráficos -->
   <div class="container-graficos">
@@ -35,6 +35,7 @@ require_once "../includes/valida-acesso.inc.php";
     </div>
   </div>
   </div>
+  <h1 class="h1-estilizado" style="font-size: 22px;"> Mapa de vagas disponíveis por município </h1>
   <!-- Div para envolver o mapa -->
   <div class="container-map">
     <div id="map"></div>

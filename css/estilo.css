@@ -572,11 +572,11 @@ button#btnEditarPerfil {
   margin-right: auto;
   border: 0, 5px solid var(--color4);
   width: 30%;
-  background: linear-gradient(rgb(216, 209, 209, 0.4), rgb(255, 255, 255, 0.4));
   border-radius: 6px;
 }
 
 .grafico {
+  margin-top: 10px;
   width: 200px;
   height: 200px;
   margin-bottom: 30px;
@@ -590,6 +590,7 @@ button#btnEditarPerfil {
 
 .container-map {
   display: flex;
+  margin-top: 10px;
   justify-content: center;
   /* Centralizar o mapa horizontalmente */
 }

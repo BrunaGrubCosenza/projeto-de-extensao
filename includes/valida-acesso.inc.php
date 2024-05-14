@@ -4,5 +4,5 @@
 
  if(!isset($_SESSION["conectado"]) OR $_SESSION["conectado"] != true)
   {
-  exit("<p> Acesso proibido. Faça o cadastro ou o login na aplicação! </p>");
+  exit("<p> Acesso proibido. <a href='../direcionamentoLogin.php'> Clique aqui para fazer o login! </a></p>");
   }

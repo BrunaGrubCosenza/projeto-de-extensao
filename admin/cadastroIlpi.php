@@ -29,7 +29,7 @@ require_once "../includes/valida-acesso.inc.php";
       <fieldset>
 
         <label class="alinha"> CNPJ: </label>
-        <input type="text" name="cnpj" required><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="cnpj" min="14"  max="18" required ><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> Nome da ILPI: </label>
         <input type="text" name="nome" autofocus required><span title="Preenchimento obrigatório"> *</span> <br>
@@ -37,17 +37,17 @@ require_once "../includes/valida-acesso.inc.php";
         <label class="alinha"> Endereço: </label>
         <input type="text" name="endereco"> <br>
 
-        <label class="alinha"> Municipio: </label>
-        <input type="text" name="municipio" required><span title="Preenchimento obrigatório"> *</span> <br>
+        <label class="alinha"> Município: <span style="font-size: 15px; color: grey;">(Obrigatório acentuação correta e primeiras letras maiúsculas.)</span> </label>
+        <input type="text" name="municipio" placeholder="Ex: São José" required><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> CEP: </label>
-        <input type="text" name="cep"> <br>
+        <input type="text" name="cep" min="8" max="9"> <br>
 
         <label class="alinha"> E-mail: </label>
         <input type="email" name="email" required><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> Telefone: </label>
-        <input type="text" name="telefone" required><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="telefone" max="20" required><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> Responsável: </label>
         <input type="text" name="responsavel"> <br>
@@ -73,17 +73,17 @@ require_once "../includes/valida-acesso.inc.php";
         </label><br>
         <br>
 
-        <label class="alinha"> Equipe Tecnica: </label>
-        <textarea class="textarea" name="equipe"></textarea> <br>
+        <label class="alinha"> Equipe Técnica: </label>
+        <textarea class="textarea" name="equipe" placeholder="Número de funcionários de cada função"></textarea> <br>
 
         <label class="alinha"> Estrutura Física: </label>
-        <textarea class="textarea" name="estrutura"></textarea> <br>
+        <textarea class="textarea" name="estrutura" placeholder="Detalhamento da estrutura do local"></textarea> <br>
 
         <label class="alinha"> Atividades Semanais: </label>
-        <textarea class="textarea" name="atvdSemanal"></textarea> <br>
+        <textarea class="textarea" name="atvdSemanal" placeholder="Programação de atividades realizadas na semana"></textarea> <br>
 
         <label class="alinha"> Custo Mensal por Vaga: </label>
-        <textarea class="textarea" name="custoVaga"></textarea> <br>
+        <textarea class="textarea" name="custoVaga" placeholder="Valor da mensalidade e diferentes planos"></textarea> <br>
 
         <div style="width: 100%">
           <button name="cadastrar" class="botao-cadastrar-ilpi"> Cadastrar </button>
