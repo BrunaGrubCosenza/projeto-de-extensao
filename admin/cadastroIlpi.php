@@ -12,6 +12,7 @@ require_once "../includes/valida-acesso-admin.inc.php";
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
 <body>
   <header>
     <img class="img-header" src="../logo.png"
@@ -28,16 +29,19 @@ require_once "../includes/valida-acesso-admin.inc.php";
       <fieldset>
 
         <label class="alinha"> CNPJ: </label>
-        <input type="text" name="cnpj" minlength="14"  maxlength="18" required ><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="cnpj" minlength="14" maxlength="18" required><span title="Preenchimento obrigatório">
+          *</span> <br>
 
         <label class="alinha"> Nome da ILPI: </label>
-        <input type="text" name="nome" autofocus required maxlength="200"><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="nome" autofocus required maxlength="200"><span title="Preenchimento obrigatório">
+          *</span> <br>
 
         <label class="alinha"> Endereço: </label>
         <input type="text" name="endereco" maxlength="200"> <br>
 
         <label class="alinha"> Município: </label>
-        <input type="text" name="municipio" placeholder="Ex: Florianópolis" required maxlength="100"><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="municipio" placeholder="Ex: Florianópolis" required maxlength="100"><span
+          title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> CEP: </label>
         <input type="text" name="cep" minlength="8" maxlength="9"> <br>
@@ -46,7 +50,8 @@ require_once "../includes/valida-acesso-admin.inc.php";
         <input type="email" name="email" required><span title="Preenchimento obrigatório" maxlength="255"> *</span> <br>
 
         <label class="alinha"> Telefone: </label>
-        <input type="text" name="telefone" minlength="8" maxlength="20" required><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="telefone" minlength="8" maxlength="20" required><span
+          title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> Responsável: </label>
         <input type="text" name="responsavel" maxlength="100"> <br>
@@ -79,10 +84,12 @@ require_once "../includes/valida-acesso-admin.inc.php";
         <textarea class="textarea" name="estrutura" placeholder="Detalhamento da estrutura do local"></textarea> <br>
 
         <label class="alinha"> Atividades Semanais: </label>
-        <textarea class="textarea" name="atvdSemanal" placeholder="Programação de atividades realizadas na semana"></textarea> <br>
+        <textarea class="textarea" name="atvdSemanal"
+          placeholder="Programação de atividades realizadas na semana"></textarea> <br>
 
         <label class="alinha"> Custo Mensal por Vaga: </label>
-        <textarea class="textarea" name="custoVaga" placeholder="Valor da mensalidade e diferentes planos"></textarea> <br>
+        <textarea class="textarea" name="custoVaga" placeholder="Valor da mensalidade e diferentes planos"></textarea>
+        <br>
 
         <div style="width: 100%">
           <button name="cadastrar" class="botao-cadastrar-ilpi"> Cadastrar </button>

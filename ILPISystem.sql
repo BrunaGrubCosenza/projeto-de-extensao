@@ -39,4 +39,3 @@ usuario_admin boolean
 
 INSERT INTO usuarioAdmin (email, senha_hash, usuario_admin) 
 VALUES ('teste@email.com', '$argon2i$v=19$m=12,t=3,p=1$bW96eGtzZHA4c2EwMDAwMA$wjavWle25i/PaAqSZukvCQ', 1);
-

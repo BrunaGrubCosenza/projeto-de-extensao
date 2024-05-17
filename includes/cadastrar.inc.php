@@ -20,7 +20,7 @@ $estrutura = trim($conexao->escape_string($_POST['estrutura']));
 $atvdSemanal = trim($conexao->escape_string($_POST['atvdSemanal']));
 $custoVaga = trim($conexao->escape_string($_POST['custoVaga']));
 
-// Consulta para verificar se o CNPJ já existe no banco de dados
+// Verificação do CNPJ existente
 $sql_check_cnpj = "SELECT COUNT(*) AS total FROM $nomeDaTabela1 WHERE cnpj = '$cnpj'";
 $result_check_cnpj = $conexao->query($sql_check_cnpj);
 $row_check_cnpj = $result_check_cnpj->fetch_assoc();
@@ -54,7 +54,8 @@ $sql = "INSERT $nomeDaTabela1 VALUES(
 $conexao->query($sql) or die($conexao->error);
 
 //ID Randômico de seis dígitos
-function generateRandomId() {
+function generateRandomId()
+{
     return str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
 }
 
