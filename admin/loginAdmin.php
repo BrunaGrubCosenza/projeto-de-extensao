@@ -88,7 +88,7 @@
 
 
   // Fecha a conexão com o banco de dados
-  $conexao->close();
+  require "../includes/desconectar.inc.php";
   ?>
 
 </body>

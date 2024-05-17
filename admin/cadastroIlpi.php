@@ -12,7 +12,6 @@ require_once "../includes/valida-acesso-admin.inc.php";
     integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-
 <body>
   <header>
     <img class="img-header" src="../logo.png"
@@ -29,28 +28,28 @@ require_once "../includes/valida-acesso-admin.inc.php";
       <fieldset>
 
         <label class="alinha"> CNPJ: </label>
-        <input type="text" name="cnpj" min="14"  max="18" required ><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="cnpj" minlength="14"  maxlength="18" required ><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> Nome da ILPI: </label>
-        <input type="text" name="nome" autofocus required><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="nome" autofocus required maxlength="200"><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> Endereço: </label>
-        <input type="text" name="endereco"> <br>
+        <input type="text" name="endereco" maxlength="200"> <br>
 
-        <label class="alinha"> Município: <span style="font-size: 15px; color: grey;">(Obrigatório acentuação correta e primeiras letras maiúsculas.)</span> </label>
-        <input type="text" name="municipio" placeholder="Ex: São José" required><span title="Preenchimento obrigatório"> *</span> <br>
+        <label class="alinha"> Município: </label>
+        <input type="text" name="municipio" placeholder="Ex: Florianópolis" required maxlength="100"><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> CEP: </label>
-        <input type="text" name="cep" min="8" max="9"> <br>
+        <input type="text" name="cep" minlength="8" maxlength="9"> <br>
 
         <label class="alinha"> E-mail: </label>
-        <input type="email" name="email" required><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="email" name="email" required><span title="Preenchimento obrigatório" maxlength="255"> *</span> <br>
 
         <label class="alinha"> Telefone: </label>
-        <input type="text" name="telefone" max="20" required><span title="Preenchimento obrigatório"> *</span> <br>
+        <input type="text" name="telefone" minlength="8" maxlength="20" required><span title="Preenchimento obrigatório"> *</span> <br>
 
         <label class="alinha"> Responsável: </label>
-        <input type="text" name="responsavel"> <br>
+        <input type="text" name="responsavel" maxlength="100"> <br>
 
         <label class="alinha"> Capacidade de Acolhimento: </label>
         <input type="number" name="capacidadeAcolhimento" min="0"> <br>

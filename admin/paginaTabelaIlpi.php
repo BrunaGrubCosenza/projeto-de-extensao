@@ -53,6 +53,7 @@ require_once "../includes/valida-acesso-admin.inc.php";
           foreach ($municipios as $municipio) {
             echo "<option value='$municipio'>$municipio</option>";
           }
+          require "../includes/desconectar.inc.php";
           ?>
         </select>
       </label>
@@ -127,7 +128,7 @@ require_once "../includes/valida-acesso-admin.inc.php";
         $cnpj_ilpi = $row['cnpj'];
         echo "<tr>";
         echo "<td><input type='checkbox' value='$cnpj_ilpi'></td>";
-        echo "<td> <div style='width: 120px' class='link-tabela-dados-gerais'> <a href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['cnpj']} </a> </div> </td>";
+        echo "<td> <div style='width: 144px' class='link-tabela-dados-gerais'> <a href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['cnpj']} </a> </div> </td>";
         echo "<td> <div style='width: 180px' class='link-tabela-dados-gerais'> <a href='../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj_ilpi'> {$row['nome']} </a> </div> </td>";
         echo "<td>" . $row['municipio'] . "</td>";
         echo "<td style='text-align: center'>" . $row['capacidade_acolhimento'] . "</td>";
@@ -164,6 +165,7 @@ require_once "../includes/valida-acesso-admin.inc.php";
     </tbody>
     </table>";
     }
+    require "../includes/desconectar.inc.php";
     ?>
     <script>
       document.getElementById('ordenarVagas').addEventListener('click', function () {

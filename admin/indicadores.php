@@ -27,19 +27,23 @@ require_once "../includes/valida-acesso-admin.inc.php";
 
   <h1 class="h1-estilizado" style="font-size: 31px;"> Indicadores </h1>
 
-  <!-- Div para os gráficos -->
-  <div class="container-graficos">
-    <!-- Div para o gráfico de torta -->
-    <div class="grafico">
-      <canvas id="pie-chart"></canvas>
+
+  <div class="container-indicadores">    
+    <div class="container-mapa">
+      <h1 class="h1-estilizado" style="font-size: 22px;"> Mapa de vagas disponíveis por município </h1>
+      <div class="container-map">
+        <div id="map"></div>
+      </div>
+    </div>
+    
+    <div class="container-grafico">
+      <h1 class="h1-estilizado" style="font-size: 22px;"> Gráfico de porcentagem de vagas no estado </h1>
+        <div class="grafico">
+          <canvas id="pie-chart"></canvas>
+        </div>
     </div>
   </div>
-  </div>
-  <h1 class="h1-estilizado" style="font-size: 22px;"> Mapa de vagas disponíveis por município </h1>
-  <!-- Div para envolver o mapa -->
-  <div class="container-map">
-    <div id="map"></div>
-  </div>
+
 
   <?php
   // Definir matriz de coordenadas
@@ -370,20 +374,29 @@ require_once "../includes/valida-acesso-admin.inc.php";
   $sql_vagas_por_municipio = "SELECT municipio, SUM(vagas) AS total_vagas FROM $nomeDaTabela1 GROUP BY municipio";
   $resultado_vagas_por_municipio = $conexao->query($sql_vagas_por_municipio);
 
-  // Preparar dados para exibição no mapa
-  $dados_mapa = array();
-  while ($row = $resultado_vagas_por_municipio->fetch_assoc()) {
+ 
+$coordenadas_sc_normalizado = array();
+foreach ($coordenadas_sc as $municipio => $coordenadas) {
+    $municipio_normalizado = mb_strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $municipio)); // Normaliza o município
+    $coordenadas_sc_normalizado[$municipio_normalizado] = $coordenadas;
+}
+$dados_mapa = array();
+while ($row = $resultado_vagas_por_municipio->fetch_assoc()) {
     $municipio = $row['municipio'];
+    $municipio_normalizado = mb_strtolower(iconv('UTF-8', 'ASCII//TRANSLIT', $municipio)); // Normaliza o município
     $vagas = $row['total_vagas'];
-    if (isset($coordenadas_sc[$municipio])) {
-      $coordenadas = $coordenadas_sc[$municipio];
-      $dados_mapa[] = array(
-        'coordenadas' => $coordenadas,
-        'municipio' => $municipio,
-        'vagas' => $vagas
-      );
+    if (isset($coordenadas_sc_normalizado[$municipio_normalizado])) {
+        $coordenadas = $coordenadas_sc_normalizado[$municipio_normalizado];
+        $dados_mapa[] = array(
+            'coordenadas' => $coordenadas,
+            'municipio' => $municipio,
+            'vagas' => $vagas
+        );
     }
-  }
+}
+
+
+
   ?>
 
   <!-- Script para criar o gráfico de torta -->
@@ -394,7 +407,7 @@ require_once "../includes/valida-acesso-admin.inc.php";
 
     // Dados do gráfico de torta
     var dataPie = {
-      labels: ['Vagas Disponíveis', 'Ocupadas'],
+      labels: ['Vagas Disponíveis (%)', 'Ocupadas (%)'],
       datasets: [{
         data: [<?php echo $porcentagem_vagas_disponiveis; ?>, <?php echo 100 - $porcentagem_vagas_disponiveis; ?>],
         backgroundColor: [
@@ -405,12 +418,22 @@ require_once "../includes/valida-acesso-admin.inc.php";
     };
 
     // Opções do gráfico de torta
-    var optionsPie = {
+     var optionsPie = {
       title: {
         display: true,
         text: 'Porcentagem de Vagas Disponíveis'
+      },
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var dataset = data.datasets[tooltipItem.datasetIndex];
+            var currentValue = dataset.data[tooltipItem.index];
+            return currentValue + '%';
+          }
+        }
       }
     };
+
 
     // Crie o gráfico de torta
     var pieChart = new Chart(ctxPie, {

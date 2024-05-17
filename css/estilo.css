@@ -101,7 +101,7 @@ input[type='password'] {
 
 input[type='number'] {
   font-size: 20px;
-  width: 60px;
+  width: 100px;
 }
 
 input[type='checkbox'] {
@@ -561,38 +561,43 @@ button#btnEditarPerfil {
 
 
 /*** Gráficos ***/
-/* Estilos para centralizar os gráficos e colocá-los um ao lado do outro */
-.container-graficos {
+.container-indicadores{
+  display: flex;
+  width: 92%;
+  margin: 15px auto;
+}
+
+
+.container-grafico {
   display: flex;
   flex-direction: column;
-  /* Empilhar os gráficos verticalmente */
   align-items: center;
-  /* Centralizar os gráficos horizontalmente */
   margin-left: auto;
   margin-right: auto;
   border: 0, 5px solid var(--color4);
-  width: 30%;
+  width: 40%;
   border-radius: 6px;
 }
 
+.container-mapa{
+  width: 60%;
+}
+
 .grafico {
-  margin-top: 10px;
-  width: 200px;
-  height: 200px;
-  margin-bottom: 30px;
-  /* Espaçamento entre os gráficos */
+  margin: auto;
+  width: 250px;
+  height: 250px;
 }
 
 #map {
   height: 400px;
-  width: 50%;
+  width: 100%;
 }
 
 .container-map {
   display: flex;
   margin-top: 10px;
   justify-content: center;
-  /* Centralizar o mapa horizontalmente */
 }
 
 

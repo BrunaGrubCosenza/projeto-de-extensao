@@ -89,7 +89,7 @@ require_once "../includes/valida-acesso.inc.php";
         $custo_vaga = $row['custo_vaga'];
       }
     }
-
+  
     //Cabeçalho
     echo "<h2 class='h2-titulo'>", $nome, "</h2>";
     $sql = "SELECT id, primeiro_acesso FROM $nomeDaTabela2 WHERE cnpj_ilpi = '$cnpjAtual' ";
@@ -160,15 +160,15 @@ require_once "../includes/valida-acesso.inc.php";
             <div class='div-perfil'> 
               <span class='titulos-perfil'>Convênios</span>
               <div class='input-perfil convenios'>";
-    echo $privada == 1 ? '-Privada<br>' : '';
-    echo $filantropica == 1 ? '-Filantrópica<br>' : '';
-    echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
-    echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
-    if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
-      echo "Não há convênios";
-    }
-    echo "</div>
-              </div>
+                echo $privada == 1 ? '-Privada<br>' : '';
+                echo $filantropica == 1 ? '-Filantrópica<br>' : '';
+                echo $convenio_publico_estadual == 1 ? '-Convênio Estadual<br>' : '';
+                echo $convenio_publico_municipal == 1 ? '-Convênio Municipal<br>' : '';
+                if ($privada != 1 && $filantropica != 1 && $convenio_publico_estadual != 1 && $convenio_publico_municipal != 1) {
+                  echo "Não há convênios";
+                }
+              echo "</div>
+            </div>
 
           </div>
           </section>
@@ -207,33 +207,33 @@ require_once "../includes/valida-acesso.inc.php";
             <form id='formEditarPerfil' action='perfilIlpi.php' method='post'>
               <input type='hidden' name='cnpjAtual' value='", $cnpjAtual, "'>
               <label class='alinha' > CNPJ: </label>
-              <input type='text' name='cnpj' value='", $cnpj, "' required><span title='Preenchimento obrigatório'> *</span> <br>
+              <input type='text' name='cnpj' value='", $cnpj, "' minlength='14' maxlength='18' required><span title='Preenchimento obrigatório'> *</span> <br>
 
               <label class='alinha'> Nome: </label>
-              <input type='text' name='nome' value='", $nome, "' required><span title='Preenchimento obrigatório'> *</span> <br>        
+              <input type='text' name='nome' value='", $nome, "' required maxlength='200'><span title='Preenchimento obrigatório'> *</span> <br>        
               
               <label class='alinha'> Endereço: </label>
-              <input type='text' name='endereco' value='", $endereco, "'> <br>
+              <input type='text' name='endereco' value='", $endereco, "' maxlength='200'> <br>
               
               
               <label class='alinha'> Municipio: </label>
-              <input type='text' name='municipio' value='", $municipio, "' required><span title='Preenchimento obrigatório'> *</span> <br>
-              
+              <input type='text' name='municipio' value='", $municipio, "' required maxlength='100'><span title='Preenchimento obrigatório'> *</span> <br>
+
               
               <label class='alinha'> CEP: </label>
-              <input type='text' name='cep' value='", $cep, "'> <br>
+              <input type='text' name='cep' value='", $cep, "' minlength='8' maxlength='9'> <br>
               
               
               <label class='alinha'> E-mail: </label>
-              <input type='email' name='email' value='", $email, "' required><span title='Preenchimento obrigatório'> *</span> <br>
+              <input type='email' name='email' value='", $email, "' required maxlength='255'><span title='Preenchimento obrigatório'> *</span> <br>
               
               
               <label class='alinha'> Telefone: </label>
-              <input type='text' name='telefone' value='", $telefone, "' required><span title='Preenchimento obrigatório'> *</span> <br>
+              <input type='text' name='telefone' value='", $telefone, "' required maxlength='20'><span title='Preenchimento obrigatório'> *</span> <br>
               
               
               <label class='alinha'> Responsável: </label>
-              <input type='text' name='responsavel' value='", $responsavel, "'> <br>
+              <input type='text' name='responsavel' value='", $responsavel, "' maxlength='100'> <br>
               
               
               <label class='alinha'> Capacidade de Acolhimento: </label>
@@ -261,18 +261,18 @@ require_once "../includes/valida-acesso.inc.php";
               
               
               <label class='alinha'> Equipe Tecnica: </label>
-              <textarea class='textarea' name='equipe'>", $equipe_tecnica, "</textarea> <br>
+              <textarea class='textarea' name='equipe' placeholder='Número de funcionários de cada função'>", $equipe_tecnica, "</textarea> <br>
               
               
               <label class='alinha'> Estrutura Física: </label>
-              <textarea class='textarea' name='estrutura'>", $estrutura_fisica, "</textarea> <br>
+              <textarea class='textarea' name='estrutura' placeholder='Detalhamento da estrutura do local'>", $estrutura_fisica, "</textarea> <br>
               
               
               <label class='alinha'> Atividades Semanais: </label>
-              <textarea class='textarea' name='atvdSemanal'>", $atividades_semanais, "</textarea> <br>
+              <textarea class='textarea' name='atvdSemanal' placeholder='Programação de atividades realizadas na semana'>", $atividades_semanais, "</textarea> <br>
 
               <label class='alinha'> Custo Mensal por Vaga: </label>
-              <textarea class='textarea' name='custoVaga'>", $custo_vaga, "</textarea> <br>
+              <textarea class='textarea' name='custoVaga' placeholder='Valor da mensalidade e diferentes planos'>", $custo_vaga, "</textarea> <br>
 
               <button type='submit' class='botao-modal salvar' name='editar'>Salvar</button>
             </form>
@@ -309,6 +309,8 @@ require_once "../includes/valida-acesso.inc.php";
 
     require "../includes/editarPerfil.inc.php";
   }
+
+  require "../includes/desconectar.inc.php";
 
   ?>
   <script>

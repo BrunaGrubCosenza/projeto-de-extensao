@@ -54,13 +54,17 @@ if ($conexao->query($sql) === TRUE) {
                     window.location.href = '../ilpi/perfilIlpi.php?cnpj_ilpi=$cnpj';
                 }, 200); // Atraso para não dar erro
             </script>";
+        require "../includes/desconectar.inc.php";
         exit();
     } else {
         echo "Erro ao atualizar a tabela $nomeDaTabela2: " . $conexao->error;
+        require "../includes/desconectar.inc.php";
         exit();
     }
 
 } else {
     echo "Erro ao atualizar a tabela $nomeDaTabela1: " . $conexao->error;
+    require "../includes/desconectar.inc.php";
     exit();
 }
+?>
